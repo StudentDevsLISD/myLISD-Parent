@@ -90,19 +90,6 @@ const Tab2Screen = () => {
     setSchool(isMainCampusSelected ? subCampus : campus);
   };
 
-  // Update the headerRight option to include the switchCampus function
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={switchCampus}>
-          <Text style={{ marginRight: 10 }}>
-            {isMainCampusSelected ? "Switch to Sub Campus" : "Switch to Main Campus"}
-          </Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, isMainCampusSelected]);
-
   useEffect(() => {
     NetInfo.fetch().then((state) => {
       if (state.isConnected !== null) {
@@ -129,7 +116,7 @@ const Tab2Screen = () => {
   return (
     <>
       {isConnected ? (
-        <Portal campus={school} />
+        <Community/>
       ) : (
         <View style={styles.offlineContainer}>
           <Icon name="wifi" size={32} color="#888" />
@@ -279,25 +266,25 @@ return (
       }}
     />
     <Tab.Screen
-      name="Portal"
+      name="Calendar"
       component={Tab2Screen}
       options={{
-        tabBarIcon: ({ color, size }) => <Icon name="map-marker" color={color} size={size} />,
+        tabBarIcon: ({ color, size }) => <Icon name="calendar" color={color} size={size} />,
       }}
     />
     <Tab.Screen
-      name="IDs"
+      name="Attendance"
       component={Tab3Screen}
       options =
       {{
-        tabBarIcon: ({ color, size }) => <Icon name="credit-card" color={color} size={size} />,
+        tabBarIcon: ({ color, size }) => <Icon name="bell-school" color={color} size={size} />,
       }}
     />
     <Tab.Screen
-      name="Feedback"
+      name="Grades"
       component={Tab4Screen}
       options={{
-        tabBarIcon: ({ color, size }) => <Icon name="pencil" color={color} size={size} />,
+        tabBarIcon: ({ color, size }) => <Icon name="grade" color={color} size={size} />,
       }}
     />
     <Tab.Screen
