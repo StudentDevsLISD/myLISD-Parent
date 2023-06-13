@@ -8,6 +8,7 @@ import { GOOGLE_WEB_CLIENT_ID } from '@env';
 import { Calendar } from 'react-native-calendars';
 import { useAuth } from './AuthContext';
 import CalendarEvent from './CalendarEvent';
+import CustomActivityIndicator from './CustomActivityIndicator';
 
 type GoogleSigninUser = {
   idToken: string;
@@ -119,7 +120,7 @@ const ComOp = () => {
     <View style={styles.container}>
       <Calendar onDayPress={handleDayPress} markedDates={{ [selectedDate]: { selected: true } }} />
       {isLoading ? (
-        <ActivityIndicator size="large" color="#005987" />
+        <CustomActivityIndicator/>
       ) : (
         <ScrollView>
           {/* //...events list or "No events found" message */}
