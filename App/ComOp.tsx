@@ -7,6 +7,7 @@ import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import { GOOGLE_WEB_CLIENT_ID } from '@env';
 import { Calendar } from 'react-native-calendars';
 import { useAuth } from './AuthContext';
+import CalendarEvent from './CalendarEvent';
 
 type GoogleSigninUser = {
   idToken: string;
@@ -25,12 +26,8 @@ type GoogleSigninUser = {
 type Event = {
   id: string;
   summary: string;
-  start: {
-    dateTime: string;
-  };
-  end: {
-    dateTime: string;
-  };
+  start: string;
+  end: string;
   location: string;
   description: string;
 };
@@ -49,51 +46,38 @@ GoogleSignin.configure({
 const ComOp = () => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-
   const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [events, setEvents] = useState<Event[]>([]);
   const [uniqueEvents, setUniqueEvents] = useState<Event[]>([]);
-  const { isSignedIn, setIsSignedIn } = useAuth();
-  const [accessToken, setAccessToken] = useState<string | undefined>();
+  
+  const calendarId = 'leanderisd.org_3grot6ac0ug4prua1smkvfsmu8@group.calendar.google.com';
+  const apiKey = 'AIzaSyCOo9kMxZpioPalyxTzZ6aVkxDgyzBf-XE';  // replace with your public API key
 
-  const fetchEvents = async (calendarId: string, date: string, accessToken: any) => {
+  const removeDuplicateEvents = (eventsArray: any[]) => {
+    const uniqueEvents = eventsArray.reduce((accumulator: any[], event: any) => {
+      if (!accumulator.find((e: any) => e.id === event.id)) {
+        accumulator.push(event);
+      }
+      return accumulator;
+    }, []);
+    return uniqueEvents;
+  };
+
+
+  const fetchEvents = async (calendarId: string, date: string) => {
     setIsLoading(true);
     const timeMin = new Date(date);
     timeMin.setDate(timeMin.getDate())
     timeMin.setHours(0, 0, 0, 0);
 
     const timeMax = new Date(date);
-    timeMax.setDate(timeMax.getDate()+1);
+    timeMax.setDate(timeMax.getDate() + 1);
     timeMax.setHours(23, 59, 59, 999);
-
-    const response = await axios.get(
-      'https://www.googleapis.com/calendar/v3/users/me/calendarList',
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          minAccessRole: 'freeBusyReader',
-        },
-      },
-    );
-
-    const calendarList = response.data.items;
-    const events = [];
-
-    for (let i = 0; i < calendarList.length; i++) {
-      const calendar = calendarList[i];
-      if (calendar.id === 'primary') {
-        continue;
-      }
-
-      const calendarEvents = await axios.get(
-        `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendar.id)}/events`,
+    try {
+      const response = await axios.get(
+        `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}`,
         {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
           params: {
             timeMin: timeMin.toISOString(),
             timeMax: timeMax.toISOString(),
@@ -103,120 +87,59 @@ const ComOp = () => {
         },
       );
 
-      events.push(...calendarEvents.data.items);
-    }
-
-    const primaryEvents = await axios.get(
-      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent('primary')}/events`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          timeMin: timeMin.toISOString(),
-          timeMax: timeMax.toISOString(),
-          singleEvents: true,
-          orderBy: 'startTime',
-        },
-      },
-    );
-
-    events.push(...primaryEvents.data.items);
-
-    return events;
-  };
-  const signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      await GoogleSignin.signIn();
-      const tokens = await GoogleSignin.getTokens();
-      setAccessToken(tokens.accessToken);
-      //return tokens.accessToken;
+      const events = response.data.items;
+      return events;
     } catch (error) {
-      console.error('Error signing in:', error);
+      console.error('Error fetching events:', error);
+      return [];
+    } finally {
+      setIsLoading(false);
     }
   };
-  const handleSignIn = useCallback(async () => {
-    try {
-      const a = await signIn();
-      if(a != null){
-      setIsSignedIn(true);
-      const fetchedEvents = await fetchEvents('primary', currentDate, accessToken);
-      setUniqueEvents(removeDuplicateEvents(fetchedEvents));
-      setEvents(uniqueEvents);
-      await AsyncStorage.setItem('accessToken', a);
-      }
+
+  useEffect(() => {
+    const fetchAndSetEvents = async () => {
+      try {
+        const fetchedEvents = await fetchEvents(calendarId, selectedDate);
+        const uniqueEvents = removeDuplicateEvents(fetchedEvents);
+        setEvents(uniqueEvents);
       } catch (error) {
-      console.error('Error signing in:', error);
+        console.error('Error fetching and setting events:', error);
       }
-      }, [currentDate]);
+    };
+    fetchAndSetEvents();
+  }, [selectedDate]);
+
+
+  const handleDayPress = (day: any) => {
+    setSelectedDate(day.dateString);
+  };
       
-      const removeDuplicateEvents = (eventsArray: any[]) => {
-      const uniqueEvents = eventsArray.reduce((accumulator: any[], event: any) => {
-      if (!accumulator.find((e: any) => e.id === event.id)) {
-      accumulator.push(event);
-      }
-      return accumulator;
-      }, []);
-      return uniqueEvents;
-      };
-      
-      useEffect(() => {
-      // setAccessToken(await AsyncStorage.getItem("accessToken") ? await AsyncStorage.getItem("accessToken"): new Date().toISOString());  
-      const interval = setInterval(() => {
-      setCurrentDate(new Date().toISOString().slice(0, 10));
-      }, 60000);
-      return () => clearInterval(interval);
-      }, []);
-      
-      useEffect(() => {
-      const fetchAndSetEvents = async () => {
-      if (isSignedIn) {
-      // const accessToken = await signIn();
-      const fetchedEvents = await fetchEvents('primary', selectedDate, accessToken);
-      const uniqueEvents = removeDuplicateEvents(fetchedEvents);
-      setEvents(uniqueEvents);
-      setIsLoading(false);
-      }
-      };
-      fetchAndSetEvents();
-      }, [selectedDate, isSignedIn]);
-      
-      const handleDayPress = (day: any) => {
-      setSelectedDate(day.dateString);
-      };
-      
-      return (
-      <View style={styles.container}>
-      {!isSignedIn && (
-      <TouchableOpacity onPress={handleSignIn} style={styles.googlebox}>
-      <Image source={require('../assets/google.png')} style={styles.googleImage} />
-      <Text style={styles.googleText}>Sign in with Google</Text>
-      </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+      <Calendar onDayPress={handleDayPress} markedDates={{ [selectedDate]: { selected: true } }} />
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#005987" />
+      ) : (
+        <ScrollView>
+          {/* //...events list or "No events found" message */}
+          {events.length > 0 ? (
+            events.map((event: Event) => (
+              <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
+            ))
+          ) : (
+            <Text style={styles.noEventsText2}>No Events Today</Text>
+          )}
+        </ScrollView>
       )}
-      {isSignedIn && (
-      <>
-        <Calendar /* paddingTop = {80} */ onDayPress={handleDayPress} markedDates={{ [selectedDate]: { selected: true } }} />
-        {isLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <ScrollView>
-            {/* //...events list or "No events found" message */}
-            {events.map((event: { id: React.Key | null | undefined; summary: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) => (
-            <Text key={event.id}>{event.summary}</Text>
-            ))}
-          </ScrollView>
-        )}
-      </>
-    )}
-      </View>
-      );
-      };
+    </View>
+  );
+}  
       
       const styles = StyleSheet.create({
       container: {
       flex: 1,
-      paddingTop: 20,
+      paddingTop: 0,
       },
       eventContainer: {
       backgroundColor: '#F2F2F2',
@@ -254,6 +177,14 @@ const ComOp = () => {
       textAlign: 'center',
       marginTop: 20,
       fontSize: 18,
+      },
+      noEventsText2: {
+        textAlign: 'center',
+        marginTop: 20,
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: 'black', // example color
+        // ...any other style properties you want...
       },
       });
       
