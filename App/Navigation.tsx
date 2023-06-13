@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Login';
 import Home from './AppRunner';
+import NewsScreen from './NewsScreen';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,13 @@ const Navigation = () => {
               headerShown: false,
             }}
           />
+          {/* <Stack.Screen
+            name="NewsScreen"
+            component={NewsScreen}
+            options={{
+              headerShown: true,
+            }}
+          /> */}
         </Stack.Navigator>
       )}
     </NavigationContainer>

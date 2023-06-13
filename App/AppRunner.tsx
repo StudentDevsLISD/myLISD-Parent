@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsDropdown from './SettingsDropdown';
 import NetInfo from '@react-native-community/netinfo';
@@ -19,6 +19,7 @@ import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
 
 
+
 const Tab = createBottomTabNavigator();
 
 const handleLogout = async (navigation: NavigationProp<any>) => {
@@ -28,7 +29,6 @@ const handleLogout = async (navigation: NavigationProp<any>) => {
 };
 
 export type HandleLogout = (navigation: NavigationProp<any>) => Promise<void>;
-
 const Tab1Screen = () => {
   const navigation = useNavigation();
   const [isConnected, setIsConnected] = useState(false);
@@ -234,7 +234,7 @@ return (
 const tabBarOptions = {
 headerTitle: () => (
 <View style={{ alignItems: 'center' }}>
-<Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 12, marginLeft: -100,}} />
+<Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 12, marginLeft: 10,}} />
 </View>
 ),
 headerStyle: {
@@ -246,7 +246,54 @@ height: 125,
 
 
 
-
+const Stack = createStackNavigator();
+const Tabs: React.FC = () => {
+  return <Tab.Navigator 
+  // screenOptions={tabBarOptions}
+  >
+    <Tab.Screen
+      name="Home"
+      component={Tab1Screen}
+      options={{
+        tabBarIcon: ({ color, size }) => <Icon name="home" color={color} size={size} />,
+        headerShown: false
+      }} />
+    <Tab.Screen
+      name="Calendar"
+      component={Tab2Screen}
+      options={{
+        tabBarIcon: ({ color, size }) => <Icon name="calendar" color={color} size={size} />,
+        headerShown: false
+      }} />
+    <Tab.Screen
+      name="Attendance"
+      component={Tab3Screen}
+      options={{
+        tabBarIcon: ({ color, size }) => <Icon name="bell" color={color} size={size} />,
+        headerShown: false
+      }} />
+    <Tab.Screen
+      name="Grades"
+      component={Tab4Screen}
+      options={{
+        tabBarIcon: ({ color, size }) => <Icon name="school" color={color} size={size} />,
+        headerShown: false
+      
+      }} />
+    <Tab.Screen
+      name="Settings"
+      component={Tab5Screen}
+      options={{
+        tabBarIcon: ({ color, size }) => <Icon name="cog" color={color} size={size} />,
+        headerShown: false
+      }} />
+  </Tab.Navigator>;
+}
+// const NewsScreenHeader = () => (
+//   <View style={{ alignItems: 'center' }}>
+//     <Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 12, marginLeft: 10 }} />
+//   </View>
+// );
 const AppRunner = () => {
 const [isAppReady, setIsAppReady] = useState(false);
 useEffect(() => {
@@ -261,44 +308,11 @@ if (!isAppReady) {
 
 return (
   <AuthProvider>
-  <Tab.Navigator screenOptions={tabBarOptions}>
-    <Tab.Screen
-      name="Home"
-      component={Tab1Screen}
-      options={{
-        tabBarIcon: ({ color, size }) => <Icon name="home" color={color} size={size} />,
-      }}
-    />
-    <Tab.Screen
-      name="Calendar"
-      component={Tab2Screen}
-      options={{
-        tabBarIcon: ({ color, size }) => <Icon name="calendar" color={color} size={size} />,
-      }}
-    />
-    <Tab.Screen
-      name="Attendance"
-      component={Tab3Screen}
-      options =
-      {{
-        tabBarIcon: ({ color, size }) => <Icon name="bell-school" color={color} size={size} />,
-      }}
-    />
-    <Tab.Screen
-      name="Grades"
-      component={Tab4Screen}
-      options={{
-        tabBarIcon: ({ color, size }) => <Icon name="grade" color={color} size={size} />,
-      }}
-    />
-    <Tab.Screen
-      name="Settings"
-      component={Tab5Screen}
-      options={{
-        tabBarIcon: ({ color, size }) => <Icon name="gear" color={color} size={size} />,
-      }}
-    />
-  </Tab.Navigator>
+  <Stack.Navigator screenOptions={tabBarOptions}>
+      <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
+      <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
+      {/* For the dumbasses, copy paste line 313 and just import the Screen and put it here*/}
+  </Stack.Navigator>
   </AuthProvider>
 );
 };

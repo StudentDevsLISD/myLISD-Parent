@@ -183,7 +183,7 @@ const ComOp = () => {
         textAlign: 'center',
         marginTop: 20,
         fontSize: 22,
-        fontWeight: 'bold',
+        fontWeight: '500',
         color: 'black', // example color
         // ...any other style properties you want...
       },

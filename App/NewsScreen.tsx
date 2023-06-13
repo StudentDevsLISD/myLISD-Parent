@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, Text, Linking, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useNavigation } from '@react-navigation/native';
 
 interface Article {
   title: string;
@@ -62,7 +63,7 @@ const ItemView = ({ item }: { item: Article }) => {
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.source}>{item.source}</Text>
       </View>
-      <Icon name="chevron-forward-outline" size={30} color="gray" />
+      <Icon name="chevron-right" size={30} color="gray" />
     </TouchableOpacity>
   );
 };
@@ -74,8 +75,20 @@ const ItemSeparatorView = () => {
     <View style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }} />
   );
 };
-
-const Home = () => {
+const NewsScreen = () => {
+  const navigation = useNavigation();
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ marginLeft: 16 }}
+        >
+          <Icon name="chevron-left" size={24} color="white" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>Top Stories</Text>
@@ -125,4 +138,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default NewsScreen;
