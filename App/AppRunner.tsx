@@ -14,6 +14,10 @@ import Community from './ComOp';
 import SplashScreen from './SplashScreen';
 import { AuthProvider } from './AuthContext';
 import SettingsScreen from './SettingsDropdown';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './Home';
+import NewsScreen from './NewsScreen';
+
 
 const Tab = createBottomTabNavigator();
 
