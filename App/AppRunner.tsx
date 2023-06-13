@@ -17,6 +17,7 @@ import SettingsScreen from './SettingsDropdown';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
+import ContactTeachersScreen from './ContactTeacher';
 
 
 
@@ -311,6 +312,7 @@ return (
   <Stack.Navigator screenOptions={tabBarOptions}>
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
       {/* For the dumbasses, copy paste line 313 and just import the Screen and put it here*/}
   </Stack.Navigator>
   </AuthProvider>
