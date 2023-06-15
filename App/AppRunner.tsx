@@ -20,6 +20,7 @@ import BusTracking from './BusTracking';
 import GoogleFeedback from './GoogleFeedback';
 import Grades from './Grades';
 import Attendance from './Attendance';
+import ContactUs from './ContactUs';
 
 
 
@@ -317,6 +318,7 @@ return (
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="BusTracking" component={BusTracking} options={{ headerShown: true }}/>
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
+      <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
   </Stack.Navigator>
   </AuthProvider>
 );
