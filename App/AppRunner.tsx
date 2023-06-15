@@ -19,6 +19,7 @@ import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
 import ContactTeachersScreen from './ContactTeacher';
 import Feedback from './GoogleFeedback';
+import WebView from './WebViewScreen';
 
 
 
@@ -314,6 +315,7 @@ return (
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="WebViewScreen" component={WebView} options={{ headerShown: true }}/>
   </Stack.Navigator>
   </AuthProvider>
 );
@@ -332,6 +334,3 @@ fontSize: 16,
 });
 
 export default AppRunner;
-
- 
-        

@@ -14,11 +14,13 @@ const options = [
   { id: '6', title: 'Virtual Assistant', description: 'Talk to our Virtual Chatbot', iconName: 'comments', webLink: 'https://www.k12insight.com/chatbot/chatbot/OpenChatWindow?strMainCorpno=WKXY9FLT&projectId=lt-leander-live-ef9d&LtTabKey=WKXY9FLT&isLtTab=true&LtTabColor=2c3638@e9f4ff', route: 'News'},
   { id: '7', title: 'Feedback', description: 'We value your opinion', iconName: 'pencil-alt', route: 'FeedbackScreen.tsx'},
 ];
+
 type RootStackParamList = {
   Home: undefined;
   NewsScreen: undefined;
   ContactTeachers: undefined;
   Details: { id: number };
+  WebViewScreen: { url: string };
 };
 
 type Props = {
