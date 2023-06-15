@@ -52,6 +52,7 @@
     "react-native-switch-selector": "^2.3.0",
     "react-native-tab-view": "^3.5.1",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-webview": "^13.2.2",
     "rn-fetch-blob": "^0.12.0",
     "stream": "^0.0.2",
     "util": "^0.12.5"

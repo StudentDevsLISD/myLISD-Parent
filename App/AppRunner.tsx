@@ -18,6 +18,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
 import ContactTeachersScreen from './ContactTeacher';
+import Feedback from './GoogleFeedback';
 
 
 
@@ -185,7 +186,7 @@ useEffect(() => {
 return (
   <>
     {isConnected ? (
-      <ClubHub />
+      <Feedback/>
     ) : (
       <View style={styles.offlineContainer}>
         <Icon name="wifi" size={32} color="#888" />
