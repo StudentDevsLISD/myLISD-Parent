@@ -23,7 +23,8 @@ type RootStackParamList = {
   ContactTeachers: undefined;
   BusTracking: undefined;
   GoogleFeedback: undefined;
-  ContactUs: undefined
+  ContactUs: undefined;
+  QuickLinks: undefined
   Details: { id: number };
   WebViewScreen: { url: string };
 };
@@ -62,7 +63,7 @@ const HomeScreen = () => {
     else if(option.title == "Quick Links"){
       navigation.dispatch(
         CommonActions.navigate({
-          name: "QuickLinksScreen",
+          name: "QuickLinks",
         }
         )
         

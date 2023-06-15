@@ -22,6 +22,7 @@ import WebViewScreen from './WebViewScreen';
 import BusTracking from './BusTracking';
 import ContactUs from './ContactUs';
 import GoogleFeedback from './GoogleFeedback';
+import QuickLinks from './QuickLinks';
 
 
 
@@ -317,6 +318,7 @@ return (
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="QuickLinks" component={QuickLinks} options={{ headerShown: true }}/>
       <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="BusTracking" component={BusTracking} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
