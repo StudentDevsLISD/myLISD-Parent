@@ -18,6 +18,10 @@ import ContactTeachersScreen from './ContactTeacher';
 import Feedback from './GoogleFeedback';
 import Grades from './Grades';
 import Attendance from './Attendance';
+import WebViewScreen from './WebViewScreen';
+import BusTracking from './BusTracking';
+import ContactUs from './ContactUs';
+import GoogleFeedback from './GoogleFeedback';
 
 
 
@@ -313,6 +317,11 @@ return (
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="BusTracking" component={BusTracking} options={{ headerShown: true }}/>
+      <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
+      <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
+
   </Stack.Navigator>
   </AuthProvider>
 );

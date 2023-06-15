@@ -15,7 +15,7 @@ const Grades = () => {
     useEffect(() => {
       const fetchGrades = async () => {
         try {
-          const response = await axios.get('http://10.191.80.73:18080/getGrades');
+          const response = await axios.get('http://10.191.80.45:18080/getGrades');
           setGrades(response.data);
         } catch (error) {
           console.error('Error fetching grades:', error);

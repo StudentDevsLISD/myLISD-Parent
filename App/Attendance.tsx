@@ -20,7 +20,7 @@ const GoogleFeedback = () => {
   }, [navigation]);
   return (
     <WebView
-      source={{ uri: 'https://parent.smart-tag.net/%40leanderisd' }}
+      source={{ uri: 'test' }}
       style={{ flex: 1 }}
     />
   );
