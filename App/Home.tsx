@@ -10,9 +10,7 @@ const options = [
   { id: '2', title: 'Quick Links', description: 'Important shortcuts', iconName: 'link', route: 'QuickLinksScreen.tsx' },
   { id: '3', title: 'Bus Tracking', description: 'Track your journey', iconName: 'bus', route: 'News'},
   { id: '4', title: 'Contact Teachers', description: 'Keep in touch', iconName: 'school', route: 'ContactTeachers' },
-
-  
-  { id: '5', title: 'Virtual Assistant', description: 'Talk to our Virtual Chatbot', iconName: 'comments', webLink: 'https://www.k12insight.com/chatbot/chatbot/OpenChatWindow?strMainCorpno=WKXY9FLT&projectId=lt-leander-live-ef9d&LtTabKey=WKXY9FLT&isLtTab=true&LtTabColor=2c3638@e9f4ff', route: 'News'},
+  { id: '5', title: 'Virtual Assistant', description: 'Talk to our Virtual Chatbot', iconName: 'comments', route: 'VirtualAssistant'},
   { id: '6', title: 'Contact Us', description: 'We are here to help', iconName: 'phone', route: 'News'},
   { id: '7', title: 'Feedback', description: 'We value your opinion', iconName: 'pencil-alt', route: 'GoogleFeedback'},
 ];
@@ -24,6 +22,7 @@ type RootStackParamList = {
   BusTracking: undefined;
   GoogleFeedback: undefined;
   ContactUs: undefined;
+  VirtualAssistant: undefined;
   QuickLinks: undefined
   Details: { id: number };
   WebViewScreen: { url: string };
@@ -84,6 +83,16 @@ const HomeScreen = () => {
       navigation.dispatch(
         CommonActions.navigate({
           name: "BusTracking",
+        }
+        )
+        
+      );
+      
+    } 
+    else if(option.title == "Virtual Assistant"){
+      navigation.dispatch(
+        CommonActions.navigate({
+          name: "VirtualAssistant",
         }
         )
         

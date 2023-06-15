@@ -23,6 +23,7 @@ import BusTracking from './BusTracking';
 import ContactUs from './ContactUs';
 import GoogleFeedback from './GoogleFeedback';
 import QuickLinks from './QuickLinks';
+import VirtualAssistant from './VirtualAssistant';
 
 
 
@@ -323,6 +324,7 @@ return (
       <Stack.Screen name="BusTracking" component={BusTracking} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
+      <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
 
   </Stack.Navigator>
   </AuthProvider>
