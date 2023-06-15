@@ -7,10 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsDropdown from './SettingsDropdown';
 import NetInfo from '@react-native-community/netinfo';
 import Home from './Home';
-import Portal from './Portal';
-import IDs from './ID';
-import ClubHub from './ClubHub';
-import Community from './ComOp';
+import Calendar from './Calendar';
 import SplashScreen from './SplashScreen';
 import { AuthProvider } from './AuthContext';
 import SettingsScreen from './SettingsDropdown';
@@ -19,6 +16,14 @@ import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
 import ContactTeachersScreen from './ContactTeacher';
 import Feedback from './GoogleFeedback';
+import Grades from './Grades';
+import Attendance from './Attendance';
+import WebViewScreen from './WebViewScreen';
+import BusTracking from './BusTracking';
+import ContactUs from './ContactUs';
+import GoogleFeedback from './GoogleFeedback';
+import QuickLinks from './QuickLinks';
+import VirtualAssistant from './VirtualAssistant';
 
 
 
@@ -122,7 +127,7 @@ const Tab2Screen = () => {
   return (
     <>
       {isConnected ? (
-        <Community/>
+        <Calendar/>
       ) : (
         <View style={styles.offlineContainer}>
           <Icon name="wifi" size={32} color="#888" />
@@ -158,7 +163,7 @@ const Tab3Screen = () => {
     };
   }, [navigation]);
  
-  return <IDs />;
+  return <Attendance />;
 };
 
 const Tab4Screen = () => {
@@ -186,7 +191,7 @@ useEffect(() => {
 return (
   <>
     {isConnected ? (
-      <Feedback/>
+      <Grades/>
     ) : (
       <View style={styles.offlineContainer}>
         <Icon name="wifi" size={32} color="#888" />
@@ -314,6 +319,13 @@ return (
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="QuickLinks" component={QuickLinks} options={{ headerShown: true }}/>
+      <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="BusTracking" component={BusTracking} options={{ headerShown: true }}/>
+      <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
+      <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
+      <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
+
   </Stack.Navigator>
   </AuthProvider>
 );
@@ -332,6 +344,3 @@ fontSize: 16,
 });
 
 export default AppRunner;
-
- 
-        

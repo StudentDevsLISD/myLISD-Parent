@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, FlatList, Text, Linking, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
+import Navigation from './Navigation';
+import WebViewScreen from './WebViewScreen';
+
 
 interface Article {
   title: string;
@@ -10,6 +13,17 @@ interface Article {
   imageUrl: string;
 }
 
+type RootStackParamList = {
+  Home: undefined;
+  NewsScreen: undefined;
+  ContactTeachers: undefined;
+  Details: { id: number };
+  WebViewScreen: { url: string };
+};
+
+type Props = {
+  navigation: NavigationProp<RootStackParamList>;
+}
 const newsArticles: Article[] = [
   {
     title: "Board Briefs: June 8, 2023",
@@ -55,9 +69,19 @@ const newsArticles: Article[] = [
   },
 ];
 
-const ItemView = ({ item }: { item: Article }) => {
+const ItemView = ({ item, navigation }: { item: Article, navigation: NavigationProp<RootStackParamList> }) => {
   return (
-    <TouchableOpacity style={styles.articleContainer} onPress={() => Linking.openURL(item.url)}>
+    <TouchableOpacity style={styles.articleContainer} onPress={() => 
+    // Linking.openURL(item.url)
+      navigation.dispatch(
+        CommonActions.navigate({
+          name: "WebViewScreen",
+          params: { url: item.url }
+        }
+        )
+        
+      )
+    }>
       <Image source={{ uri: item.imageUrl }} style={styles.image} resizeMode="contain" />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
@@ -76,8 +100,7 @@ const ItemSeparatorView = () => {
   );
 };
 const NewsScreen = () => {
-  const navigation = useNavigation();
-  React.useLayoutEffect(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
@@ -95,7 +118,7 @@ const NewsScreen = () => {
       <FlatList
         data={newsArticles}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={ItemView}
+        renderItem={({item}) => <ItemView item={item} navigation={navigation}/>}
         ItemSeparatorComponent={ItemSeparatorView}
       />
     </View>

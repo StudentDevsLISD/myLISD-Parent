@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-const GoogleFeedback = () => {
+const ContactUs = () => {
   const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,10 +21,10 @@ const GoogleFeedback = () => {
   }, [navigation]);
   return (
     <WebView
-      source={{ uri: 'https://forms.gle/5sm5X6vhA9zLLFFC6' }}
+      source={{ uri: 'https://www.k12insight.com/Lets-Talk/LetsTalkTabCustom.aspx?k=WKXY9FLT&rnd=1686678916022' }}
       style={{ flex: 1 }}
     />
   );
 };
 
-export default GoogleFeedback;
+export default ContactUs;

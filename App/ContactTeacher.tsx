@@ -13,15 +13,15 @@ interface Teacher {
 const teachers: Teacher[] = [
   {
     name: "John Doe",
-    class: "Mathematics",
+    class: "AP Calculus BC",
     email: "adith.chandraiah@gmail.com",
-    imageUrl: "https://example.com/teacher1.jpg",
+    imageUrl: "https://images.squarespace-cdn.com/content/v1/5b56c01f9f877051fa238ca3/1573759915619-1LGAQ3NCIULHNEZ1OY87/Ray.jpg",
   },
   {
     name: "Jane Smith",
-    class: "English",
+    class: "AP English Language and Composition",
     email: "janesmith@example.com",
-    imageUrl: "https://example.com/teacher2.jpg",
+    imageUrl: "https://media.istockphoto.com/id/1151796047/photo/laughing-mature-businesswoman-wearing-glasses-posing-on-grey-studio-background.jpg?s=612x612&w=0&k=20&c=Nkb3aDxmf2g_-zFqq0j97x8J_V9asEq5XUpPJU4wxLc=",
   },
   // Add more teachers here
 ];
