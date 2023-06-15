@@ -1,9 +1,8 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { TouchableOpacity } from 'react-native';
 
 const GoogleFeedback = () => {
   const navigation = useNavigation();
@@ -21,10 +20,11 @@ const GoogleFeedback = () => {
   }, [navigation]);
   return (
     <WebView
-      source={{ uri: 'https://forms.gle/5sm5X6vhA9zLLFFC6' }}
+      source={{ uri: 'https://parent.smart-tag.net/%40leanderisd' }}
       style={{ flex: 1 }}
     />
   );
 };
+
 
 export default GoogleFeedback;
