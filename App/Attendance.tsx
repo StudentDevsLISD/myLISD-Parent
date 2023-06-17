@@ -1,10 +1,9 @@
 import React from 'react';
-import { WebView } from 'react-native-webview';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { TouchableOpacity } from 'react-native';
 
-const GoogleFeedback = () => {
+const GPA: React.FC = () => {
   const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,12 +18,18 @@ const GoogleFeedback = () => {
     });
   }, [navigation]);
   return (
-    <WebView
-      source={{ uri: 'test' }}
-      style={{ flex: 1 }}
-    />
+    <View style={styles.container}>
+      <Text>Test</Text>
+    </View>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
-export default GoogleFeedback;
+export default GPA;
