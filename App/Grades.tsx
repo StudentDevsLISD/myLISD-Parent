@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginVertical: -3,
   },
   gradeText: {
     fontSize: 20,
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
   gradeBadgeColor: {
     borderRadius: 8,
     paddingHorizontal: 11,
-    paddingVertical: 5,
+    paddingVertical: 8,
   },
   gradeBadgeText: {
 
