@@ -31,14 +31,14 @@ const Grades = () => {
 
   useEffect(() => {
     const dummyData = {
-      Math: "85",
-      English: "55",
-      Science: "78",
-      History: "88",
-      Geography: "90",
-      Art: "95",
-      Music: "80",
-      PE: "88",
+      Math: "85.55",
+      English: "55.54",
+      Science: "78.99",
+      History: "88.75",
+      Geography: "90.00",
+      Art: "100.0",
+      Music: "88.46",
+      PE: "84.34",
     };
 
     setGrades(dummyData);
@@ -73,10 +73,10 @@ const Grades = () => {
               <View style={styles.gradeItem}>
                 <Text style={styles.gradeText}>{subject}</Text>
                 <View style={styles.gradeBadge}>
-                  <Text style={styles.gradeBadgeText}>{letter}</Text>
+                  <Text style={styles.gradeBadgeText2}>{letter}</Text>
                 </View>
                 <View style={[styles.gradeBadgeColor, { backgroundColor: color }]}>
-                  <Text style={styles.gradeBadgeText}>{grade + "%"}</Text>
+                  <Text style={styles.gradeBadgeText}>{grade}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   gradeText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
   },
   gradeBadge: {
@@ -117,8 +117,14 @@ const styles = StyleSheet.create({
   },
   gradeBadgeText: {
 
-    color: 'black',
+    color: 'white',
     fontSize: 20,
+    fontWeight: 'bold',
+  },
+  gradeBadgeText2: {
+
+    color: '#e8e8e8',
+    fontSize: 0,
     fontWeight: 'bold',
   },
   header: {
