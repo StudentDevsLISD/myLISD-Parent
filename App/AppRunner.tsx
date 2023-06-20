@@ -24,6 +24,7 @@ import ContactUs from './ContactUs';
 import GoogleFeedback from './GoogleFeedback';
 import QuickLinks from './QuickLinks';
 import VirtualAssistant from './VirtualAssistant';
+import AssignmentScreen from './AssignmentScreen';
 
 
 
@@ -191,7 +192,7 @@ useEffect(() => {
 return (
   <>
     {isConnected ? (
-      <Grades/>
+      <AssignmentScreen/>
     ) : (
       <View style={styles.offlineContainer}>
         <Icon name="wifi" size={32} color="#888" />

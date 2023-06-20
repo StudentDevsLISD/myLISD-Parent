@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface GradeType {
   color: string;
@@ -31,14 +32,14 @@ const Grades = () => {
 
   useEffect(() => {
     const dummyData = {
-      Math: "85.55",
-      English: "55.54",
-      Science: "78.99",
-      History: "88.75",
-      Geography: "90.00",
-      Art: "100.0",
-      Music: "88.46",
-      PE: "84.34",
+      "AP Computer Science A": "44.25",
+      "AP Physics C: Mechanics": "55.54",
+      "Anatomy and Physiology": "78.99",
+      "AP Human Geography": "88.75",
+      "AP Environmental Science": "90.00",
+      "AP Calculus BC": "100.0",
+      "AP Language and Composition" : "88.46",
+      "AP Spanish IV": "84.34",
     };
 
     setGrades(dummyData);
@@ -71,12 +72,20 @@ const Grades = () => {
           return (
             <TouchableOpacity style={styles.gradeContainer} key={index}>
               <View style={styles.gradeItem}>
-                <Text style={styles.gradeText}>{subject}</Text>
+                <View style={styles.gradientTextContainer}>
+                  <Text numberOfLines={1} style={styles.gradeText}>{subject}</Text>
+                  <LinearGradient 
+                    start={{ x: 0.7, y: 0 }} 
+                    end={{ x: 1, y: 0 }} 
+                    colors={['rgba(255,255,255,0)', '#E6E6E6']} 
+                    style={styles.gradientOverlay}
+                  />
+                </View>
                 <View style={styles.gradeBadge}>
                   <Text style={styles.gradeBadgeText2}>{letter}</Text>
                 </View>
                 <View style={[styles.gradeBadgeColor, { backgroundColor: color }]}>
-                  <Text style={styles.gradeBadgeText}>{grade}</Text>
+                  <Text style={styles.gradeBadgeText}>{grade }</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -141,7 +150,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: "#005987",
     fontWeight: "600",
+  },  gradientTextContainer: {
+    flexDirection: 'row',
+    maxWidth: '60%',
+    position: 'relative',
   },
+
+  gradientOverlay: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: '30%',
+    height: '100%',
+  },
+
   dateText: {
     fontSize: 14,
     color: 'gray',
