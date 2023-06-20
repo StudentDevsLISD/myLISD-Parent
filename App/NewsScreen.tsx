@@ -100,7 +100,8 @@ const ItemSeparatorView = () => {
   );
 };
 const NewsScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  React.useLayoutEffect(() => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  
+  React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity
