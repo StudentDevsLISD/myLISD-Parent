@@ -47,11 +47,11 @@ const Attendance: React.FC = () => {
 
   // Mock data
   const attendanceData: MarkedDates = {
-    '2023-06-10': { selected: true, marked: true, selectedColor: 'green' },
-    '2023-06-12': { selected: true, marked: true, selectedColor: 'red' },
-    '2023-06-14': { selected: true, marked: true, selectedColor: 'orange' },
-    '2023-06-16': { selected: true, marked: true, selectedColor: 'blue' },
-    // add more dates here
+    '2023-06-10': { customStyles: { container: { backgroundColor: 'green', borderRadius: 12 }, text: { color: '#ffffff' } } },
+    '2023-06-12': { customStyles: { container: { backgroundColor: 'red', borderRadius: 12 }, text: { color: '#ffffff' } } },
+    '2023-06-14': { customStyles: { container: { backgroundColor: 'orange', borderRadius: 12 }, text: { color: '#ffffff' } } },
+    '2023-06-16': { customStyles: { container: { backgroundColor: 'blue', borderRadius: 12 }, text: { color: '#ffffff' } } },
+    // Add more dates here with their respective custom styles
   };
 
   const [selectedDate, setSelectedDate] = useState('');
@@ -61,12 +61,12 @@ const Attendance: React.FC = () => {
   };
 
   const renderDay = (day: any, item: any) => {
-    if (item) {
-      const { color } = attendanceCodes[item.marking];
+    if (item && item.customStyles) {
+      const { backgroundColor, color } = item.customStyles.container;
       return (
         <View style={styles.dayContainer}>
-          <View style={[styles.legendColorBox, { backgroundColor: color }]} />
-          <Text style={[styles.dayText, { color: '#ffffff' }]}>{day.day}</Text>
+          <View style={[styles.emptyBox, { backgroundColor }]} />
+          <Text style={[styles.dayText, { color }]}>{day.day}</Text>
         </View>
       );
     }
@@ -76,11 +76,12 @@ const Attendance: React.FC = () => {
       </View>
     );
   };
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.calendarContainer}>
         <Calendar
+          markingType='custom'
           onDayPress={onDayPress}
           markedDates={attendanceData}
           theme={{
@@ -101,7 +102,7 @@ const Attendance: React.FC = () => {
             textMonthFontFamily: 'Avenir',
             textDayHeaderFontFamily: 'Avenir',
             textDayFontSize: 16,
-            textMonthFontSize: 16,
+            textMonthFontSize: 18,
             textDayHeaderFontSize: 13,
             textDayFontWeight: 'bold',
             textMonthFontWeight: 'bold',
@@ -173,6 +174,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir',
     fontWeight: 'bold',
     marginBottom: 4,
+  },
+  emptyBox: {
+    width: 20,
+    height: 20,
+    marginRight: 8,
   },
 });
 
