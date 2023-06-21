@@ -74,12 +74,6 @@ const Grades = () => {
               <View style={styles.gradeItem}>
                 <View style={styles.gradientTextContainer}>
                   <Text numberOfLines={1} style={styles.gradeText}>{subject}</Text>
-                  <LinearGradient 
-                    start={{ x: 0.7, y: 0 }} 
-                    end={{ x: 1, y: 0 }} 
-                    colors={['rgba(255,255,255,0)', '#E6E6E6']} 
-                    style={styles.gradientOverlay}
-                  />
                 </View>
                 <View style={styles.gradeBadge}>
                   <Text style={styles.gradeBadgeText2}>{letter}</Text>
