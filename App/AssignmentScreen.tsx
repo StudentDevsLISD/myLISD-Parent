@@ -1,26 +1,40 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 const AssignmentScreen = () => {
-    const progress = 70;
     const grade = 88.53;
     const courseName = "Algebra 101";
     const breakdowns = [
-        { label: 'Completed', value: '70%', weight: '0.1', color: '#00ff00' },
-        { label: 'In Progress', value: '20%', weight: '0.1', color: '#ff0000' },
-        { label: 'Not Started', value: '10%', weight: '0.1', color: '#0000ff' },
-        // Add more breakdowns as needed
+        { label: 'Completed', value: '70.00%', weight: '0.1', color: '#00ff00' },
+        { label: 'In Progress', value: '20.00%', weight: '0.1', color: '#ff0000' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
+
     ];
     const assignments = [
         { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
         { title: 'Science Project', subtitle: '02/03/2023', grade: '86.00', maxGrade: '100.00', breakdownColor: '#ff0000' },
         { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-        // Add more assignments as needed
+        { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+        { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+        { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+        { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+        { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+        { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
     ];
+
+    const splitBreakdowns = [];
+    for (let i = 0; i < breakdowns.length; i += 2) {
+        splitBreakdowns.push(breakdowns.slice(i, i + 2));
+    }
 
     return (
         <View style={styles.container}>
@@ -32,7 +46,7 @@ const AssignmentScreen = () => {
                             <AnimatedCircularProgress
                                 size={145}
                                 width={16}
-                                fill={progress}
+                                fill={grade}
                                 tintColor="#5b92f9"
                                 rotation={-90}
                                 backgroundColor="#e9eef1">
@@ -45,27 +59,31 @@ const AssignmentScreen = () => {
                             </AnimatedCircularProgress>
                         </View>
                     </View>
-                    <View style={styles.breakdownContainer}>
-                        {breakdowns.map((item, index) => (
-                            <View key={index} style={styles.borderBox}>
-                                <View style={styles.breakdownItem}>
-                                    <Text style={styles.breakdownLabel}>{item.label}</Text>
-                                    <Text style={styles.breakdownValue}>{item.value}</Text>
-                                    <Text style={styles.breakdownWeight}>{`Weight: ${item.weight}`}</Text>
-                                    <View style={[styles.breakdownColor, {backgroundColor: item.color}]} />
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
+                        <View style={styles.breakdownContainer}>
+                            {splitBreakdowns.map((breakdownPair, index) => (
+                                <View key={index} style={styles.breakdownColumn}>
+                                    {breakdownPair.map((item, idx) => (
+                                        <TouchableOpacity key={idx} activeOpacity={1} style={styles.breakdownBox}>
+                                            <Text style={styles.breakdownLabel}>{item.label}</Text>
+                                            <Text style={styles.breakdownValue}>{item.value}</Text>
+                                            <Text style={styles.breakdownWeight}>{`Weight: ${item.weight}`}</Text>
+                                            <View style={[styles.breakdownColor, { backgroundColor: item.color }]} />
+                                        </TouchableOpacity>
+                                    ))}
                                 </View>
-                            </View>
-                        ))}
-                    </View>
+                            ))}
+                        </View>
+                    </ScrollView>
                 </ScrollView>
             </View>
             <View style={styles.bottom}>
                 <Text style={styles.assignmentTitle}>Assignments</Text>
                 <ScrollView>
                     {assignments.map((assignment, index) => (
-                        <View key={index} style={styles.borderBox}>
+                        <View key={index} style={styles.assignmentBox}>
                             <View style={styles.assignmentItem}>
-                                <View style={[styles.breakdownColorIndicator, {backgroundColor: assignment.breakdownColor}]} />
+                                <View style={[styles.breakdownColorIndicator, { backgroundColor: assignment.breakdownColor }]} />
                                 <View style={styles.assignmentTextContainer}>
                                     <Text style={styles.assignmentTitle}>{assignment.title}</Text>
                                     <Text style={styles.assignmentSubtitle}>{assignment.subtitle}</Text>
@@ -99,7 +117,6 @@ const styles = StyleSheet.create({
         flex: 0.4,
         flexDirection: 'row',
         padding: 10,
-        paddingVertical: -1,
     },
     borderBox: {
         borderRadius: 15,
@@ -123,17 +140,21 @@ const styles = StyleSheet.create({
         color: 'grey',
     },
     breakdownContainer: {
-        flexDirection: 'column',
-        flexWrap: 'nowrap',
-
+        flexDirection: 'row',
+        flexWrap: 'wrap',
     },
-    breakdownItem: {
-        width: '100%',
-        padding: 8,
-        paddingLeft: 15,
-        paddingRight: 55,
-        borderRadius: 0,
-        margin: 3.6,
+    breakdownColumn: {
+        paddingHorizontal: 5,
+        
+    },
+    breakdownBox: {
+        marginBottom: 5,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical:10,
+        marginTop: 6,
+        width: Dimensions.get('window').width * 0.45,
     },
     breakdownLabel: {
         fontSize: 18,
@@ -151,8 +172,8 @@ const styles = StyleSheet.create({
         height: 10,
         borderRadius: 5,
         position: 'absolute',
-        right:15,
-        bottom: 10,
+        right: 10,
+        bottom: 5,
     },
     bottom: {
         flex: 0.6,
@@ -166,10 +187,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         paddingVertical: 3,
     },
+    assignmentBox: {
+        marginBottom: 10,
+        paddingHorizontal: 10,
+    },
     assignmentItem: {
         flexDirection: 'row',
-        padding: 5,
-        marginVertical: -8,
         alignItems: 'center',
     },
     assignmentTextContainer: {
