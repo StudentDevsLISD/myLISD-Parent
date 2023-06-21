@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Easing } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 const AssignmentScreen = () => {
@@ -36,6 +36,17 @@ const AssignmentScreen = () => {
         splitBreakdowns.push(breakdowns.slice(i, i + 2));
     }
 
+    // Add a ref for the AnimatedCircularProgress
+    const progressRef = useRef<AnimatedCircularProgress | null>(null);
+
+
+    // Animate the grade from 0 to its current value when the component mounts
+    useEffect(() => {
+        if (progressRef.current) {
+            progressRef.current.animate(grade, 1000); // animate to grade
+        }
+    }, []);
+
     return (
         <View style={styles.container}>
             <Text style={styles.courseTitle}>{courseName}</Text>
@@ -43,20 +54,22 @@ const AssignmentScreen = () => {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <View style={styles.borderBox}>
                         <View style={styles.progressBarContainer}>
-                            <AnimatedCircularProgress
-                                size={145}
-                                width={16}
-                                fill={grade}
-                                tintColor="#5b92f9"
-                                rotation={-90}
-                                backgroundColor="#e9eef1">
-                                {(fill) => (
-                                    <>
-                                        <Text style={styles.gradeText}>{`${grade.toFixed(2)}`}</Text>
-                                        <Text style={styles.overallText}>Overall</Text>
-                                    </>
-                                )}
-                            </AnimatedCircularProgress>
+                        <AnimatedCircularProgress
+                            ref={progressRef}
+                            size={145}
+                            width={16}
+                            fill={0}
+                            tintColor="#5b92f9"
+                            rotation={0}
+                            backgroundColor="#e9eef1"
+                            lineCap='round'>
+                            {(fill) => (
+                                <>
+                                    <Text style={styles.gradeText}>{fill.toFixed(2)}</Text>
+                                    <Text style={styles.overallText}>Overall</Text>
+                                </>
+                            )}
+                        </AnimatedCircularProgress>
                         </View>
                     </View>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
