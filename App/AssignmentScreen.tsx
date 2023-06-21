@@ -9,14 +9,6 @@ const AssignmentScreen = () => {
         { label: 'Completed', value: '70.00%', weight: '0.1', color: '#00ff00' },
         { label: 'In Progress', value: '20.00%', weight: '0.1', color: '#ff0000' },
         { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-        { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
 
     ];
     const assignments = [
