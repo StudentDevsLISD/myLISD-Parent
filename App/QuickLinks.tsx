@@ -1,25 +1,52 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp, CommonActions } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { ScrollView, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+type RootStackParamList = {
+    Home: undefined;
+    NewsScreen: undefined;
+    ContactTeachers: undefined;
+    BusTracking: undefined;
+    GoogleFeedback: undefined;
+    ContactUs: undefined;
+    VirtualAssistant: undefined;
+    QuickLinks: undefined
+    Details: { id: number };
+    WebViewScreen: { url: string };
+  };
+  
+  type Props = {
+    navigation: NavigationProp<RootStackParamList, 'Home'>;
+  }
 
 interface QuickLinkProps {
 link: string;
 title: string;
 description: string;
+navigation: NavigationProp<RootStackParamList, 'Home'>
 }
 
 
-const QuickLink: React.FC<QuickLinkProps> = ({ link, title, description }) => {
-return (
-<TouchableOpacity style={styles.linkSquare} onPress={() => console.log(link)}>
-<Text style={styles.linkText}>{title}</Text>
-<Text style={styles.linkDescription}>{description}</Text>
-</TouchableOpacity>
-);
+const QuickLink: React.FC<QuickLinkProps> = ({ link, title, description, navigation }) => {
+    return (
+        <TouchableOpacity style={styles.linkSquare} onPress={() => {
+            navigation.dispatch(
+                CommonActions.navigate({
+                  name: "WebViewScreen",
+                  params: { url: link },
+                }
+                )
+                
+            );
+        }}>
+            <Text style={styles.linkText}>{title}</Text>
+            <Text style={styles.linkDescription}>{description}</Text>
+        </TouchableOpacity>
+    );
 }
+
 
 
 const QuickLinks = () => {
@@ -81,7 +108,7 @@ inputStyle={styles.searchInput}
 />
 <ScrollView contentContainerStyle={styles.linksContainer}>
 {filteredLinksData.map((item, index) => (
-<QuickLink key={index} title={item.title} link={item.link} description={item.description} />
+<QuickLink key={index} title={item.title} link={item.link} description={item.description} navigation ={navigation}/>
 ))}
 </ScrollView>
 </View>
