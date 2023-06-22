@@ -9,7 +9,6 @@ import NetInfo from '@react-native-community/netinfo';
 import Home from './Home';
 import Calendar from './Calendar';
 import SplashScreen from './SplashScreen';
-import { AuthProvider } from './AuthContext';
 import SettingsScreen from './SettingsDropdown';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Home';
@@ -315,7 +314,6 @@ if (!isAppReady) {
 }
 
 return (
-  <AuthProvider>
   <Stack.Navigator screenOptions={tabBarOptions}>
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
@@ -328,7 +326,6 @@ return (
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
 
   </Stack.Navigator>
-  </AuthProvider>
 );
 };
 

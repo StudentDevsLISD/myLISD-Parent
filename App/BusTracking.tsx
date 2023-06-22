@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
 
-const GoogleFeedback = () => {
+const BusTracking = () => {
   const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -26,5 +26,4 @@ const GoogleFeedback = () => {
   );
 };
 
-
-export default GoogleFeedback;
+export default BusTracking;

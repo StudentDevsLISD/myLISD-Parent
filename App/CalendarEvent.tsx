@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 
 interface Props {
   id: React.Key,

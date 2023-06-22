@@ -6,7 +6,6 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import { GOOGLE_WEB_CLIENT_ID } from '@env';
 import { Calendar } from 'react-native-calendars';
-import { useAuth } from './AuthContext';
 import CalendarEvent from './CalendarEvent';
 import CustomActivityIndicator from './CustomActivityIndicator';
 
