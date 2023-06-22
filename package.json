@@ -43,7 +43,6 @@
     "react-native-form-component": "^2.6.10",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",
-    "react-native-ionicons": "^4.6.5",
     "react-native-linear-gradient": "^2.7.3",
     "react-native-modal-dropdown": "^1.0.2",
     "react-native-paper": "^5.2.0",
@@ -58,7 +57,6 @@
     "react-native-tab-view": "^3.5.1",
     "react-native-vector-icons": "^9.2.0",
     "react-native-webview": "^13.2.2",
-    "rn-fetch-blob": "^0.12.0",
     "stream": "^0.0.2",
     "util": "^0.12.5"
   },
