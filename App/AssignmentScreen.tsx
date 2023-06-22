@@ -49,7 +49,7 @@ const AssignmentScreen = () => {
 );
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.courseTitle}>{courseName}</Text>
       <View style={styles.top}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -104,7 +104,7 @@ const AssignmentScreen = () => {
       </View>
       <View style={styles.bottom}>
         <Text style={styles.assignmentTitle}>Assignments</Text>
-        <ScrollView>
+        <View>
           {assignments.map((assignment, index) => (
             <TouchableOpacity key={index} style={styles.assignmentBox} activeOpacity={1}>
               <View style={styles.assignmentItem}>
@@ -120,9 +120,9 @@ const AssignmentScreen = () => {
               </View>
             </TouchableOpacity>
           ))}
-        </ScrollView>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -153,12 +153,14 @@ const styles = StyleSheet.create({
   progressBarContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 15,
+    paddingVertical: 8,
+    paddingHorizontal: 15,
     borderRadius: 15,
   },
   gradeText: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: "#005987"
   },
   overallText: {
     fontSize: 16,
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
   },
   calculateButton: {
     marginTop: 5,
-    marginBottom: 15,
+    marginBottom: -5,
     borderRadius: 10,
     paddingVertical: 9,
     paddingHorizontal: 32.5,
