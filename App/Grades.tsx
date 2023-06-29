@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import LinearGradient from 'react-native-linear-gradient';
 
 interface GradeType {
   color: string;
@@ -63,7 +62,7 @@ const Grades = () => {
   return (
     <View>
       <View style={styles.header}>
-        <Text style={styles.dateText}>{currentDate}</Text>
+        <Text style={styles.dateText}>{currentDate}</Text> 
         <Text style={styles.headerText}>Grades</Text>
       </View>
       <ScrollView>
