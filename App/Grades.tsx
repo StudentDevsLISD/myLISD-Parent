@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,6 +14,24 @@ const getGrade = (score: number): GradeType => {
   if (score >= 70) return { color: '#F99816', letter: 'C' };
   return { color: '#FB5B5B', letter: 'D' };
 };
+
+type RootStackParamList = {
+  Home: undefined;
+  NewsScreen: undefined;
+  ContactTeachers: undefined;
+  BusTracking: undefined;
+  GoogleFeedback: undefined;
+  ContactUs: undefined;
+  VirtualAssistant: undefined;
+  QuickLinks: undefined
+  Details: { id: number };
+  WebViewScreen: { url: string };
+  AssignmentsScreen: { classId: number};
+};
+
+type Props = {
+  navigation: NavigationProp<RootStackParamList>;
+}
 
 const Grades = () => {
   const [grades, setGrades] = useState<Record<string, string>>({});

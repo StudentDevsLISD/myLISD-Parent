@@ -27,6 +27,7 @@ import AssignmentScreen from './AssignmentScreen';
 
 
 
+
 const Tab = createBottomTabNavigator();
 
 const handleLogout = async (navigation: NavigationProp<any>) => {
@@ -191,7 +192,7 @@ useEffect(() => {
 return (
   <>
     {isConnected ? (
-      <AssignmentScreen/>
+      <Grades/>
     ) : (
       <View style={styles.offlineContainer}>
         <Icon name="wifi" size={32} color="#888" />
@@ -324,7 +325,7 @@ return (
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
-
+      <Stack.Screen name="AssignmentsScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
   </Stack.Navigator>
 );
 };
