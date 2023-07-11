@@ -1,9 +1,24 @@
 import React, { useRef } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 const AssignmentScreen = () => {
+  const navigation = useNavigation();
+  
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{ marginLeft: 16 }}
+        >
+          <Icon name="chevron-left" size={24} color="white" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   const grade = 88.53;
   const courseName = 'Algebra 101';
   const breakdowns = [

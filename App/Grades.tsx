@@ -1,4 +1,4 @@
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp, CommonActions } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -87,7 +87,15 @@ const Grades = () => {
         {Object.entries(grades).map(([subject, grade], index) => {
           const { color, letter } = getGrade(Number(grade));
           return (
-            <TouchableOpacity style={styles.gradeContainer} key={index}>
+            <TouchableOpacity style={styles.gradeContainer} key={index} onPress={()=>{
+              navigation.dispatch(
+                CommonActions.navigate({
+                  name: "AssignmentsScreen",
+                }
+                )
+                
+              );
+            }}>
               <View style={styles.gradeItem}>
                 <View style={styles.gradientTextContainer}>
                   <Text numberOfLines={1} style={styles.gradeText}>{subject}</Text>

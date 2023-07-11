@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, NavigationProp, useNavigation } from '@react-navigation/native';
 
 // If grades are simply numbers, use this type:
 type GradesType = Record<string, number>;
@@ -10,6 +10,23 @@ type GradesType = Record<string, number>;
 interface GradeType {
   color: string;
   letter: string;
+}
+type RootStackParamList = {
+  Home: undefined;
+  NewsScreen: undefined;
+  ContactTeachers: undefined;
+  BusTracking: undefined;
+  GoogleFeedback: undefined;
+  ContactUs: undefined;
+  VirtualAssistant: undefined;
+  QuickLinks: undefined
+  Details: { id: number };
+  WebViewScreen: { url: string };
+  AssignmentsScreen: { classId: number};
+};
+
+type Props = {
+  navigation: NavigationProp<RootStackParamList>;
 }
 
 // If grades are complex objects, use a type like this (adjust fields accordingly):
@@ -51,7 +68,7 @@ const Grades = () => {
     useEffect(() => {
       const fetchGrades = async () => {
         try {
-          const response = await axios.get('http://10.191.84.36:18080/getGrades');
+          const response = await axios.get('http://localhost:8000/?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!');
           setGrades(response.data);
         } catch (error) {
           console.error('Error fetching grades:', error);
@@ -71,7 +88,15 @@ const Grades = () => {
           {Object.entries(grades).map(([subject, grade], index) => {
             const { color, letter } = getGrade(Number(grade));
             return (
-              <TouchableOpacity style={styles.gradeContainer} key={index}>
+              <TouchableOpacity style={styles.gradeContainer} key={index} onPress={()=>{
+                navigation.dispatch(
+                  CommonActions.navigate({
+                    name: "AssignmentsScreen",
+                  }
+                  )
+                  
+                );
+              }}>
                 <View style={styles.gradeItem}>
                   <View style={styles.gradientTextContainer}>
                     <Text numberOfLines={1} style={styles.gradeText}>{subject}</Text>
