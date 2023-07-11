@@ -15,7 +15,7 @@ import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
 import ContactTeachersScreen from './ContactTeacher';
 import Feedback from './GoogleFeedback';
-import Grades from './Grades';
+import Grades from './GradesOld';
 import Attendance from './Attendance';
 import WebViewScreen from './WebViewScreen';
 import BusTracking from './BusTracking';
