@@ -325,7 +325,7 @@ return (
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
-      <Stack.Screen name="AssignmentsScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
+      <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
   </Stack.Navigator>
 );
 };

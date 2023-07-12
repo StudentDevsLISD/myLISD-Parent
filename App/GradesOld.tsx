@@ -22,7 +22,7 @@ type RootStackParamList = {
   QuickLinks: undefined
   Details: { id: number };
   WebViewScreen: { url: string };
-  AssignmentsScreen: { classId: number};
+  AssignmentScreen: {data: undefined};
 };
 
 type Props = {
@@ -33,15 +33,15 @@ type Props = {
 // type GradeType = { score: number, teacher: string, ... };
 // type GradesType = Record<string, GradeType>;
 const getGrade = (score: number): GradeType => {
-  if (score >= 90) return { color: '#00DE64', letter: 'A' };
-  if (score >= 80) return { color: '#3199FE', letter: 'B' };
-  if (score >= 70) return { color: '#F99816', letter: 'C' };
+  if (score >= 90.00) return { color: '#00DE64', letter: 'A' };
+  if (score >= 80.00) return { color: '#3199FE', letter: 'B' };
+  if (score >= 70.00) return { color: '#F99816', letter: 'C' };
   return { color: '#FB5B5B', letter: 'D' };
 };
 const Grades = () => {
   const navigation = useNavigation();
   const [currentDate, setCurrentDate] = useState('');
-
+  const [classes, setClasses] = useState([]);
   useEffect(() => {
     const date = new Date();
     const formattedDate = date.toLocaleDateString(undefined, {
@@ -68,16 +68,33 @@ const Grades = () => {
     useEffect(() => {
       const fetchGrades = async () => {
         try {
-          const response = await axios.get('http://localhost:8000/?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!');
-          setGrades(response.data);
+          const response = await axios.get('http://localhost:8000/?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!')
+          // Extract "currentClasses" from the response
+          const currentClasses = response.data.currentClasses;
+          setClasses(currentClasses);
+          console.log(currentClasses);
+    
+          // Create a new grades object with class names as keys and numeric grades as values
+          const grades = {};
+          for (let classObj of currentClasses) {
+            if (classObj.grade !== '') {
+              grades[classObj.name] = parseFloat(classObj.grade.split(' ')[2]).toFixed(2);
+              
+            } else {
+              grades[classObj.name] = "0.00";
+            }
+          }
+          console.log(grades);
+    
+          setGrades(grades);
         } catch (error) {
           console.error('Error fetching grades:', error);
         }
       };
-  
+    
       fetchGrades();
     }, []);
-  
+    
     return (
       <View>
         <View style={styles.header}>
@@ -91,21 +108,26 @@ const Grades = () => {
               <TouchableOpacity style={styles.gradeContainer} key={index} onPress={()=>{
                 navigation.dispatch(
                   CommonActions.navigate({
-                    name: "AssignmentsScreen",
+                    name: "AssignmentScreen",
+                    params: { data: {
+                      course: classes[index].name,
+                      grade:  grades[classes[index].name],
+                      assignments: classes[index].assignments,
+                    }
+                              } // Pass selected course details
                   }
-                  )
-                  
+                )
                 );
               }}>
                 <View style={styles.gradeItem}>
                   <View style={styles.gradientTextContainer}>
-                    <Text numberOfLines={1} style={styles.gradeText}>{subject}</Text>
+                    <Text numberOfLines={1} style={styles.gradeText}>{subject.substring(12)}</Text>
                   </View>
                   <View style={styles.gradeBadge}>
                     <Text style={styles.gradeBadgeText2}>{letter}</Text>
                   </View>
                   <View style={[styles.gradeBadgeColor, { backgroundColor: color }]}>
-                    <Text style={styles.gradeBadgeText}>{grade }</Text>
+                    <Text style={styles.gradeBadgeText}>{grade  }</Text>
                   </View>
                 </View>
               </TouchableOpacity>

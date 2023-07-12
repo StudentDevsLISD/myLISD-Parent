@@ -1,12 +1,38 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { RouteProp } from '@react-navigation/native';
 
-const AssignmentScreen = () => {
+
+type RootStackParamList = {
+  Home: undefined;
+  NewsScreen: undefined;
+  ContactTeachers: undefined;
+  BusTracking: undefined;
+  GoogleFeedback: undefined;
+  ContactUs: undefined;
+  VirtualAssistant: undefined;
+  QuickLinks: undefined
+  Details: { id: number };
+  WebViewScreen: { url: string };
+  AssignmentScreen: {data: undefined};
+  Grades: {};
+};
+
+type Props = {
+  navigation: RouteProp<RootStackParamList>;
+}
+
+const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const navigation = useNavigation();
-  
+  const { data } = route.params;
+  const [categories, setCategories] = useState([]);
+  const [breakdowns, setBreakdowns] = useState([])
+  const colors = ["#00ff00", "#ff0000", "#000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
+  console.log(data);
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -19,24 +45,60 @@ const AssignmentScreen = () => {
       ),
     });
   }, [navigation]);
-  const grade = 88.53;
-  const courseName = 'Algebra 101';
-  const breakdowns = [
-    { label: 'Completed', value: '70.00%', weight: '0.1', color: '#00ff00' },
-    { label: 'In Progress', value: '20.00%', weight: '0.1', color: '#ff0000' },
-    { label: 'Not Started', value: '10.00%', weight: '0.1', color: '#0000ff' },
-  ];
-  const assignments = [
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    { title: 'Science Project', subtitle: '02/03/2023', grade: '86.00', maxGrade: '100.00', breakdownColor: '#ff0000' },
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
-    // Other assignments...
-  ];
+  const grade = data.grade;
+  const courseName = data.course.substring(12);
+  
+  // const assignments = [
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   { title: 'Science Project', subtitle: '02/03/2023', grade: '86.00', maxGrade: '100.00', breakdownColor: '#ff0000' },
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
+  //   // Other assignments...
+  // ];
+  const assignments = data.assignments;
+  React.useEffect(() => {
+    let y = [];
+    let updatedBreakdowns = [];
+  
+    for (let i = 0; i < assignments.length; i++) {
+      y.push(assignments[i].category);
+    }
+    
+    y = y.filter(function(item, pos) {
+      return y.indexOf(item) === pos;
+    });
+    
+    // Assuming that you have predefined weights and colors, let's create new breakdowns
+    y.forEach((category, index) => {
+      updatedBreakdowns.push({
+        label: category, // update this value accordingly
+        weight: '1.0', // update this value accordingly // update this value accordingly
+      });
+    });
+  
+    setCategories(y);
+    setBreakdowns(updatedBreakdowns); // You should have state for breakdowns: const [breakdowns, setBreakdowns] = useState([]);
+  }, [assignments]);// It will only rerun this effect if 'assignments' change
+  
+  const average = ((num: number) => {
+    let sum = 0;
+    let total = 0;
+    for(let i =0; i<assignments.length; i++){
+      if(categories[num] == assignments[i].category){
+         sum = sum + (Number(assignments[i].score) ? Number(assignments[i].score) : Number(assignments[i].totalPoints))
+         total = total + (Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0)
+      }
+   }
+   return ((sum/total)*100).toFixed(2);
+  })
+
+  const getColor = ((idx:number) => {
+    return colors[categories.indexOf(assignments[idx].category)];
+  })
 
   const splitBreakdowns = [];
   for (let i = 0; i < breakdowns.length; i += 2) {
@@ -105,10 +167,10 @@ const AssignmentScreen = () => {
                 <View key={index} style={styles.breakdownColumn}>
                   {breakdownPair.map((item, idx) => (
                     <TouchableOpacity key={idx} activeOpacity={1} style={styles.breakdownBox}>
-                      <Text style={styles.breakdownLabel}>{item.label}</Text>
-                      <Text style={styles.breakdownValue}>{item.value}</Text>
+                      <Text style={styles.breakdownLabel}>{categories[idx]}</Text>
+                      <Text style={styles.breakdownValue}>{average(idx)}</Text>
                       <Text style={styles.breakdownWeight}>{`Weight: ${item.weight}`}</Text>
-                      <View style={[styles.breakdownColor, { backgroundColor: item.color }]} />
+                      <View style={[styles.breakdownColor, { backgroundColor: colors[idx]}]} />
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -123,14 +185,14 @@ const AssignmentScreen = () => {
           {assignments.map((assignment, index) => (
             <TouchableOpacity key={index} style={styles.assignmentBox} activeOpacity={1}>
               <View style={styles.assignmentItem}>
-                <View style={[styles.breakdownColorIndicator, { backgroundColor: assignment.breakdownColor }]} />
+                <View style={[styles.breakdownColorIndicator, { backgroundColor: getColor(index) }]} />
                 <View style={styles.assignmentTextContainer}>
-                  <Text style={styles.assignmentName}>{assignment.title}</Text>
-                  <Text style={styles.assignmentSubtitle}>{assignment.subtitle}</Text>
+                  <Text style={styles.assignmentName}>{assignment.name}</Text>
+                  <Text style={styles.assignmentSubtitle}>{assignment.dateDue}</Text>
                 </View>
                 <View style={styles.assignmentGradeContainer}>
-                  <Text style={styles.assignmentGrade}>{assignment.grade}</Text>
-                  <Text style={styles.assignmentMaxGrade}>{`/${assignment.maxGrade}`}</Text>
+                  <Text style={styles.assignmentGrade}>{assignment.score}</Text>
+                  <Text style={styles.assignmentMaxGrade}>{`/${assignment.totalPoints}`}</Text>
                 </View>
               </View>
             </TouchableOpacity>
