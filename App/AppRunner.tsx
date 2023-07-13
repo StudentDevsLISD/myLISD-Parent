@@ -15,7 +15,7 @@ import HomeScreen from './Home';
 import NewsScreen from './NewsScreen';
 import ContactTeachersScreen from './ContactTeacher';
 import Feedback from './GoogleFeedback';
-import Grades from './Grades';
+import Grades from './GradesOld';
 import Attendance from './Attendance';
 import WebViewScreen from './WebViewScreen';
 import BusTracking from './BusTracking';
@@ -24,6 +24,7 @@ import GoogleFeedback from './GoogleFeedback';
 import QuickLinks from './QuickLinks';
 import VirtualAssistant from './VirtualAssistant';
 import AssignmentScreen from './AssignmentScreen';
+
 
 
 
@@ -191,7 +192,7 @@ useEffect(() => {
 return (
   <>
     {isConnected ? (
-      <AssignmentScreen/>
+      <Grades/>
     ) : (
       <View style={styles.offlineContainer}>
         <Icon name="wifi" size={32} color="#888" />
@@ -324,7 +325,7 @@ return (
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
-
+      <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
   </Stack.Navigator>
 );
 };
