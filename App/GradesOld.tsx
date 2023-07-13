@@ -45,8 +45,7 @@ const Grades = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const fetchGrades = async () => {
-    try {
+  const fetchGrades = async (username: string, password: string) => {    try {
       const response = await axios.get(`http://localhost:8000/?username=${username}&password=${password}`)
       const currentClasses = response.data.currentClasses;
       setClasses(currentClasses);
@@ -73,7 +72,7 @@ const Grades = () => {
       await AsyncStorage.setItem('username', username);
       await AsyncStorage.setItem('password', password);
       setIsLoggedIn(true);
-      fetchGrades();
+      fetchGrades(username, password);
     } catch (error) {
       console.error('Error saving data', error);
     }
@@ -83,27 +82,29 @@ const Grades = () => {
     try {
       const loadedUsername = await AsyncStorage.getItem('username');
       const loadedPassword = await AsyncStorage.getItem('password');
-
+  
       if (loadedUsername !== null && loadedPassword !== null) {
         setUsername(loadedUsername);
         setPassword(loadedPassword);
-        setIsLoggedIn(true);
+        setIsLoggedIn(true); // Update login status
+        fetchGrades(loadedUsername, loadedPassword); // Fetch grades after successfully loading credentials
       }
     } catch (error) {
       console.error('Error loading data', error);
     }
   };
+  
 
-  useEffect(() => {
-    const date = new Date();
-    const formattedDate = date.toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-    setCurrentDate(formattedDate);
-    loadCredentials();
-  }, []);
+ useEffect(() => {
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  setCurrentDate(formattedDate);
+  loadCredentials();
+}, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
