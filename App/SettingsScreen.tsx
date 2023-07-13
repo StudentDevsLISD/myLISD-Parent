@@ -21,6 +21,10 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout }) => {
         <Icon name="sign-out" size={24} color="#fff" />
         <Text style={styles.logoutButtonText}>Log Out</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogoutPress}>
+        <Icon name="sign-out" size={24} color="#fff" />
+        <Text style={styles.logoutButtonText}>Log Out of HAC</Text>
+      </TouchableOpacity> 
     </View>
   );
 };

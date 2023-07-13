@@ -69,8 +69,8 @@ const Grades = () => {
 
   const saveCredentials = async () => {
     try {
-      await AsyncStorage.setItem('username', username);
-      await AsyncStorage.setItem('password', password);
+      await AsyncStorage.setItem('hacusername', username);
+      await AsyncStorage.setItem('hacpassword', password);
       setIsLoggedIn(true);
       fetchGrades(username, password);
     } catch (error) {
@@ -80,8 +80,8 @@ const Grades = () => {
 
   const loadCredentials = async () => {
     try {
-      const loadedUsername = await AsyncStorage.getItem('username');
-      const loadedPassword = await AsyncStorage.getItem('password');
+      const loadedUsername = await AsyncStorage.getItem('hacusername');
+      const loadedPassword = await AsyncStorage.getItem('hacpassword');
   
       if (loadedUsername !== null && loadedPassword !== null) {
         setUsername(loadedUsername);

@@ -36,6 +36,12 @@ const handleLogout = async (navigation: NavigationProp<any>) => {
   navigation.navigate('Login');
 };
 
+const handleHACLogout = async (navigation: NavigationProp<any>) => {
+  await AsyncStorage.removeItem('hacusername');
+  await AsyncStorage.removeItem('hacpassword');
+  navigation.navigate('Grades');
+};
+
 export type HandleLogout = (navigation: NavigationProp<any>) => Promise<void>;
 const Tab1Screen = () => {
   const navigation = useNavigation();
@@ -228,7 +234,7 @@ useEffect(() => {
 return (
   <>
     {isConnected ? (
-      <SettingsScreen handleLogout={handleLogout}/>
+      <SettingsScreen handleLogout={handleLogout} handleHACLogout={handleHACLogout} />
     ) : (
       <View style={styles.offlineContainer}>
         <Icon name="wifi" size={32} color="#888" />

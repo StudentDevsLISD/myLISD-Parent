@@ -6,9 +6,10 @@ import { HandleLogout } from './AppRunner';
 
 type Props = {
   handleLogout: HandleLogout;
+  handleHACLogout: any;
 };
 
-const SettingsScreen: React.FC<Props> = ({ handleLogout }) => {
+const SettingsScreen: React.FC<Props> = ({ handleLogout, handleHACLogout }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const navigation = useNavigation();
 
@@ -18,6 +19,9 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout }) => {
 
   const handleLogoutPress = async () => {
     await handleLogout(navigation);
+  };
+  const handleHACLogoutPress = async () => {
+    await handleHACLogout(navigation);
   };
 
   return (
@@ -33,9 +37,9 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout }) => {
           value={isDarkMode}
         />
       </View>
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogoutPress}>
+      <TouchableOpacity style={styles.logoutButton} onPress={handleHACLogoutPress}>
         <Icon name="sign-out" size={24} color="#fff" />
-        <Text style={styles.logoutButtonText}>Log Out</Text>
+        <Text style={styles.logoutButtonText}>Log Out of HAC</Text>
       </TouchableOpacity>
     </View>
   );
@@ -69,6 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     flexDirection: 'row',
+    marginBottom: 20
   },
   logoutButtonText: {
     color: '#fff',
