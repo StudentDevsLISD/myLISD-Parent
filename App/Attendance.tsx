@@ -164,14 +164,12 @@ const styles = StyleSheet.create({
   },
   legendText: {
     fontSize: 16,
-    fontFamily: 'Avenir',
   },
   dayContainer: {
     alignItems: 'center',
   },
   dayText: {
     fontSize: 16,
-    fontFamily: 'Avenir',
     fontWeight: 'bold',
     marginBottom: 4,
   },
