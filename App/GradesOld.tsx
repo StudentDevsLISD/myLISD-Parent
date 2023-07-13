@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { CommonActions, NavigationProp, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 type GradesType = Record<string, number>;
 
@@ -44,12 +45,16 @@ const Grades = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const fetchGrades = async (username: string, password: string) => {    try {
       const response = await axios.get(`http://localhost:8000/?username=${username}&password=${password}`)
       const currentClasses = response.data.currentClasses;
+      setIsLoading(true);
+      console.log(isLoading);
+
       setClasses(currentClasses);
-      console.log(currentClasses);
 
       const grades = {};
       for (let classObj of currentClasses) {
@@ -59,12 +64,14 @@ const Grades = () => {
           grades[classObj.name] = "0.00";
         }
       }
-      console.log(grades);
 
       setGrades(grades);
     } catch (error) {
       console.error('Error fetching grades:', error);
     }
+    setIsLoading(false);
+    console.log(isLoading);
+
   };
 
   const saveCredentials = async () => {
@@ -82,29 +89,35 @@ const Grades = () => {
     try {
       const loadedUsername = await AsyncStorage.getItem('hacusername');
       const loadedPassword = await AsyncStorage.getItem('hacpassword');
-  
+
       if (loadedUsername !== null && loadedPassword !== null) {
         setUsername(loadedUsername);
         setPassword(loadedPassword);
         setIsLoggedIn(true); // Update login status
-        fetchGrades(loadedUsername, loadedPassword); // Fetch grades after successfully loading credentials
+        await fetchGrades(loadedUsername, loadedPassword); // Fetch grades after successfully loading credentials
       }
+      setIsLoading(false);
     } catch (error) {
       console.error('Error loading data', error);
+      setIsLoading(false);
     }
-  };
+  }
   
 
- useEffect(() => {
-  const date = new Date();
-  const formattedDate = date.toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-  setCurrentDate(formattedDate);
-  loadCredentials();
-}, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      const date = new Date();
+      const formattedDate = date.toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+      setCurrentDate(formattedDate);
+      loadCredentials();
+      // Cleanup function on component unmount
+      return () => {};
+    }, [])
+  );
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -122,7 +135,9 @@ const Grades = () => {
   const [grades, setGrades] = useState<Record<string, string>>({});
 
   return (
-    <View>
+    <View>{isLoading ? (
+      <ActivityIndicator size="large" color="#0000ff" />
+    ) : (
       <ScrollView>
         <View style={styles.header}>
           <Text style={styles.dateText}>{currentDate}</Text>
@@ -178,6 +193,7 @@ const Grades = () => {
           );
         })}
       </ScrollView>
+      )}
     </View>
   );
 };
