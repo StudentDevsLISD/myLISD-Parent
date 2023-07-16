@@ -57,6 +57,14 @@ const Grades = () => {
         `http://localhost:8000/?username=${username}&password=${password}`
       );
       const currentClasses = response.data.currentClasses;
+
+      if (currentClasses.length === 0) {
+        Alert.alert('Error', 'Error logging in. Please try again.');
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
       console.log(isLoading);
 
@@ -90,6 +98,8 @@ const Grades = () => {
       setGrades(grades);
     } catch (error) {
       console.error('Error fetching grades:', error);
+      Alert.alert('Error', 'An error occurred while fetching grades.');
+      setIsLoggedIn(false);
     }
     setIsLoading(false);
     console.log(isLoading);
