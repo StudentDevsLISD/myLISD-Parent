@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { CommonActions, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native-paper';
 
 type GradesType = Record<string, number>;
 
@@ -163,9 +164,10 @@ const Grades = () => {
   }, [navigation]);
 
   return (
-    <View>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+    <View style={styles.container}>
+    {isLoading ? (
+       <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
+
       ) : (
         <ScrollView>
           <View style={styles.header}>
@@ -194,10 +196,10 @@ const Grades = () => {
           )}
           {showNoNewGrades && (
             <TouchableOpacity disabled={true} style={styles.appButtonContainer2}>
-        <Text style={styles.appButtonText2}>
-          {'No New Grades Have Been Added'}
-        </Text>
-      </TouchableOpacity>
+              <Text style={styles.appButtonText2}>
+                {'No New Grades Have Been Added'}
+              </Text>
+            </TouchableOpacity>
           )}
           {Object.entries(grades).map(([subject, grade], index) => {
             const { color, letter } = getGrade(Number(grade));
@@ -238,6 +240,12 @@ const Grades = () => {
 
   
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: -15,
+    },
     gradeContainer: {
       backgroundColor: '#E6E6E6',
       borderRadius: 10,
@@ -356,31 +364,7 @@ const Grades = () => {
     borderWidth: 2,
     borderColor: '#ebe8e8',
     fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-    },
-    appButtonText2: {
-    fontSize: 18,
-    color: 'black',
-    alignSelf: 'center',
-    fontWeight: 'normal',
-    
-    },
-    appButtonContainer2: {
-    elevation: 8,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    paddingVertical: 13,
-    marginHorizontal: 2.05,
-    marginBottom: 7,
-    marginTop: -1,
-    width: '99%',
-    borderWidth: 2,
-    borderColor: '#ebe8e8',
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
+
     
     },
     appButtonText2: {
