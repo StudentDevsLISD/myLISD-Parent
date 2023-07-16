@@ -377,29 +377,6 @@ const Grades = () => {
     fontWeight: 'normal',
     
     },
-    appButtonContainer2: {
-    elevation: 8,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    paddingVertical: 13,
-    marginHorizontal: 2.05,
-    marginBottom: 7,
-    marginTop: -1,
-    width: '99%',
-    borderWidth: 2,
-    borderColor: '#ebe8e8',
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
-    },
-    appButtonText2: {
-    fontSize: 18,
-    color: 'black',
-    alignSelf: 'center',
-    fontWeight: 'normal',
-    
-    },
   });
   
   export default Grades;
