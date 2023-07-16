@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { CommonActions, NavigationProp, useNavigation } from '@react-navigation/native';
+import { CommonActions, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -46,6 +46,8 @@ const Grades = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const route = useRoute();
+
 
 
   const fetchGrades = async (username: string, password: string) => {    try {
@@ -104,6 +106,19 @@ const Grades = () => {
     }
   }
   
+  useEffect(() => {
+    if (route.params && route.params.justLoggedOut) {
+      setIsLoggedIn(false);
+      setUsername("");
+      setPassword("");
+      setClasses([]); // Reset classes
+      setGrades({}); // Reset grades
+      AsyncStorage.removeItem('hacusername');
+      AsyncStorage.removeItem('hacpassword');
+      // Optionally, you can reset the parameter after you're done with it
+      navigation.setParams({ justLoggedOut: undefined });
+    }
+  }, [route.params]);
 
   useFocusEffect(
     React.useCallback(() => {

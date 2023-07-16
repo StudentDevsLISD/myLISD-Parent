@@ -39,7 +39,7 @@ const handleLogout = async (navigation: NavigationProp<any>) => {
 const handleHACLogout = async (navigation: NavigationProp<any>) => {
   await AsyncStorage.removeItem('hacusername');
   await AsyncStorage.removeItem('hacpassword');
-  navigation.navigate('Grades');
+  navigation.navigate('Grades', { justLoggedOut: true });
 };
 
 export type HandleLogout = (navigation: NavigationProp<any>) => Promise<void>;
