@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { CommonActions, NavigationProp, useNavigation } from '@react-navigation/native';
+import { CommonActions, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -48,6 +48,8 @@ const Grades = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [grades, setGrades] = useState<Record<string, string>>({});
   const [showNoNewGrades, setShowNoNewGrades] = useState(false); // State to control the message display
+  const route = useRoute();
+
 
   const fetchGrades = async (username: string, password: string) => {
     try {
@@ -123,6 +125,19 @@ const Grades = () => {
     }
   };
 
+  useEffect(() => {
+    if (route.params && route.params.justLoggedOut) {
+      setIsLoggedIn(false);
+      setUsername("");
+      setPassword("");
+      setClasses([]); // Reset classes
+      setGrades({}); // Reset grades
+      AsyncStorage.removeItem('hacusername');
+      AsyncStorage.removeItem('hacpassword');
+      // Optionally, you can reset the parameter after you're done with it
+      navigation.setParams({ justLoggedOut: undefined });
+    }
+  }, [route.params]);
   useEffect(() => {
     const date = new Date();
     const formattedDate = date.toLocaleDateString(undefined, {
@@ -297,25 +312,60 @@ const Grades = () => {
       marginLeft: 14,
     },
     inputContainer: {
-      padding: 10,
+      padding: 20,
+      backgroundColor: '#fff',
+      marginVertical: 15,
+      marginHorizontal: 20,
+      borderRadius: 10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
+      elevation: 2,
     },
     input: {
-      height: 40,
-      borderColor: 'gray',
+      height: 45,
+      borderColor: '#005987',
       borderWidth: 1,
-      marginBottom: 10,
-      paddingHorizontal: 8,
+      marginBottom: 20,
+      paddingHorizontal: 10,
+      borderRadius: 5,
+      backgroundColor: '#F0F0F0',
     },
     loginButton: {
-      backgroundColor: '#3199FE',
-      height: 40,
+      backgroundColor: '#005987',
+      height: 45,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 5,
     },
     loginButtonText: {
       color: 'white',
-      fontSize: 16,
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    appButtonContainer2: {
+    elevation: 8,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    paddingVertical: 13,
+    marginHorizontal: 2.05,
+    marginBottom: 7,
+    marginTop: -1,
+    width: '99%',
+    borderWidth: 2,
+    borderColor: '#ebe8e8',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+    },
+    appButtonText2: {
+    fontSize: 18,
+    color: 'black',
+    alignSelf: 'center',
+    fontWeight: 'normal',
+    
     },
     appButtonContainer2: {
     elevation: 8,
