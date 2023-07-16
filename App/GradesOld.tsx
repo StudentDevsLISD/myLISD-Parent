@@ -79,6 +79,7 @@ const Grades = () => {
       await AsyncStorage.setItem('hacusername', username);
       await AsyncStorage.setItem('hacpassword', password);
       setIsLoggedIn(true);
+      setIsLoading(true);
       fetchGrades(username, password);
     } catch (error) {
       console.error('Error saving data', error);
