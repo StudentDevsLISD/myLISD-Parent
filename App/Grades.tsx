@@ -65,6 +65,7 @@ const Grades = () => {
         setIsLoading(false);
         return;
       }
+      setClasses(currentClasses);
 
       setIsLoading(true);
       console.log(isLoading);
@@ -215,6 +216,8 @@ const Grades = () => {
             const { color, letter } = getGrade(Number(grade));
             return (
               <TouchableOpacity style={styles.gradeContainer} key={index} onPress={() => {
+                console.log(classes);
+                // console.log(grades);
                 navigation.dispatch(
                   CommonActions.navigate({
                     name: "AssignmentScreen",
@@ -253,8 +256,8 @@ const Grades = () => {
     container: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
-      marginHorizontal: -15,
+      alignItems: 'stretch',
+      marginHorizontal: 5,
     },
     gradeContainer: {
       backgroundColor: '#E6E6E6',
