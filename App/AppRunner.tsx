@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Button, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, TouchableOpacity, } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsDropdown from './SettingsDropdown';
 import NetInfo from '@react-native-community/netinfo';
+import { ActivityIndicator } from 'react-native-paper';
 import Home from './Home';
 import Calendar from './Calendar';
 import SplashScreen from './SplashScreen';
@@ -127,7 +128,7 @@ const Tab2Screen = () => {
   if (campus === "" || school === "") {
     return (
       <View style={styles.offlineContainer}>
-        <ActivityIndicator size="large" color="#005a87" />
+        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
       </View>
     );
   }
