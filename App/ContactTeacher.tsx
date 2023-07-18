@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 interface Teacher {
   name: string;
@@ -31,12 +34,15 @@ const ItemView = ({ item }: { item: Teacher }) => {
     Linking.openURL(`mailto:${item.email}`);
   };
 
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
   return (
-    <TouchableOpacity style={styles.articleContainer} onPress={handleEmailPress}>
-      <Image source={{ uri: item.imageUrl }} style={styles.image} resizeMode="contain" />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.source}>{item.class}</Text>
+    <TouchableOpacity style={styles.ContactTeacherArticleContainer} onPress={handleEmailPress}>
+      <Image source={{ uri: item.imageUrl }} style={styles.ContactTeacherImage} resizeMode="contain" />
+      <View style={styles.ContactTeacherTextContainer}>
+        <Text style={styles.ContactTeacherTitle}>{item.name}</Text>
+        <Text style={styles.ContactTeacherSource}>{item.class}</Text>
       </View>
       <Icon name="chevron-right" size={30} color="gray" />
     </TouchableOpacity>
@@ -65,9 +71,13 @@ const ContactTeachersScreen = () => {
     });
   }, [navigation]);
 
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}>Contact Teachers</Text>
+    <View style={styles.ContactTeacherContainer}>
+      <Text style={styles.ContactTeacherSectionTitle}>Contact Teachers</Text>
       <FlatList
         data={teachers}
         keyExtractor={(item, index) => index.toString()}
@@ -78,39 +88,5 @@ const ContactTeachersScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 28,
-    fontWeight: '600',
-    marginBottom: 5,
-    color: "#005987",
-  },
-  articleContainer: {
-    flexDirection: 'row',
-    padding: 10,
-    alignItems: 'center',
-  },
-  textContainer: {
-    flex: 1,
-    paddingHorizontal: 15,
-  },
-  image: {
-    width: 70,
-    height: 70,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '500',
-  },
-  source: {
-    fontSize: 14,
-    color: 'grey',
-  },
-});
 
 export default ContactTeachersScreen;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Button, TouchableOpacity, } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
@@ -25,6 +25,10 @@ import GoogleFeedback from './GoogleFeedback';
 import QuickLinks from './QuickLinks';
 import VirtualAssistant from './VirtualAssistant';
 import AssignmentScreen from './AssignmentScreen';
+import { ThemeContext, ThemeProvider } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
+
 
 
 
@@ -47,6 +51,9 @@ export type HandleLogout = (navigation: NavigationProp<any>) => Promise<void>;
 const Tab1Screen = () => {
   const navigation = useNavigation();
   const [isConnected, setIsConnected] = useState(false);
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
 
   useEffect(() => {
     // navigation.setOptions({
@@ -72,9 +79,9 @@ const Tab1Screen = () => {
       {isConnected ? (
         <Home />
       ) : (
-        <View style={styles.offlineContainer}>
+        <View style={styles.AppRunnerOfflineContainer}>
           <Icon name="wifi" size={32} color="#888" />
-          <Text style={styles.offlineText}>No Internet Connection</Text>
+          <Text style={styles.AppRunnerOfflineText}>No Internet Connection</Text>
         </View>
       )}
     </>
@@ -88,6 +95,9 @@ const Tab2Screen = () => {
   const [school, setSchool] = useState("");
   const [subCampus, setSubCampus] = useState("");
   const [isMainCampusSelected, setIsMainCampusSelected] = useState(true);
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
 
   useEffect(() => {
     const setTheCampuses = async () => {
@@ -127,7 +137,7 @@ const Tab2Screen = () => {
 
   if (campus === "" || school === "") {
     return (
-      <View style={styles.offlineContainer}>
+      <View style={styles.AppRunnerOfflineContainer}>
         <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
       </View>
     );
@@ -137,9 +147,9 @@ const Tab2Screen = () => {
       {isConnected ? (
         <Calendar/>
       ) : (
-        <View style={styles.offlineContainer}>
+        <View style={styles.AppRunnerOfflineContainer}>
           <Icon name="wifi" size={32} color="#888" />
-          <Text style={styles.offlineText}>No Internet Connection</Text>
+          <Text style={styles.AppRunnerOfflineText}>No Internet Connection</Text>
         </View>
       )}
     </>
@@ -151,6 +161,9 @@ const Tab2Screen = () => {
 const Tab3Screen = () => {
   const navigation = useNavigation();
   const [isConnected, setIsConnected] = useState(false);
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
 
   useEffect(() => {
     // navigation.setOptions({
@@ -177,6 +190,10 @@ const Tab3Screen = () => {
 const Tab4Screen = () => {
 const navigation = useNavigation();
 const [isConnected, setIsConnected] = useState(false);
+
+const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
 useEffect(() => {
   // navigation.setOptions({
   //   headerRight: () => <SettingsDropdown handleLogout={() => handleLogout(navigation)} />,
@@ -201,9 +218,9 @@ return (
     {isConnected ? (
       <Grades/>
     ) : (
-      <View style={styles.offlineContainer}>
+      <View style={styles.AppRunnerOfflineContainer}>
         <Icon name="wifi" size={32} color="#888" />
-        <Text style={styles.offlineText}>No Internet Connection</Text>
+        <Text style={styles.AppRunnerOfflineText}>No Internet Connection</Text>
       </View>
     )}
   </>
@@ -213,6 +230,10 @@ return (
 const Tab5Screen = () => {
 const navigation = useNavigation();
 const [isConnected, setIsConnected] = useState(false);
+
+const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
 useEffect(() => {
   // navigation.setOptions({
   //   headerRight: () => <SettingsDropdown handleLogout={() => handleLogout(navigation)} />,
@@ -237,9 +258,9 @@ return (
     {isConnected ? (
       <SettingsScreen handleLogout={handleLogout} handleHACLogout={handleHACLogout} />
     ) : (
-      <View style={styles.offlineContainer}>
+      <View style={styles.AppRunnerOfflineContainer}>
         <Icon name="wifi" size={32} color="#888" />
-        <Text style={styles.offlineText}>No Internet Connection</Text>
+        <Text style={styles.AppRunnerOfflineText}>No Internet Connection</Text>
       </View>
     )}
   </>
@@ -311,6 +332,8 @@ const Tabs: React.FC = () => {
 // );
 const AppRunner = () => {
 const [isAppReady, setIsAppReady] = useState(false);
+
+
 useEffect(() => {
   setTimeout(() => {
     setIsAppReady(true);
@@ -322,6 +345,7 @@ if (!isAppReady) {
 }
 
 return (
+  <ThemeProvider>
   <Stack.Navigator screenOptions={tabBarOptions}>
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
@@ -334,19 +358,9 @@ return (
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
       <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
   </Stack.Navigator>
+  </ThemeProvider>
 );
 };
 
-const styles = StyleSheet.create({
-offlineContainer: {
-flex: 1,
-alignItems: 'center',
-justifyContent: 'center',
-},
-offlineText: {
-marginTop: 8,
-fontSize: 16,
-},
-});
 
 export default AppRunner;

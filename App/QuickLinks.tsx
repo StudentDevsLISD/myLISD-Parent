@@ -1,8 +1,11 @@
 import { useNavigation, NavigationProp, CommonActions } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 type RootStackParamList = {
     Home: undefined;
@@ -30,8 +33,12 @@ navigation: NavigationProp<RootStackParamList, 'Home'>
 
 
 const QuickLink: React.FC<QuickLinkProps> = ({ link, title, description, navigation }) => {
-    return (
-        <TouchableOpacity style={styles.linkSquare} onPress={() => {
+    
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+  
+  return (
+        <TouchableOpacity style={styles.QuickLinksLinkSquare} onPress={() => {
             navigation.dispatch(
                 CommonActions.navigate({
                   name: "WebViewScreen",
@@ -41,8 +48,8 @@ const QuickLink: React.FC<QuickLinkProps> = ({ link, title, description, navigat
                 
             );
         }}>
-            <Text style={styles.linkText}>{title}</Text>
-            <Text style={styles.linkDescription}>{description}</Text>
+            <Text style={styles.QuickLinksLinkText}>{title}</Text>
+            <Text style={styles.QuickLinksLinkDescription}>{description}</Text>
         </TouchableOpacity>
     );
 }
@@ -95,18 +102,20 @@ style={{ marginLeft: 16 }}
 });
 }, [navigation]);
 
+const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
 
 return (
-<View style={styles.container}>
+<View style={styles.QuickLinksContainer}>
 <SearchBar
 placeholder="Search Link"
 onChangeText={setSearch}
 value={search}
-containerStyle={styles.searchContainer}
-inputContainerStyle={styles.searchInputContainer}
-inputStyle={styles.searchInput}
+containerStyle={styles.QuickLinksSearchContainer}
+inputContainerStyle={styles.QuickLinksSearchInputContainer}
+inputStyle={styles.QuickLinksSearchInput}
 />
-<ScrollView contentContainerStyle={styles.linksContainer}>
+<ScrollView contentContainerStyle={styles.QuickLinksLinksContainer}>
 {filteredLinksData.map((item, index) => (
 <QuickLink key={index} title={item.title} link={item.link} description={item.description} navigation ={navigation}/>
 ))}
@@ -114,60 +123,6 @@ inputStyle={styles.searchInput}
 </View>
 );
 }
-
-
-const styles = StyleSheet.create({
-container: {
-flex: 1,
-backgroundColor: '#fff',
-},
-searchContainer: {
-backgroundColor: '#fff',
-borderBottomColor: 'transparent',
-borderTopColor: 'transparent',
-paddingHorizontal:17,
-paddingTop: 15,
-},
-searchInputContainer: {
-backgroundColor: '#f0f0f0',
-borderRadius: 10,
-},
-searchInput: {
-color: '#000',
-},
-linksContainer: {
-flexDirection: 'row',
-flexWrap: 'wrap',
-justifyContent: 'space-around',
-padding: 10,
-},
-linkSquare: {
-width: '45%',
-height: 130,
-padding: 20,
-justifyContent: 'center',
-alignItems: 'center',
-borderRadius: 15,
-marginBottom: 20,
-backgroundColor: '#f0f0f0',
-borderWidth: 2,
-borderColor: '#ebe8e8',
-elevation: 3, // for Android
-},
-linkText: {
-color: '#000',
-fontSize: 16,
-marginBottom: 7, // Creates space between the title and the description
-textAlign: 'center',
-},
-linkDescription: {
-color: '#888',
-fontSize: 11.5,
-justifyContent:'center',
-textAlign: 'center',
-},
-});
-
 
 export default QuickLinks;
 

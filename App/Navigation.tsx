@@ -3,7 +3,6 @@ import { Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from './Login';
 import Home from './AppRunner';
 
 const Stack = createStackNavigator();
@@ -32,13 +31,6 @@ const Navigation = () => {
       ) : (
         // Include the Login screen in both cases
         <Stack.Navigator initialRouteName={/* isAuthenticated ?  */"Home" /* : "Login" */}>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          />
           <Stack.Screen
             name="Home"
             component={Home}

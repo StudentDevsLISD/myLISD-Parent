@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Linking, Text, ScrollView } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp, CommonActions } from '@react-navigation/native';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 const options = [
   { id: '1', title: 'News', description: 'Popular Stories', iconName: 'newspaper', route: 'NewsScreen' },
@@ -121,24 +124,25 @@ const HomeScreen = () => {
     } 
   };
   
-  
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.dateText}>{currentDate}</Text>
-        <Text style={styles.headerText}>Overview</Text>
+    <ScrollView contentContainerStyle={styles.HomeContainer}>
+      <View style={styles.HomeHeader}>
+        <Text style={styles.HomeDateText}>{currentDate}</Text>
+        <Text style={styles.HomeHeaderText}>Overview</Text>
       </View>
       {options.map((option) => (
         <TouchableOpacity key={option.id} onPress={() => handleOptionPress(option)}>
-          <View style={styles.box}>
+          <View style={styles.HomeBox}>
             <ListItem>
               <Icon name={option.iconName} size={20} color="#005987" />
               <ListItem.Content>
                 <ListItem.Title>{option.title}</ListItem.Title>
-                <ListItem.Subtitle style={styles.descriptionText}>{option.description}</ListItem.Subtitle>
+                <ListItem.Subtitle style={styles.HomeDescriptionText}>{option.description}</ListItem.Subtitle>
               </ListItem.Content>
-              <Icon name="chevron-right" size={20} color="gray" style={styles.chevronIcon} />
+              <Icon name="chevron-right" size={20} color="gray" style={styles.HomeChevronIcon} />
             </ListItem>
           </View>
         </TouchableOpacity>
@@ -147,47 +151,5 @@ const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    paddingHorizontal: 10,
-    paddingTop: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    paddingLeft: 5,
-  },
-  headerText: {
-    fontSize: 40,
-    marginLeft: -85,
-    marginBottom:10,
-    marginTop: -13,
-    color: "#005987",
-    fontWeight: "600",
-    
-  },
-  dateText: {
-    fontSize: 14,
-    color: 'gray',
-    marginTop:40,
-    marginLeft: 5,
-  },
-  box: {
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: '#dcdcdc',
-    marginVertical: 5,
-    overflow: 'hidden', // Needed to apply border radius to ListItem
-  },
-  descriptionText: {
-    color: 'gray',
-  },
-  chevronIcon: {
-    marginLeft: 'auto',
-    paddingLeft: 10,
-  },
-});
 
 export default HomeScreen;

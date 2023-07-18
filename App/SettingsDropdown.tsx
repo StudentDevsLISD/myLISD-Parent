@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { HandleLogout } from './AppRunner';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 type Props = {
   handleLogout: HandleLogout;
@@ -24,10 +27,13 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout, handleHACLogout }) => {
     await handleHACLogout(navigation);
   };
 
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
   return (
-    <View style={[styles.container, isDarkMode && styles.darkModeContainer]}>
-      <View style={styles.settingRow}>
-        <Text style={[styles.settingText, isDarkMode && styles.darkModeText]}>
+    <View style={[styles.SettingsContainer, isDarkMode && styles.SettingsDarkModeContainer]}>
+      <View style={styles.SettingsSettingRow}>
+        <Text style={[styles.SettingsSettingText, isDarkMode && styles.SettingsDarkModeText]}>
           Dark Mode
         </Text>
         <Switch
@@ -37,49 +43,12 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout, handleHACLogout }) => {
           value={isDarkMode}
         />
       </View>
-      <TouchableOpacity style={styles.logoutButton} onPress={handleHACLogoutPress}>
+      <TouchableOpacity style={styles.SettingsLogoutButton} onPress={handleHACLogoutPress}>
         <Icon name="sign-out" size={24} color="#fff" />
-        <Text style={styles.logoutButtonText}>Log Out of HAC</Text>
+        <Text style={styles.SettingsLogoutButtonText}>Log Out of HAC</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  darkModeContainer: {
-    backgroundColor: '#222',
-  },
-  settingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  settingText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  darkModeText: {
-    color: '#fff',
-  },
-  logoutButton: {
-    backgroundColor: '#ff6347',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 20
-  },
-  logoutButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    marginLeft: 10,
-  },
-});
 
 export default SettingsScreen;

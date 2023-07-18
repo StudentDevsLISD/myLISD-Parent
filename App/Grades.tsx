@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -6,6 +6,9 @@ import { CommonActions, NavigationProp, useNavigation, useRoute } from '@react-n
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { ActivityIndicator } from 'react-native-paper';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 type GradesType = Record<string, number>;
 
@@ -174,40 +177,45 @@ const Grades = () => {
     });
   }, [navigation]);
 
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
+
   return (
-    <View style={styles.container}>
+    <View style={styles.GradesContainer}>
     {isLoading ? (
        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
 
       ) : (
         <ScrollView>
-          <View style={styles.header}>
-            <Text style={styles.dateText}>{currentDate}</Text>
-            <Text style={styles.headerText}>Grades</Text>
+          <View style={styles.GradesHeader}>
+            <Text style={styles.GradesDateText}>{currentDate}</Text>
+            <Text style={styles.GradesHeaderText}>Grades</Text>
           </View>
           {!isLoggedIn && (
-            <View style={styles.inputContainer}>
+            <View style={styles.GradesInputContainer}>
               <TextInput
-                style={styles.input}
+                style={styles.GradesInput}
                 placeholder='Username'
                 onChangeText={setUsername}
                 value={username}
               />
               <TextInput
-                style={styles.input}
+                style={styles.GradesInput}
                 placeholder='Password'
                 secureTextEntry
                 onChangeText={setPassword}
                 value={password}
               />
-              <TouchableOpacity style={styles.loginButton} onPress={saveCredentials}>
-                <Text style={styles.loginButtonText}>Login</Text>
+              <TouchableOpacity style={styles.GradesLoginButton} onPress={saveCredentials}>
+                <Text style={styles.GradesLoginButtonText}>Login</Text>
               </TouchableOpacity>
             </View>
           )}
           {showNoNewGrades && (
-            <TouchableOpacity disabled={true} style={styles.appButtonContainer2}>
-              <Text style={styles.appButtonText2}>
+            <TouchableOpacity disabled={true} style={styles.GradesAppButtonContainer2}>
+              <Text style={styles.GradesAppButtonText2}>
                 {'No New Grades Have Been Added'}
               </Text>
             </TouchableOpacity>
@@ -215,7 +223,7 @@ const Grades = () => {
           {Object.entries(grades).map(([subject, grade], index) => {
             const { color, letter } = getGrade(Number(grade));
             return (
-              <TouchableOpacity style={styles.gradeContainer} key={index} onPress={() => {
+              <TouchableOpacity style={styles.GradesGradeContainer} key={index} onPress={() => {
                 console.log(classes);
                 // console.log(grades);
                 navigation.dispatch(
@@ -231,15 +239,15 @@ const Grades = () => {
                   })
                 );
               }}>
-                <View style={styles.gradeItem}>
-                  <View style={styles.gradientTextContainer}>
-                    <Text numberOfLines={1} style={styles.gradeText}>{subject.substring(12)}</Text>
+                <View style={styles.GradesGradeItem}>
+                  <View style={styles.GradesGradientTextContainer}>
+                    <Text numberOfLines={1} style={styles.GradesGradeText}>{subject.substring(12)}</Text>
                   </View>
-                  <View style={styles.gradeBadge}>
-                    <Text style={styles.gradeBadgeText2}>{letter}</Text>
+                  <View style={styles.GradesGradeBadge}>
+                    <Text style={styles.GradesGradeBadgeText2}>{letter}</Text>
                   </View>
-                  <View style={[styles.gradeBadgeColor, { backgroundColor: color }]}>
-                    <Text style={styles.gradeBadgeText}>{grade}</Text>
+                  <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
+                    <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -251,143 +259,6 @@ const Grades = () => {
   );
 };
 
-  
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'stretch',
-      marginHorizontal: 5,
-    },
-    gradeContainer: {
-      backgroundColor: '#E6E6E6',
-      borderRadius: 10,
-      padding: 12.5,
-      marginVertical: 5,
-      marginHorizontal: 10,
-    },
-    gradeItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginVertical: -3,
-    },
-    gradeText: {
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    gradeBadge: {
-      borderRadius: 8,
-      paddingHorizontal: 11,
-      paddingVertical: 5,
-      marginLeft: 10,
-    },
-    gradeBadgeColor: {
-      borderRadius: 8,
-      paddingHorizontal: 11,
-      paddingVertical: 8,
-    },
-    gradeBadgeText: {
-  
-      color: 'white',
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
-    gradeBadgeText2: {
-  
-      color: '#e8e8e8',
-      fontSize: 0,
-      fontWeight: 'bold',
-    },
-    header: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 10,
-      paddingLeft: 5,
-    },
-    headerText: {
-      fontSize: 40,
-      marginLeft: -95,
-      marginBottom: 10,
-      marginTop: 10,
-      color: "#005987",
-      fontWeight: "600",
-    },  gradientTextContainer: {
-      flexDirection: 'row',
-      maxWidth: '60%',
-      position: 'relative',
-    },
-  
-    gradientOverlay: {
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      width: '30%',
-      height: '100%',
-    },
-  
-    dateText: {
-      fontSize: 14,
-      color: 'gray',
-      marginTop: 58,
-      marginLeft: 14,
-    },
-    inputContainer: {
-      padding: 20,
-      backgroundColor: '#fff',
-      marginVertical: 15,
-      marginHorizontal: 20,
-      borderRadius: 10,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-      elevation: 2,
-    },
-    input: {
-      height: 45,
-      borderColor: '#005987',
-      borderWidth: 1,
-      marginBottom: 20,
-      paddingHorizontal: 10,
-      borderRadius: 5,
-      backgroundColor: '#F0F0F0',
-    },
-    loginButton: {
-      backgroundColor: '#005987',
-      height: 45,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 5,
-    },
-    loginButtonText: {
-      color: 'white',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-    appButtonContainer2: {
-    elevation: 8,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    paddingVertical: 13,
-    marginHorizontal: 2.05,
-    marginBottom: 7,
-    marginTop: -1,
-    width: '99%',
-    borderWidth: 2,
-    borderColor: '#ebe8e8',
-    fontWeight: 'bold',
 
-    
-    },
-    appButtonText2: {
-    fontSize: 18,
-    color: 'black',
-    alignSelf: 'center',
-    fontWeight: 'normal',
-    
-    },
-  });
-  
   export default Grades;
   

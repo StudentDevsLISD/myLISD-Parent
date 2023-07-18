@@ -1,9 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { RouteProp } from '@react-navigation/native';
+import {ThemeContext} from './ThemeContext';
+import LightStyles from './LightStyles';
+import DarkStyles from './DarkStyles';
 
 
 type RootStackParamList = {
@@ -31,6 +34,10 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const [categories, setCategories] = useState([]);
   const [breakdowns, setBreakdowns] = useState([])
   const colors = ["#00ff00", "#ff0000", "#000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? LightStyles : DarkStyles;
+
   console.log(data);
 
   React.useLayoutEffect(() => {
@@ -126,12 +133,12 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
 );
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.courseTitle}>{courseName}</Text>
-      <View style={styles.top}>
+    <ScrollView style={styles.AssignmentScreenContainer}>
+      <Text style={styles.AssignmentScreenCourseTitle}>{courseName}</Text>
+      <View style={styles.AssignmentScreenTop}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.borderBox}>
-            <View style={styles.progressBarContainer}>
+          <View style={styles.AssignmentScreenBorderBox}>
+            <View style={styles.AssignmentScreenProgressBarContainer}>
               <AnimatedCircularProgress
                 ref={progressRef}
                 size={145}
@@ -144,33 +151,33 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
               >
                 {(fill) => (
                   <>
-                    <Text style={styles.gradeText}>{fill.toFixed(2)}</Text>
-                    <Text style={styles.overallText}>Overall</Text>
+                    <Text style={styles.AssignmentScreenGradeText}>{fill.toFixed(2)}</Text>
+                    <Text style={styles.AssignmentScreenOverallText}>Overall</Text>
                   </>
                 )}
               </AnimatedCircularProgress>
               <TouchableOpacity
                 activeOpacity={0.8}
-                style={[styles.calculateButton, { backgroundColor: '#5b92f9' }]}
+                style={[styles.AssignmentScreenCalculateButton, { backgroundColor: '#5b92f9' }]}
                 onPress={() => {
                   // Add your logic for the "Calculate" button here
                   console.log('Calculate button pressed');
                 }}
               >
-                <Text style={styles.calculateButtonText}>Calculate</Text>
+                <Text style={styles.AssignmentScreenCalculateButtonText}>Calculate</Text>
               </TouchableOpacity>
             </View>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
-            <View style={styles.breakdownContainer}>
+            <View style={styles.AssignmentScreenBreakdownContainer}>
               {splitBreakdowns.map((breakdownPair, index) => (
-                <View key={index} style={styles.breakdownColumn}>
+                <View key={index} style={styles.AssignmentScreenBreakdownColumn}>
                   {breakdownPair.map((item, idx) => (
-                    <TouchableOpacity key={idx} activeOpacity={1} style={styles.breakdownBox}>
-                      <Text style={styles.breakdownLabel}>{categories[idx]}</Text>
-                      <Text style={styles.breakdownValue}>{average(idx)}</Text>
-                      <Text style={styles.breakdownWeight}>{`Weight: ${item.weight}`}</Text>
-                      <View style={[styles.breakdownColor, { backgroundColor: colors[idx]}]} />
+                    <TouchableOpacity key={idx} activeOpacity={1} style={styles.AssignmentScreenBreakdownBox}>
+                      <Text style={styles.AssignmentScreenBreakdownLabel}>{categories[idx]}</Text>
+                      <Text style={styles.AssignmentScreenBreakdownValue}>{average(idx)}</Text>
+                      <Text style={styles.AssignmentScreenBreakdownWeight}>{`Weight: ${item.weight}`}</Text>
+                      <View style={[styles.AssignmentScreenBreakdownColor, { backgroundColor: colors[idx]}]} />
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -179,20 +186,20 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
           </ScrollView>
         </ScrollView>
       </View>
-      <View style={styles.bottom}>
-        <Text style={styles.assignmentTitle}>Assignments</Text>
+      <View style={styles.AssignmentScreenBottom}>
+        <Text style={styles.AssignmentScreenAssignmentTitle}>Assignments</Text>
         <View>
           {assignments.map((assignment, index) => (
-            <TouchableOpacity key={index} style={styles.assignmentBox} activeOpacity={1}>
-              <View style={styles.assignmentItem}>
-                <View style={[styles.breakdownColorIndicator, { backgroundColor: getColor(index) }]} />
-                <View style={styles.assignmentTextContainer}>
-                  <Text style={styles.assignmentName}>{assignment.name}</Text>
-                  <Text style={styles.assignmentSubtitle}>{assignment.dateDue}</Text>
+            <TouchableOpacity key={index} style={styles.AssignmentScreenAssignmentBox} activeOpacity={1}>
+              <View style={styles.AssignmentScreenAssignmentItem}>
+                <View style={[styles.AssignmentScreenBreakdownColorIndicator, { backgroundColor: getColor(index) }]} />
+                <View style={styles.AssignmentScreenAssignmentTextContainer}>
+                  <Text style={styles.AssignmentScreenAssignmentName}>{assignment.name}</Text>
+                  <Text style={styles.AssignmentScreenAssignmentSubtitle}>{assignment.dateDue}</Text>
                 </View>
-                <View style={styles.assignmentGradeContainer}>
-                  <Text style={styles.assignmentGrade}>{assignment.score}</Text>
-                  <Text style={styles.assignmentMaxGrade}>{`/${assignment.totalPoints}`}</Text>
+                <View style={styles.AssignmentScreenAssignmentGradeContainer}>
+                  <Text style={styles.AssignmentScreenAssignmentGrade}>{assignment.score}</Text>
+                  <Text style={styles.AssignmentScreenAssignmentMaxGrade}>{`/${assignment.totalPoints}`}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -203,145 +210,5 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e8e8e8',
-    paddingTop: 10,
-  },
-  courseTitle: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 5,
-  },
-  top: {
-    flex: 0.4,
-    flexDirection: 'row',
-    padding: 10,
-  },
-  borderBox: {
-    borderRadius: 15,
-    backgroundColor: '#fff',
-    margin: 5,
-    borderWidth: 0,
-    borderColor: '#ddd',
-  },
-  progressBarContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 15,
-  },
-  gradeText: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: "#005987"
-  },
-  overallText: {
-    fontSize: 16,
-    color: 'grey',
-  },
-  breakdownContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  breakdownColumn: {
-    paddingHorizontal: 5,
-  },
-  breakdownBox: {
-    marginBottom: 5,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginTop: 6,
-    width: Dimensions.get('window').width * 0.45,
-  },
-  breakdownLabel: {
-    fontSize: 18,
-    fontWeight: 'normal',
-  },
-  breakdownValue: {
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  breakdownWeight: {
-    fontSize: 14,
-  },
-  breakdownColor: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    position: 'absolute',
-    right: 10,
-    bottom: 5,
-  },
-  bottom: {
-    flex: 0.6,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    margin: 10,
-    padding: 10,
-  },
-  assignmentTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    paddingTop: 3,
-    paddingBottom: 3,
-  },
-  assignmentName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    paddingVertical: 3,
-  },
-  assignmentBox: {
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  assignmentItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  assignmentTextContainer: {
-    flex: 1,
-  },
-  assignmentSubtitle: {
-    fontSize: 14,
-  },
-  assignmentGradeContainer: {
-    flex: 0.2,
-    alignItems: 'flex-end',
-  },
-  assignmentGrade: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  assignmentMaxGrade: {
-    fontSize: 12,
-    color: 'grey',
-  },
-  breakdownColorIndicator: {
-    width: 10,
-    height: 35,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  calculateButton: {
-    marginTop: 5,
-    marginBottom: -5,
-    borderRadius: 10,
-    paddingVertical: 9,
-    paddingHorizontal: 32.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  calculateButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '800',
-  },
-});
 
 export default AssignmentScreen;

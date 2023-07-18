@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, FlatList, Text, Linking, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
 import Navigation from './Navigation';
 import WebViewScreen from './WebViewScreen';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 
 interface Article {
@@ -70,8 +73,12 @@ const newsArticles: Article[] = [
 ];
 
 const ItemView = ({ item, navigation }: { item: Article, navigation: NavigationProp<RootStackParamList> }) => {
+  
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+  
   return (
-    <TouchableOpacity style={styles.articleContainer} onPress={() => 
+    <TouchableOpacity style={styles.NewsScreenArticleContainer} onPress={() => 
     // Linking.openURL(item.url)
       navigation.dispatch(
         CommonActions.navigate({
@@ -82,10 +89,10 @@ const ItemView = ({ item, navigation }: { item: Article, navigation: NavigationP
         
       )
     }>
-      <Image source={{ uri: item.imageUrl }} style={styles.image} resizeMode="contain" />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.source}>{item.source}</Text>
+      <Image source={{ uri: item.imageUrl }} style={styles.NewsScreenImage} resizeMode="contain" />
+      <View style={styles.NewsScreenTextContainer}>
+        <Text style={styles.NewsScreenTitle}>{item.title}</Text>
+        <Text style={styles.NewsScreenSource}>{item.source}</Text>
       </View>
       <Icon name="chevron-right" size={30} color="gray" />
     </TouchableOpacity>
@@ -113,9 +120,13 @@ const NewsScreen = () => {
       ),
     });
   }, [navigation]);
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}>Top Stories</Text>
+    <View style={styles.NewsScreenContainer}>
+      <Text style={styles.NewsScreenSectionTitle}>Top Stories</Text>
       <FlatList
         data={newsArticles}
         keyExtractor={(item, index) => index.toString()}
@@ -125,41 +136,5 @@ const NewsScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 28,
-    fontWeight: '600',
-    marginBottom: 5,
-    color: "#005987",
-  },
-  articleContainer: {
-    flexDirection: 'row',
-    padding: 10,
-    alignItems: 'center',
-  },
-  textContainer: {
-    flex: 1,
-    paddingHorizontal: 15,
-
-  },
-  image: {
-    width: 70,
-    height: 70,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: '500',
-  },
-  source: {
-    fontSize: 14,
-    color: 'grey',
-  },
-});
 
 export default NewsScreen;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -7,6 +7,9 @@ import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import { GOOGLE_WEB_CLIENT_ID } from '@env';
 import { Calendar } from 'react-native-calendars';
 import CalendarEvent from './CalendarEvent';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 type GoogleSigninUser = {
   idToken: string;
@@ -113,9 +116,13 @@ const ComOp = () => {
   const handleDayPress = (day: any) => {
     setSelectedDate(day.dateString);
   };
+
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
       
   return (
-    <View style={styles.container}>
+    <View style={styles.CalendarContainer}>
       <Calendar onDayPress={handleDayPress} markedDates={{ [selectedDate]: { selected: true } }} />
       {isLoading ? (
         <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
@@ -127,7 +134,7 @@ const ComOp = () => {
               <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
             ))
           ) : (
-            <Text style={styles.noEventsText2}>No Events Today</Text>
+            <Text style={styles.CalendarNoEventsText2}>No Events Today</Text>
           )}
         </ScrollView>
       )}
@@ -135,56 +142,5 @@ const ComOp = () => {
   );
 }  
       
-      const styles = StyleSheet.create({
-      container: {
-      flex: 1,
-      paddingTop: 0,
-      },
-      eventContainer: {
-      backgroundColor: '#F2F2F2',
-      margin: 10,
-      padding: 10,
-      borderRadius: 5,
-      },
-      eventText: {
-      fontSize: 16,
-      },
-      googlebox: {
-      backgroundColor: '#ffffff',
-      borderRadius: 15,
-      paddingHorizontal: 20,
-      paddingRight: 20,
-      marginHorizontal: 10,
-      paddingBottom: 15,
-      width: '95%',
-      borderWidth: 2,
-      borderColor: '#ebe8e8',
-      flexDirection: 'row',
-      alignItems: 'center',
-      },
-      googleImage: {
-      width: 60,
-      height: 60,
-      marginLeft: 20,
-      },
-      googleText: {
-      marginLeft: 20,
-      fontSize: 25,
-      marginRight: 29,
-      },
-      noEventsText: {
-      textAlign: 'center',
-      marginTop: 20,
-      fontSize: 18,
-      },
-      noEventsText2: {
-        textAlign: 'center',
-        marginTop: 20,
-        fontSize: 22,
-        fontWeight: '500',
-        color: 'black', // example color
-        // ...any other style properties you want...
-      },
-      });
       
       export default ComOp;

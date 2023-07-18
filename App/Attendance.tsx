@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
+import { ThemeContext } from './ThemeContext';
+import lightStyles from './LightStyles';
+import darkStyles from './DarkStyles';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -64,22 +67,26 @@ const Attendance: React.FC = () => {
     if (item && item.customStyles) {
       const { backgroundColor, color } = item.customStyles.container;
       return (
-        <View style={styles.dayContainer}>
-          <View style={[styles.emptyBox, { backgroundColor }]} />
-          <Text style={[styles.dayText, { color }]}>{day.day}</Text>
+        <View style={styles.AttendanceDayContainer}>
+          <View style={[styles.AttendanceEmptyBox, { backgroundColor }]} />
+          <Text style={[styles.AttendanceDayText, { color }]}>{day.day}</Text>
         </View>
       );
     }
     return (
-      <View style={styles.dayContainer}>
-        <Text style={styles.dayText}>{day.day}</Text>
+      <View style={styles.AttendanceDayContainer}>
+        <Text style={styles.AttendanceDayText}>{day.day}</Text>
       </View>
     );
   };
+
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
   
   return (
-    <View style={styles.container}>
-      <View style={styles.calendarContainer}>
+    <View style={styles.AttendanceContainer}>
+      <View style={styles.AttendanceCalendarContainer}>
         <Calendar
           markingType='custom'
           onDayPress={onDayPress}
@@ -112,13 +119,13 @@ const Attendance: React.FC = () => {
           enableSwipeMonths={true}
         />
       </View>
-      <View style={styles.legendContainer}>
-        <View style={styles.legendBox}>
-          <Text style={styles.legendTitle}>Color Legend</Text>
+      <View style={styles.AttendanceLegendContainer}>
+        <View style={styles.AttendanceLegendBox}>
+          <Text style={styles.AttendanceLegendTitle}>Color Legend</Text>
           {Object.entries(attendanceCodes).map(([code, data]) => (
-            <View key={code} style={styles.legendItem}>
-              <View style={[styles.legendColorBox, { backgroundColor: data.color }]} />
-              <Text style={styles.legendText}>{data.label}</Text>
+            <View key={code} style={styles.AttendanceLegendItem}>
+              <View style={[styles.AttendanceLegendColorBox, { backgroundColor: data.color }]} />
+              <Text style={styles.AttendanceLegendText}>{data.label}</Text>
             </View>
           ))}
         </View>
@@ -126,58 +133,4 @@ const Attendance: React.FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#f2f2f7',
-  },
-  calendarContainer: {
-    borderRadius: 10,
-    overflow: 'hidden',
-  },
-  legendContainer: {
-    marginTop: 16,
-  },
-  legendBox: {
-    backgroundColor: '#ffffff',
-    borderRadius: 10,
-    padding: 16,
-  },
-  legendTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  legendColorBox: {
-    width: 18,
-    height: 18,
-    borderRadius: 4,
-    marginRight: 8,
-  },
-  legendText: {
-    fontSize: 16,
-  },
-  dayContainer: {
-    alignItems: 'center',
-  },
-  dayText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  emptyBox: {
-    width: 20,
-    height: 20,
-    marginRight: 8,
-  },
-});
-
 export default Attendance;
