@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
 
@@ -79,6 +79,7 @@ const Attendance: React.FC = () => {
   
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={styles.calendarContainer}>
         <Calendar
           markingType='custom'
@@ -123,6 +124,7 @@ const Attendance: React.FC = () => {
           ))}
         </View>
       </View>
+      </ScrollView>
     </View>
   );
 };

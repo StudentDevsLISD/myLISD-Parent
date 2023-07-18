@@ -87,10 +87,17 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const average = ((num: number) => {
     let sum = 0;
     let total = 0;
+    let weight = 0.00;
     for(let i =0; i<assignments.length; i++){
       if(categories[num] == assignments[i].category){
-         sum = sum + (Number(assignments[i].score) ? Number(assignments[i].score) : Number(assignments[i].totalPoints))
-         total = total + (Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0)
+        if(assignments[i].weight == "N/A"){
+          console.log(assignments[i].score)
+          weight = 1;
+        } else {
+          weight = Number(assignments[i].weight);
+        }
+        sum = sum + ((Number(assignments[i].score) ? Number(assignments[i].score) : Number(assignments[i].totalPoints)) * weight)
+         total = total + ((Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0) * weight)
       }
    }
    return ((sum/total)*100).toFixed(2);
