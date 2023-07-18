@@ -333,9 +333,10 @@ const darkStyles = StyleSheet.create({
                 justifyContent: 'center',
                 alignItems: 'stretch',
                 marginHorizontal: 5,
+                backgroundColor: '#222',
               },
               GradesGradeContainer: {
-                backgroundColor: '#E6E6E6',
+                backgroundColor: '#454343',
                 borderRadius: 10,
                 padding: 12.5,
                 marginVertical: 5,
@@ -350,6 +351,7 @@ const darkStyles = StyleSheet.create({
               GradesGradeText: {
                 fontSize: 20,
                 fontWeight: 'bold',
+                color: "#fff",
               },
               GradesGradeBadge: {
                 borderRadius: 8,
@@ -385,7 +387,7 @@ const darkStyles = StyleSheet.create({
                 marginLeft: -95,
                 marginBottom: 10,
                 marginTop: 10,
-                color: "#005987",
+                color: "#fff",
                 fontWeight: "600",
               },  
               GradesGradientTextContainer: {
@@ -585,7 +587,7 @@ const darkStyles = StyleSheet.create({
                 },
                 SettingsContainer: {
                     flex: 1,
-                    backgroundColor: '#fff',
+                    backgroundColor: '#222',
                     padding: 20,
                   },
                     SettingsSettingRow: {
@@ -597,6 +599,7 @@ const darkStyles = StyleSheet.create({
                   SettingsSettingText: {
                     fontSize: 18,
                     fontWeight: 'bold',
+                    color: '#fff',
                   },
                   SettingsLogoutButton: {
                     backgroundColor: '#ff6347',
