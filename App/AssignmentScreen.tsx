@@ -34,11 +34,11 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const [categories, setCategories] = useState([]);
   const [breakdowns, setBreakdowns] = useState([])
   const colors = ["#00ff00", "#ff0000", "#000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
-
+  let y = [];
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? LightStyles : DarkStyles;
 
-  console.log(data);
+  // console.log(data);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -68,7 +68,7 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   // ];
   const assignments = data.assignments;
   React.useEffect(() => {
-    let y = [];
+    // let y = [];
     let updatedBreakdowns = [];
   
     for (let i = 0; i < assignments.length; i++) {
@@ -80,44 +80,65 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
     });
     
     // Assuming that you have predefined weights and colors, let's create new breakdowns
-    y.forEach((category, index) => {
-      updatedBreakdowns.push({
-        label: category, // update this value accordingly
-        weight: '1.0', // update this value accordingly // update this value accordingly
-      });
-    });
-  
+    // y.forEach((category, index) => {
+    //   updatedBreakdowns.push({
+    //     label: category, // update this value accordingly
+    //     weight: '1.0', // update this value accordingly // update this value accordingly
+    //   });
+    // });
+    // console.log(y);
     setCategories(y);
-    setBreakdowns(updatedBreakdowns); // You should have state for breakdowns: const [breakdowns, setBreakdowns] = useState([]);
-  }, [assignments]);// It will only rerun this effect if 'assignments' change
+    setBreakdowns(y); 
+    }, [assignments]);// It will only rerun this effect if 'assignments' change
   
-  const average = ((num: number) => {
-    let sum = 0;
-    let total = 0;
-    let weight = 0.00;
-    for(let i =0; i<assignments.length; i++){
-      if(categories[num] == assignments[i].category){
-        if(assignments[i].weight == "N/A"){
-          console.log(assignments[i].score)
-          weight = 1;
-        } else {
-          weight = Number(assignments[i].weight);
+    const average = ((num: number) => {
+      let sum = 0;
+      let total = 0;
+      let weight = 0.00;
+      for(let i =0; i<assignments.length; i++){
+        if(categories[num] == assignments[i].category){
+          console.log(assignments[i])
+          
+          if(assignments[i].weight == "N/A"){
+            // console.log(assignments[i].name + ":" + assignments[i].score)
+            // console.log((Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0))
+           
+            weight = 1;
+          }  else {
+            weight = Number(assignments[i].weight);
+          }
+          if(assignments[i].score == "X" || assignments[i].isDr.indexOf("strike") != -1){
+            weight = 0;
+          }
+          if(assignments[i].score == "M"){
+            assignments[i].score = "0"
+          }
+          if(assignments[i].score == "N/A"){
+            weight = 0;
+          }
+          if(assignments[i].assignmentPercentage == "N/A"){
+            assignments[i].assignmentPercentage = assignments[i].score;
+          }
+          sum = sum + ((Number(assignments[i].assignmentPercentage.substring(0, assignments[i].assignmentPercentage.length -1))) * weight)
+           total = total + ((Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0) * weight)
         }
-        sum = sum + ((Number(assignments[i].score) ? Number(assignments[i].score) : Number(assignments[i].totalPoints)) * weight)
-         total = total + ((Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0) * weight)
-      }
-   }
-   return ((sum/total)*100).toFixed(2);
-  })
+     }
+    //  console.log("SUM" + sum);
+    //  console.log("TOTAL" + total);
+     return ((sum/total)*100).toFixed(2);
+    })
+
 
   const getColor = ((idx:number) => {
     return colors[categories.indexOf(assignments[idx].category)];
   })
 
   const splitBreakdowns = [];
+  // console.log(breakdowns)
   for (let i = 0; i < breakdowns.length; i += 2) {
     splitBreakdowns.push(breakdowns.slice(i, i + 2));
   }
+  // console.log(splitBreakdowns);
 
   // Add a ref for the AnimatedCircularProgress
   const progressRef = useRef<AnimatedCircularProgress>(null);
@@ -176,20 +197,20 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
             </View>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
-            <View style={styles.AssignmentScreenBreakdownContainer}>
-              {splitBreakdowns.map((breakdownPair, index) => (
-                <View key={index} style={styles.AssignmentScreenBreakdownColumn}>
-                  {breakdownPair.map((item, idx) => (
-                    <TouchableOpacity key={idx} activeOpacity={1} style={styles.AssignmentScreenBreakdownBox}>
-                      <Text style={styles.AssignmentScreenBreakdownLabel}>{categories[idx]}</Text>
-                      <Text style={styles.AssignmentScreenBreakdownValue}>{average(idx)}</Text>
-                      <Text style={styles.AssignmentScreenBreakdownWeight}>{`Weight: ${item.weight}`}</Text>
-                      <View style={[styles.AssignmentScreenBreakdownColor, { backgroundColor: colors[idx]}]} />
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              ))}
-            </View>
+          <View style={styles.AssignmentScreenBreakdownContainer}>
+  {splitBreakdowns.map((breakdownPair, index) => (
+    <View key={index} style={styles.AssignmentScreenBreakdownColumn}>
+      {breakdownPair.map((category, idx) => ( // Change 'categories[idx]' to 'category'
+        <TouchableOpacity key={idx} activeOpacity={1} style={styles.AssignmentScreenBreakdownBox}>
+          <Text style={styles.AssignmentScreenBreakdownLabel}>{category}</Text>
+          <Text style={styles.AssignmentScreenBreakdownValue}>{average(idx)}</Text>
+          {/* <Text style={styles.AssignmentScreenBreakdownWeight}>{`Weight: ${item.weight}`}</Text> */}
+          <View style={[styles.AssignmentScreenBreakdownColor, { backgroundColor: colors[idx]}]} />
+        </TouchableOpacity>
+      ))}
+    </View>
+  ))}
+</View>
           </ScrollView>
         </ScrollView>
       </View>
