@@ -588,9 +588,6 @@ const lightStyles = StyleSheet.create({
                 backgroundColor: '#fff',
                 padding: 20,
               },
-              SettingsDarkModeContainer: {
-                backgroundColor: '#222',
-              },
                 SettingsSettingRow: {
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -600,9 +597,6 @@ const lightStyles = StyleSheet.create({
               SettingsSettingText: {
                 fontSize: 18,
                 fontWeight: 'bold',
-              },
-              SettingsDarkModeText: {
-                color: '#fff',
               },
               SettingsLogoutButton: {
                 backgroundColor: '#ff6347',

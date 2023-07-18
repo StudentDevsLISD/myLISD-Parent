@@ -13,37 +13,33 @@ type Props = {
 };
 
 const SettingsScreen: React.FC<Props> = ({ handleLogout, handleHACLogout }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const navigation = useNavigation();
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? lightStyles : darkStyles;
 
   const handleLogoutPress = async () => {
     await handleLogout(navigation);
   };
+
   const handleHACLogoutPress = async () => {
     await handleHACLogout(navigation);
   };
 
-  const { theme } = useContext(ThemeContext);
-  const styles = theme === 'light' ? lightStyles : darkStyles;
-
   return (
-    <View style={[styles.SettingsContainer, isDarkMode && styles.SettingsDarkModeContainer]}>
+    <View style={[styles.SettingsContainer]}>
       <View style={styles.SettingsSettingRow}>
-        <Text style={[styles.SettingsSettingText, isDarkMode && styles.SettingsDarkModeText]}>
-          Dark Mode
-        </Text>
+        <Text style={[styles.SettingsSettingText]}>Dark Mode</Text>
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}
-          thumbColor={isDarkMode ? '#f5dd4b' : '#f4f3f4'}
-          onValueChange={toggleDarkMode}
-          value={isDarkMode}
+          thumbColor={theme === 'dark' ? '#f5dd4b' : '#f4f3f4'}
+          onValueChange={toggleTheme}
+          value={theme === 'dark'}
         />
       </View>
-      <TouchableOpacity style={styles.SettingsLogoutButton} onPress={handleHACLogoutPress}>
+      <TouchableOpacity
+        style={styles.SettingsLogoutButton}
+        onPress={handleHACLogoutPress}
+      >
         <Icon name="sign-out" size={24} color="#fff" />
         <Text style={styles.SettingsLogoutButtonText}>Log Out of HAC</Text>
       </TouchableOpacity>
