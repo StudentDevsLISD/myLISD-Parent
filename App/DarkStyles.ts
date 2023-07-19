@@ -234,6 +234,10 @@ const darkStyles = StyleSheet.create({
             paddingTop: 0,
             backgroundColor: "#222"
             },
+            CalendarCalendarContainer: {
+              borderRadius: 10,
+              overflow: 'hidden',
+            },
             CalendarEventContainer: {
             backgroundColor: '#222',
             margin: 10,

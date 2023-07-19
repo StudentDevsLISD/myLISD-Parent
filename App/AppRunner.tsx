@@ -135,13 +135,13 @@ const Tab2Screen = () => {
     };
   }, [navigation, school]);
 
-  if (campus === "" || school === "") {
-    return (
-      <View style={styles.AppRunnerOfflineContainer}>
-        <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
-      </View>
-    );
-  }
+  // if (campus === "" || school === "") {
+  //   return (
+  //     <View style={styles.AppRunnerOfflineContainer}>
+  //       <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
+  //     </View>
+  //   );
+  // }
   return (
     <>
       {isConnected ? (
