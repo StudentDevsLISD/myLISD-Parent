@@ -71,7 +71,7 @@ const Grades = () => {
       setClasses(currentClasses);
 
       setIsLoading(true);
-      console.log(isLoading);
+      // console.log(isLoading);
 
       const grades = {};
       for (let classObj of currentClasses) {
@@ -107,7 +107,7 @@ const Grades = () => {
       setIsLoggedIn(false);
     }
     setIsLoading(false);
-    console.log(isLoading);
+    // console.log(isLoading);
   };
 
   const saveCredentials = async () => {
@@ -224,7 +224,7 @@ const Grades = () => {
             const { color, letter } = getGrade(Number(grade));
             return (
               <TouchableOpacity style={styles.GradesGradeContainer} key={index} onPress={() => {
-                console.log(classes);
+                // console.log(classes);
                 // console.log(grades);
                 navigation.dispatch(
                   CommonActions.navigate({
