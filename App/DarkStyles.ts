@@ -640,7 +640,7 @@ const darkStyles = StyleSheet.create({
                 },
                 SettingsContainer: {
                     flex: 1,
-                    backgroundColor: '#222',
+                    backgroundColor: '#111',
                     padding: 20,
                   },
                     SettingsSettingRow: {
