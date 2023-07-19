@@ -125,7 +125,7 @@ const ComOp = () => {
     <View style={styles.CalendarContainer}>
       <Calendar onDayPress={handleDayPress} markedDates={{ [selectedDate]: { selected: true } }} />
       {isLoading ? (
-        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
+        <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
       ) : (
         <ScrollView>
           {/* //...events list or "No events found" message */}

@@ -138,7 +138,7 @@ const Tab2Screen = () => {
   if (campus === "" || school === "") {
     return (
       <View style={styles.AppRunnerOfflineContainer}>
-        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
+        <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
       </View>
     );
   }
@@ -270,7 +270,7 @@ return (
 const tabBarOptions = {
 headerTitle: () => (
 <View style={{ alignItems: 'center' }}>
-<Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 12, marginLeft: 10,}} />
+<Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 11, alignSelf: 'center',}} />
 </View>
 ),
 headerStyle: {

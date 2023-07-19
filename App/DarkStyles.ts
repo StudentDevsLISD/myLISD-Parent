@@ -419,7 +419,7 @@ const darkStyles = StyleSheet.create({
                 marginLeft: -95,
                 marginBottom: 10,
                 marginTop: 10,
-                color: "#fff",
+                color: "#ede1d1",
                 fontWeight: "600",
               },  
               GradesGradientTextContainer: {

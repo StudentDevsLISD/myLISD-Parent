@@ -196,7 +196,7 @@ for (let classObj of currentClasses) {
   return (
     <View style={styles.GradesContainer}>
     {isLoading ? (
-       <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
+       <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
 
       ) : (
         

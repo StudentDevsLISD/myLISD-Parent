@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
 const lightStyles = StyleSheet.create({
+
     AppRunnerOfflineContainer: {
     flex: 1,
     alignItems: 'center',
