@@ -76,11 +76,11 @@ const Attendance: React.FC = () => {
                 title: attendance,
                 customStyles: {
                   container: {
-                    backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "#ffffff",
+                    backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "transparent",
                     borderRadius: 12
                   },
                   text: {
-                    color: "#000000"
+                    color: theme == "dark" ? "#ffffff" : "#000000"
                   }
                 }
               };
@@ -114,9 +114,7 @@ const Attendance: React.FC = () => {
     // Update the key whenever the theme changes
     setCalendarKey(Date.now().toString());
   }, [theme]);
-  console.log(theme)
   const styles = theme == 'light' ? lightStyles : darkStyles;
-  console.log(styles)
   const lightTheme = {
     backgroundColor: '#ffffff',
             calendarBackground: '#ffffff',
