@@ -54,6 +54,16 @@ const Grades = () => {
   const [showNoNewGrades, setShowNoNewGrades] = useState(false); // State to control the message display
   const route = useRoute();
 
+  const formatGradeValue = (gradeValue) => {
+    if (gradeValue < 100) {
+      // Keep up to 2 decimal places
+      return gradeValue.toFixed(2);
+    } else {
+      // Format as "x.x" with one decimal place
+      return gradeValue.toFixed(1);
+    }
+  };
+  
 
   const fetchGrades = async (username: string, password: string) => {
     try {
@@ -72,15 +82,16 @@ const Grades = () => {
 
       setIsLoading(true);
       // console.log(isLoading);
+const grades = {};
+for (let classObj of currentClasses) {
+  if (classObj.grade !== '') {
+    let gradeValue = parseFloat(classObj.grade.split(' ')[2]);
+    grades[classObj.name] = formatGradeValue(gradeValue);
+  } else {
+    grades[classObj.name] = "0.00";
+  }
+}
 
-      const grades = {};
-      for (let classObj of currentClasses) {
-        if (classObj.grade !== '') {
-          grades[classObj.name] = parseFloat(classObj.grade.split(' ')[2]).toFixed(2);
-        } else {
-          grades[classObj.name] = "0.00";
-        }
-      }
 
       // Get the stored grades from AsyncStorage
       const storedGradesJson = await AsyncStorage.getItem('grades');
@@ -188,72 +199,70 @@ const Grades = () => {
        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
 
       ) : (
-        <ScrollView>
-          <View style={styles.GradesHeader}>
+        
+          <><View style={styles.GradesHeader}>
             <Text style={styles.GradesDateText}>{currentDate}</Text>
             <Text style={styles.GradesHeaderText}>Grades</Text>
-          </View>
-          {!isLoggedIn && (
-            <View style={styles.GradesInputContainer}>
-              <TextInput
-                style={styles.GradesInput}
-                placeholder='Username'
-                onChangeText={setUsername}
-                value={username}
-              />
-              <TextInput
-                style={styles.GradesInput}
-                placeholder='Password'
-                secureTextEntry
-                onChangeText={setPassword}
-                value={password}
-              />
-              <TouchableOpacity style={styles.GradesLoginButton} onPress={saveCredentials}>
-                <Text style={styles.GradesLoginButtonText}>Login</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          {showNoNewGrades && (
-            <TouchableOpacity disabled={true} style={styles.GradesAppButtonContainer2}>
-              <Text style={styles.GradesAppButtonText2}>
-                {'No New Grades Have Been Added'}
-              </Text>
-            </TouchableOpacity>
-          )}
-          {Object.entries(grades).map(([subject, grade], index) => {
-            const { color, letter } = getGrade(Number(grade));
-            return (
-              <TouchableOpacity style={styles.GradesGradeContainer} key={index} onPress={() => {
-                // console.log(classes);
-                // console.log(grades);
-                navigation.dispatch(
-                  CommonActions.navigate({
-                    name: "AssignmentScreen",
-                    params: {
-                      data: {
-                        course: classes[index].name,
-                        grade: grades[classes[index].name],
-                        assignments: classes[index].assignments,
-                      }
-                    }
-                  })
-                );
-              }}>
-                <View style={styles.GradesGradeItem}>
-                  <View style={styles.GradesGradientTextContainer}>
-                    <Text numberOfLines={1} style={styles.GradesGradeText}>{subject.substring(12)}</Text>
-                  </View>
-                  <View style={styles.GradesGradeBadge}>
-                    <Text style={styles.GradesGradeBadgeText2}>{letter}</Text>
-                  </View>
-                  <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
-                    <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
-                  </View>
+          </View><ScrollView>
+              {!isLoggedIn && (
+                <View style={styles.GradesInputContainer}>
+                  <TextInput
+                    style={styles.GradesInput}
+                    placeholder='Username'
+                    onChangeText={setUsername}
+                    value={username} />
+                  <TextInput
+                    style={styles.GradesInput}
+                    placeholder='Password'
+                    secureTextEntry
+                    onChangeText={setPassword}
+                    value={password} />
+                  <TouchableOpacity style={styles.GradesLoginButton} onPress={saveCredentials}>
+                    <Text style={styles.GradesLoginButtonText}>Login</Text>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
+              )}
+              {showNoNewGrades && (
+                <TouchableOpacity disabled={true} style={styles.GradesAppButtonContainer2}>
+                  <Text style={styles.GradesAppButtonText2}>
+                    {'No New Grades Have Been Added'}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              {Object.entries(grades).map(([subject, grade], index) => {
+                const { color, letter } = getGrade(Number(grade));
+                return (
+                  <TouchableOpacity style={styles.GradesGradeContainer} key={index} onPress={() => {
+                    // console.log(classes);
+                    // console.log(grades);
+                    navigation.dispatch(
+                      CommonActions.navigate({
+                        name: "AssignmentScreen",
+                        params: {
+                          data: {
+                            course: classes[index].name,
+                            grade: grades[classes[index].name],
+                            assignments: classes[index].assignments,
+                          }
+                        }
+                      })
+                    );
+                  } }>
+                    <View style={styles.GradesGradeItem}>
+                      <View style={styles.GradesGradientTextContainer}>
+                        <Text numberOfLines={1} style={styles.GradesGradeText}>{subject.substring(12)}</Text>
+                      </View>
+                      <View style={styles.GradesGradeBadge}>
+                        <Text style={styles.GradesGradeBadgeText2}>{letter}</Text>
+                      </View>
+                      <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
+                        <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView></>
       )}
     </View>
   );

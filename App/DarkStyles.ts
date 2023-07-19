@@ -364,8 +364,8 @@ const darkStyles = StyleSheet.create({
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'stretch',
-                marginHorizontal: 5,
-                backgroundColor: '#222',
+               
+                backgroundColor: '#111',
               },
               GradesGradeContainer: {
                 backgroundColor: '#454343',
