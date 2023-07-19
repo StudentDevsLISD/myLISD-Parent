@@ -203,6 +203,10 @@ const lightStyles = StyleSheet.create({
         flex: 1,
         paddingTop: 0,
         },
+        CalendarCalendarContainer: {
+          borderRadius: 10,
+          overflow: 'hidden',
+        },
         CalendarEventContainer: {
         backgroundColor: '#F2F2F2',
         margin: 10,
