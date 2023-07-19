@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
+import axios from 'axios';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -29,39 +30,66 @@ LocaleConfig.locales['en'] = {
 LocaleConfig.defaultLocale = 'en';
 
 const Attendance: React.FC = () => {
-  const attendanceCodes = {
-    'Present': {
-      color: 'green',
-      label: 'Present',
-    },
-    'Absent': {
-      color: 'red',
-      label: 'Absent',
-    },
-    'Late': {
-      color: 'orange',
-      label: 'Late',
-    },
-    'Excused': {
-      color: 'blue',
-      label: 'Excused',
-    },
-  };
+
 
   // Mock data
-  const attendanceData: MarkedDates = {
-    '2023-06-10': { customStyles: { container: { backgroundColor: 'green', borderRadius: 12 }, text: { color: '#ffffff' } } },
-    '2023-06-12': { customStyles: { container: { backgroundColor: 'red', borderRadius: 12 }, text: { color: '#ffffff' } } },
-    '2023-06-14': { customStyles: { container: { backgroundColor: 'orange', borderRadius: 12 }, text: { color: '#ffffff' } } },
-    '2023-06-16': { customStyles: { container: { backgroundColor: 'blue', borderRadius: 12 }, text: { color: '#ffffff' } } },
-    // Add more dates here with their respective custom styles
-  };
+  // const attendanceData: MarkedDates = {
+  //   '2023-06-10': { customStyles: { container: { backgroundColor: 'green', borderRadius: 12 }, text: { color: '#ffffff' } } },
+  //   '2023-06-12': { customStyles: { container: { backgroundColor: 'red', borderRadius: 12 }, text: { color: '#ffffff' } } },
+  //   '2023-06-14': { customStyles: { container: { backgroundColor: 'orange', borderRadius: 12 }, text: { color: '#ffffff' } } },
+  //   '2023-06-16': { customStyles: { container: { backgroundColor: 'blue', borderRadius: 12 }, text: { color: '#ffffff' } } },
+  //   // Add more dates here with their respective custom styles
+  // };
 
+  const [attendanceData, setAttendanceData] = useState({}); // initialize as empty object
   const [selectedDate, setSelectedDate] = useState('');
 
   const onDayPress = (day: any) => {
     setSelectedDate(day.dateString);
+    Alert.alert(attendanceData[day.dateString]?.title || 'No information for this date');
   };
+
+  useEffect(() => {
+    // Replace with your own API URL
+    console.log("useeffect")
+    const fetchDates = async () => {
+      console.log("fetch dates")
+      const response = await axios.get(
+        `http://localhost:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`
+      );
+      console.log(response)
+          if (response.data) {
+            const newData: MarkedDates = {};
+            response.data.data.forEach(item => {
+              const dateString = `2023-05-${item.day.length == 1 ? "0" + item.day : item.day}`; // modify this to match your data structure
+              const attendances = item.attendance.split('\n');
+              const attendance = item.attendance;
+              const BGcolor = item.color;
+              let realBGcolor;
+              if(BGcolor.indexOf("#")!=-1){
+                realBGcolor = BGcolor.substring(BGcolor.indexOf("#"), BGcolor.indexOf("#") + 7);
+              } else {
+                realBGcolor = "";
+              }
+              newData[dateString] = {
+                title: attendance,
+                customStyles: {
+                  container: {
+                    backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "#ffffff",
+                    borderRadius: 12
+                  },
+                  text: {
+                    color: "#000000"
+                  }
+                }
+              };
+            });
+            setAttendanceData(newData);
+          }
+        
+    }
+    fetchDates();
+  }, []);
 
   const renderDay = (day: any, item: any) => {
     if (item && item.customStyles) {
@@ -123,7 +151,7 @@ const Attendance: React.FC = () => {
       <View style={styles.AttendanceLegendContainer}>
         <View style={styles.AttendanceLegendBox}>
           <Text style={styles.AttendanceLegendTitle}>Color Legend</Text>
-          {Object.entries(attendanceCodes).map(([code, data]) => (
+          {Object.entries(Attendance).map(([code, data]) => (
             <View key={code} style={styles.AttendanceLegendItem}>
               <View style={[styles.AttendanceLegendColorBox, { backgroundColor: data.color }]} />
               <Text style={styles.AttendanceLegendText}>{data.label}</Text>

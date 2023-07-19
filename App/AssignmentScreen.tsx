@@ -33,7 +33,7 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const { data } = route.params;
   const [categories, setCategories] = useState([]);
   const [breakdowns, setBreakdowns] = useState([])
-  const colors = ["#00ff00", "#ff0000", "#000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
+  const colors = ["#00ff00", "#ff0000", "#0000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
   let y = [];
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? LightStyles : DarkStyles;
@@ -97,7 +97,7 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
       let weight = 0.00;
       for(let i =0; i<assignments.length; i++){
         if(categories[num] == assignments[i].category){
-          console.log(assignments[i])
+          // console.log(assignments[i])
           
           if(assignments[i].weight == "N/A"){
             // console.log(assignments[i].name + ":" + assignments[i].score)
@@ -119,12 +119,17 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
           if(assignments[i].assignmentPercentage == "N/A"){
             assignments[i].assignmentPercentage = assignments[i].score;
           }
+          // if(assignments[i].totalPoint!="100.00"){
+          //   assignments[i].assignmentPercentage = (Number(assignments[i].assignmentPercentage.substring(0, assignments[i].assignmentPercentage.length-1))/100.00)*Number(assignments[i].totalPoints);
+          //   assignments[i].assignmentPercentage = assignments[i].assignmentPercentage.toString() + "%";
+          // }
           sum = sum + ((Number(assignments[i].assignmentPercentage.substring(0, assignments[i].assignmentPercentage.length -1))) * weight)
            total = total + ((Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0) * weight)
         }
      }
-    //  console.log("SUM" + sum);
-    //  console.log("TOTAL" + total);
+     console.log("CATEGORY: " + categories[num]);
+     console.log("SUM: " + sum);
+     console.log("TOTAL: " + total);
      return ((sum/total)*100).toFixed(2);
     })
 
@@ -198,14 +203,15 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
           <View style={styles.AssignmentScreenBreakdownContainer}>
-  {splitBreakdowns.map((breakdownPair, index) => (
+          {splitBreakdowns.map((breakdownPair, index) => (
     <View key={index} style={styles.AssignmentScreenBreakdownColumn}>
-      {breakdownPair.map((category, idx) => ( // Change 'categories[idx]' to 'category'
-        <TouchableOpacity key={idx} activeOpacity={1} style={styles.AssignmentScreenBreakdownBox}>
+      {breakdownPair.map((category) => (
+        <TouchableOpacity key={category} activeOpacity={1} style={styles.AssignmentScreenBreakdownBox}>
           <Text style={styles.AssignmentScreenBreakdownLabel}>{category}</Text>
-          <Text style={styles.AssignmentScreenBreakdownValue}>{average(idx)}</Text>
-          {/* <Text style={styles.AssignmentScreenBreakdownWeight}>{`Weight: ${item.weight}`}</Text> */}
-          <View style={[styles.AssignmentScreenBreakdownColor, { backgroundColor: colors[idx]}]} />
+          {/* Pass the index of the category from the entire breakdowns array */}
+          <Text style={styles.AssignmentScreenBreakdownValue}>{average(breakdowns.findIndex(c => c === category))}</Text>
+          {/* Pass the index of the category from the entire breakdowns array */}
+          <View style={[styles.AssignmentScreenBreakdownColor, { backgroundColor: colors[breakdowns.findIndex(c => c === category) % colors.length]}]} />
         </TouchableOpacity>
       ))}
     </View>
