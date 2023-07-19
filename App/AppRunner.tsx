@@ -286,6 +286,8 @@ const Tabs: React.FC<{ theme: 'light' | 'dark' }> = ({ theme }) => {
     },
     tabBarStyle: {
       backgroundColor: theme === 'light' ? 'white' : '#111', // Set the background color of the tab bar to black
+      paddingTop: 10,
+      height: 85
     },
     // ... other options ...
   };
