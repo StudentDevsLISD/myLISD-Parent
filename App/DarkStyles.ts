@@ -408,7 +408,7 @@ const darkStyles = StyleSheet.create({
               },
               GradesGradeBadgeText2: {
             
-                color: '#e8e8e8',
+                color: '#444',
                 fontSize: 0,
                 fontWeight: 'bold',
               },
@@ -479,24 +479,25 @@ const darkStyles = StyleSheet.create({
               },
               GradesAppButtonContainer2: {
               elevation: 8,
-              backgroundColor: 'white',
+              backgroundColor: '#333',
               borderRadius: 15,
               paddingVertical: 13,
-              marginHorizontal: 2.05,
+              marginHorizontal: 1.05,
+              marginLeft: 10.07,
               marginBottom: 7,
               marginTop: -1,
-              width: '99%',
+              width: '94%',
               borderWidth: 2,
-              borderColor: '#ebe8e8',
+              borderColor: '#444',
               fontWeight: 'bold',
           
               
               },
               GradesAppButtonText2: {
               fontSize: 18,
-              color: 'black',
+              color: '#fff',
               alignSelf: 'center',
-              fontWeight: 'normal',
+              fontWeight: '500',
               
               },
               HomeContainer: {
