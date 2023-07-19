@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
@@ -58,6 +58,7 @@ const Attendance: React.FC = () => {
   };
 
   const [selectedDate, setSelectedDate] = useState('');
+  const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
 
   const onDayPress = (day: any) => {
     setSelectedDate(day.dateString);
@@ -81,19 +82,15 @@ const Attendance: React.FC = () => {
   };
 
   const { theme } = useContext(ThemeContext);
-  const styles = theme === 'light' ? lightStyles : darkStyles;
-
-  
-  return (
-    <View style={styles.AttendanceContainer}>
-      <ScrollView>
-      <View style={styles.AttendanceCalendarContainer}>
-        <Calendar
-          markingType='custom'
-          onDayPress={onDayPress}
-          markedDates={attendanceData}
-          theme={{
-            backgroundColor: '#ffffff',
+  useEffect(() => {
+    // Update the key whenever the theme changes
+    setCalendarKey(Date.now().toString());
+  }, [theme]);
+  console.log(theme)
+  const styles = theme == 'light' ? lightStyles : darkStyles;
+  console.log(styles)
+  const lightTheme = {
+    backgroundColor: '#ffffff',
             calendarBackground: '#ffffff',
             textSectionTitleColor: '#000000',
             selectedDayBackgroundColor: '#e8e8e8',
@@ -115,7 +112,41 @@ const Attendance: React.FC = () => {
             textDayFontWeight: 'bold',
             textMonthFontWeight: 'bold',
             textDayHeaderFontWeight: 'bold',
-          }}
+  }
+  const darkTheme = {
+    backgroundColor: '#222',
+    calendarBackground: '#222',
+    textSectionTitleColor: '#ffffff',
+    selectedDayBackgroundColor: '#e8e8e8',
+    selectedDayTextColor: '#000000',
+    todayTextColor: '#000000',
+    dayTextColor: '#000000',
+    textDisabledColor: '#cccccc',
+    dotColor: 'transparent',
+    selectedDotColor: 'rgba(0, 0, 0, 0)',
+    arrowColor: 'black',
+    monthTextColor: '#ffffff',
+    indicatorColor: '#ffffff',
+    textDayFontFamily: 'Avenir',
+    textMonthFontFamily: 'Avenir',
+    textDayHeaderFontFamily: 'Avenir',
+    textDayFontSize: 16,
+    textMonthFontSize: 18,
+    textDayHeaderFontSize: 13,
+    textDayFontWeight: 'bold',
+    textMonthFontWeight: 'bold',
+    textDayHeaderFontWeight: 'bold',
+  };
+  return (
+    <View style={styles.AttendanceContainer}>
+      <ScrollView>
+      <View style={styles.AttendanceCalendarContainer}>
+        <Calendar
+          key={calendarKey}
+          markingType='custom'
+          onDayPress={onDayPress}
+          markedDates={attendanceData}
+          theme={theme == 'light' ? lightTheme : darkTheme}
           renderDay={renderDay}
           enableSwipeMonths={true}
         />

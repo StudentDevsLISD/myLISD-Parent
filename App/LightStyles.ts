@@ -472,6 +472,17 @@ const lightStyles = StyleSheet.create({
             marginBottom: 10,
             paddingLeft: 5,
           },
+          HomeScreenIcon:{
+            fontSize: 20,
+            color: "#005987"
+
+          },
+          HomeOptions: {
+            backgroundColor: "white"
+          },
+          HomeTitleText: {
+
+          },
         HomeHeaderText: {
             fontSize: 40,
             marginLeft: -85,
