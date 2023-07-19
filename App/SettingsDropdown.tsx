@@ -30,8 +30,8 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout, handleHACLogout }) => {
       <View style={styles.SettingsSettingRow}>
         <Text style={[styles.SettingsSettingText]}>Dark Mode</Text>
         <Switch
-          trackColor={{ false: '#767577', true: '#81b0ff' }}
-          thumbColor={theme === 'dark' ? '#f5dd4b' : '#f4f3f4'}
+          trackColor={{ false: '#767577', true: '#767577' }}
+          thumbColor={theme === 'dark' ? '#fff' : '#fff'}
           onValueChange={toggleTheme}
           value={theme === 'dark'}
         />
