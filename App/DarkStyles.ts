@@ -203,20 +203,17 @@ const darkStyles = StyleSheet.create({
           AttendanceCalendarBox: {
             backgroundColor: '#222',
             calendarBackground: '#222',
-            textSectionTitleColor: '#222',
-            selectedDayBackgroundColor: '#e8e8e8',
+            textSectionTitleColor: '#fff',
+            selectedDayBackgroundColor: '#fff',
             selectedDayTextColor: '#fff',
-            todayTextColor: '#000000',
-            dayTextColor: '#000000',
-            textDisabledColor: '#cccccc',
+            todayTextColor: '#fff',
+            dayTextColor: '#fff',
+            textDisabledColor: '#fff',
             dotColor: 'transparent',
             selectedDotColor: 'rgba(0, 0, 0, 0)',
             arrowColor: 'black',
-            monthTextColor: '#000000',
-            indicatorColor: '#000000',
-            textDayFontFamily: 'Avenir',
-            textMonthFontFamily: 'Avenir',
-            textDayHeaderFontFamily: 'Avenir',
+            monthTextColor: '#fff',
+            indicatorColor: '#fff',
             textDayFontSize: 16,
             textMonthFontSize: 18,
             textDayHeaderFontSize: 13,
@@ -390,6 +387,7 @@ const darkStyles = StyleSheet.create({
                 color: "#fff",
               },
               GradesGradeBadge: {
+                flexDirection: 'row',
                 borderRadius: 8,
                 paddingHorizontal: 11,
                 paddingVertical: 5,
@@ -420,7 +418,7 @@ const darkStyles = StyleSheet.create({
               },
               GradesHeaderText: {
                 fontSize: 40,
-                marginLeft: -95,
+                marginLeft: -92,
                 marginBottom: 10,
                 marginTop: 10,
                 color: "#ede1d1",
@@ -678,6 +676,20 @@ const darkStyles = StyleSheet.create({
                   SplashScreenLogo: {
                     width: 400,
                     height: 400,
+                  },
+                  GradientTextContainer: {
+                    flexDirection: 'row',
+                    overflow: 'hidden',
+                  },
+                  GradientMask: {
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                  },
+                  FadedText: {
+                    color: '#444',
                   },
 });
 

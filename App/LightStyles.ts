@@ -383,11 +383,11 @@ const lightStyles = StyleSheet.create({
             flexDirection: 'row',
             alignItems: 'center',
             marginBottom: 10,
-            paddingLeft: 5,
+            paddingLeft: 7,
           },
           GradesHeaderText: {
             fontSize: 40,
-            marginLeft: -95,
+            marginLeft: -92,
             marginBottom: 10,
             marginTop: 10,
             color: "#005987",
@@ -636,6 +636,20 @@ const lightStyles = StyleSheet.create({
               SplashScreenLogo: {
                 width: 400,
                 height: 400,
+              },
+              GradientTextContainer: {
+                flexDirection: 'row',
+                overflow: 'hidden',
+              },
+              GradientMask: {
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+              },
+              FadedText: {
+                color: '#white',
               },
 });
 
