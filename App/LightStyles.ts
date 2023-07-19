@@ -478,7 +478,7 @@ const lightStyles = StyleSheet.create({
 
           },
           HomeOptions: {
-            backgroundColor: "white"
+            backgroundColor: "ebe8e8"
           },
           HomeTitleText: {
 

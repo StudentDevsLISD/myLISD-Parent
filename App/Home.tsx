@@ -134,21 +134,17 @@ const HomeScreen = () => {
         <Text style={styles.HomeHeaderText}>Overview</Text>
       </View>
       {options.map((option) => (
-        <TouchableOpacity
-          style={styles.HomeOptions} // Merge the default styles with the dynamic option color
-          key={option.id}
-          onPress={() => handleOptionPress(option)}
-        >
-          <TouchableOpacity style={styles.HomeBox}>
-            <ListItem style={styles.HomeOptions}>
+        <TouchableOpacity style={styles.HomeOptions} key={option.id} onPress={() => handleOptionPress(option)}>
+          <View style={styles.HomeBox}>
+            <ListItem>
               <Icon name={option.iconName} style={styles.HomeScreenIcon} />
-              <ListItem.Content style={styles.HomeOptions}>
+              <ListItem.Content>
                 <ListItem.Title style={styles.HomeTitleText}>{option.title} </ListItem.Title>
                 <ListItem.Subtitle style={styles.HomeDescriptionText}>{option.description}</ListItem.Subtitle>
               </ListItem.Content>
               <Icon name="chevron-right" size={20} style={styles.HomeChevronIcon} />
             </ListItem>
-          </TouchableOpacity>
+          </View>
         </TouchableOpacity>
       ))}
     </ScrollView>
