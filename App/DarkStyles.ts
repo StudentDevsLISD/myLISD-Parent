@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { color } from 'react-native-elements/dist/helpers';
 
 const darkStyles = StyleSheet.create({
     AppRunnerOfflineContainer: {
@@ -151,17 +152,20 @@ const darkStyles = StyleSheet.create({
           AttendanceContainer: {
             flex: 1,
             padding: 16,
-            backgroundColor: '#f2f2f7',
+            backgroundColor: '#111',
           },
           AttendanceCalendarContainer: {
             borderRadius: 10,
             overflow: 'hidden',
+            backgroundColor: "#111",
+            color: "#fff",
           },
           AttendanceLegendContainer: {
             marginTop: 16,
+            backgroundColor: "#111",
           },
           AttendanceLegendBox: {
-            backgroundColor: '#ffffff',
+            backgroundColor: '#222',
             borderRadius: 10,
             padding: 16,
           },
@@ -170,6 +174,7 @@ const darkStyles = StyleSheet.create({
             fontWeight: 'bold',
             marginBottom: 16,
             textAlign: 'center',
+            color: "#ede1d1"
           },
           AttendanceLegendItem: {
             flexDirection: 'row',
@@ -184,6 +189,7 @@ const darkStyles = StyleSheet.create({
           },
           AttendanceLegendText: {
             fontSize: 16,
+            color: "#fff"
           },
           AttendanceDayContainer: {
             alignItems: 'center',
@@ -192,6 +198,28 @@ const darkStyles = StyleSheet.create({
             fontSize: 16,
             fontWeight: 'bold',
             marginBottom: 4,
+            color: "#fff",
+          },
+          AttendanceCalendarBox: {
+            backgroundColor: '#222',
+            calendarBackground: '#222',
+            textSectionTitleColor: '#fff',
+            selectedDayBackgroundColor: '#fff',
+            selectedDayTextColor: '#fff',
+            todayTextColor: '#fff',
+            dayTextColor: '#fff',
+            textDisabledColor: '#fff',
+            dotColor: 'transparent',
+            selectedDotColor: 'rgba(0, 0, 0, 0)',
+            arrowColor: 'black',
+            monthTextColor: '#fff',
+            indicatorColor: '#fff',
+            textDayFontSize: 16,
+            textMonthFontSize: 18,
+            textDayHeaderFontSize: 13,
+            textDayFontWeight: 'bold',
+            textMonthFontWeight: 'bold',
+            textDayHeaderFontWeight: 'bold',
           },
           AttendanceEmptyBox: {
             width: 20,
@@ -201,9 +229,14 @@ const darkStyles = StyleSheet.create({
           CalendarContainer: {
             flex: 1,
             paddingTop: 0,
+            backgroundColor: "#222"
+            },
+            CalendarCalendarContainer: {
+              borderRadius: 10,
+              overflow: 'hidden',
             },
             CalendarEventContainer: {
-            backgroundColor: '#F2F2F2',
+            backgroundColor: '#222',
             margin: 10,
             padding: 10,
             borderRadius: 5,
@@ -332,8 +365,8 @@ const darkStyles = StyleSheet.create({
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'stretch',
-                marginHorizontal: 5,
-                backgroundColor: '#222',
+               
+                backgroundColor: '#111',
               },
               GradesGradeContainer: {
                 backgroundColor: '#454343',
@@ -354,6 +387,7 @@ const darkStyles = StyleSheet.create({
                 color: "#fff",
               },
               GradesGradeBadge: {
+                flexDirection: 'row',
                 borderRadius: 8,
                 paddingHorizontal: 11,
                 paddingVertical: 5,
@@ -372,7 +406,7 @@ const darkStyles = StyleSheet.create({
               },
               GradesGradeBadgeText2: {
             
-                color: '#e8e8e8',
+                color: '#444',
                 fontSize: 0,
                 fontWeight: 'bold',
               },
@@ -384,10 +418,10 @@ const darkStyles = StyleSheet.create({
               },
               GradesHeaderText: {
                 fontSize: 40,
-                marginLeft: -95,
+                marginLeft: -92,
                 marginBottom: 10,
                 marginTop: 10,
-                color: "#fff",
+                color: "#ede1d1",
                 fontWeight: "600",
               },  
               GradesGradientTextContainer: {
@@ -443,30 +477,32 @@ const darkStyles = StyleSheet.create({
               },
               GradesAppButtonContainer2: {
               elevation: 8,
-              backgroundColor: 'white',
+              backgroundColor: '#333',
               borderRadius: 15,
               paddingVertical: 13,
-              marginHorizontal: 2.05,
+              marginHorizontal: 1.05,
+              marginLeft: 10.07,
               marginBottom: 7,
               marginTop: -1,
-              width: '99%',
+              width: '94%',
               borderWidth: 2,
-              borderColor: '#ebe8e8',
+              borderColor: '#444',
               fontWeight: 'bold',
           
               
               },
               GradesAppButtonText2: {
               fontSize: 18,
-              color: 'black',
+              color: '#fff',
               alignSelf: 'center',
-              fontWeight: 'normal',
+              fontWeight: '500',
               
               },
               HomeContainer: {
                 flexGrow: 1,
                 paddingHorizontal: 10,
                 paddingTop: 20,
+                backgroundColor: "#111",
               },
               HomeHeader: {
                 flexDirection: 'row',
@@ -479,17 +515,18 @@ const darkStyles = StyleSheet.create({
                 marginLeft: -85,
                 marginBottom:10,
                 marginTop: -13,
-                color: "#005987",
+                color: "#ede1d1",
                 fontWeight: "600",
                 
               },
               HomeDateText: {
                 fontSize: 14,
-                color: 'gray',
+                color: 'grayr',
                 marginTop:40,
                 marginLeft: 5,
               },
               HomeBox: {
+                backgroundColor: "#444",
                 borderRadius: 15,
                 borderWidth: 1,
                 borderColor: '#dcdcdc',
@@ -497,14 +534,30 @@ const darkStyles = StyleSheet.create({
                 overflow: 'hidden', // Needed to apply border radius to ListItem
               },
               HomeDescriptionText: {
-                color: 'gray',
+                color: "#ede1d1",
               },
               HomeChevronIcon: {
                 marginLeft: 'auto',
                 paddingLeft: 10,
+                color: "#ede1d1"
+              },
+              HomeScreenIcon:{
+                fontSize: 20,
+                color: "#ede1d1",
+    
+              },
+              HomeOptions: {
+                
+              },
+              HomeTitleText: {
+                color: "#e6d5bf",
+                fontWeight: "600",
+
               },
               NewsScreenContainer: {
                 flex: 1,
+                backgroundColor: "#222",
+
                 paddingTop: 20,
                 paddingHorizontal: 20,
               },
@@ -587,7 +640,7 @@ const darkStyles = StyleSheet.create({
                 },
                 SettingsContainer: {
                     flex: 1,
-                    backgroundColor: '#222',
+                    backgroundColor: '#111',
                     padding: 20,
                   },
                     SettingsSettingRow: {
@@ -623,6 +676,20 @@ const darkStyles = StyleSheet.create({
                   SplashScreenLogo: {
                     width: 400,
                     height: 400,
+                  },
+                  GradientTextContainer: {
+                    flexDirection: 'row',
+                    overflow: 'hidden',
+                  },
+                  GradientMask: {
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                  },
+                  FadedText: {
+                    color: '#444',
                   },
 });
 

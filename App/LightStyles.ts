@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
 const lightStyles = StyleSheet.create({
+
     AppRunnerOfflineContainer: {
     flex: 1,
     alignItems: 'center',
@@ -202,6 +203,10 @@ const lightStyles = StyleSheet.create({
         flex: 1,
         paddingTop: 0,
         },
+        CalendarCalendarContainer: {
+          borderRadius: 10,
+          overflow: 'hidden',
+        },
         CalendarEventContainer: {
         backgroundColor: '#F2F2F2',
         margin: 10,
@@ -378,11 +383,11 @@ const lightStyles = StyleSheet.create({
             flexDirection: 'row',
             alignItems: 'center',
             marginBottom: 10,
-            paddingLeft: 5,
+            paddingLeft: 7,
           },
           GradesHeaderText: {
             fontSize: 40,
-            marginLeft: -95,
+            marginLeft: -92,
             marginBottom: 10,
             marginTop: 10,
             color: "#005987",
@@ -444,10 +449,10 @@ const lightStyles = StyleSheet.create({
           backgroundColor: 'white',
           borderRadius: 15,
           paddingVertical: 13,
-          marginHorizontal: 2.05,
+          marginHorizontal: 10.7,
           marginBottom: 7,
           marginTop: -1,
-          width: '99%',
+          width: '94%',
           borderWidth: 2,
           borderColor: '#ebe8e8',
           fontWeight: 'bold',
@@ -471,6 +476,17 @@ const lightStyles = StyleSheet.create({
             alignItems: 'center',
             marginBottom: 10,
             paddingLeft: 5,
+          },
+          HomeScreenIcon:{
+            fontSize: 20,
+            color: "#005987"
+
+          },
+          HomeOptions: {
+            backgroundColor: "ebe8e8"
+          },
+          HomeTitleText: {
+
           },
         HomeHeaderText: {
             fontSize: 40,
@@ -620,6 +636,20 @@ const lightStyles = StyleSheet.create({
               SplashScreenLogo: {
                 width: 400,
                 height: 400,
+              },
+              GradientTextContainer: {
+                flexDirection: 'row',
+                overflow: 'hidden',
+              },
+              GradientMask: {
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+              },
+              FadedText: {
+                color: '#white',
               },
 });
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import { GOOGLE_WEB_CLIENT_ID } from '@env';
 import { Calendar } from 'react-native-calendars';
 import CalendarEvent from './CalendarEvent';
+import { ActivityIndicator } from 'react-native-paper';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
@@ -55,6 +56,7 @@ const ComOp = () => {
   
   const calendarId = 'leanderisd.org_3grot6ac0ug4prua1smkvfsmu8@group.calendar.google.com';
   const apiKey = 'AIzaSyCOo9kMxZpioPalyxTzZ6aVkxDgyzBf-XE';  // replace with your public API key
+  const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
 
   const removeDuplicateEvents = (eventsArray: any[]) => {
     const uniqueEvents = eventsArray.reduce((accumulator: any[], event: any) => {
@@ -119,13 +121,74 @@ const ComOp = () => {
 
 
   const { theme } = useContext(ThemeContext);
-  const styles = theme === 'light' ? lightStyles : darkStyles;
-      
+  useEffect(() => {
+    // Update the key whenever the theme changes
+    setCalendarKey(Date.now().toString());
+  }, [theme]);
+  const styles = theme == 'light' ? lightStyles : darkStyles;
+  const lightTheme = {
+    backgroundColor: '#ffffff',
+            calendarBackground: '#ffffff',
+            textSectionTitleColor: '#000000',
+            selectedDayBackgroundColor: '#e8e8e8',
+            selectedDayTextColor: '#000000',
+            todayTextColor: '#000000',
+            dayTextColor: '#000000',
+            textDisabledColor: '#cccccc',
+            dotColor: 'transparent',
+            selectedDotColor: 'rgba(0, 0, 0, 0)',
+            arrowColor: 'black',
+            monthTextColor: '#000000',
+            indicatorColor: '#000000',
+            textDayFontFamily: 'Avenir',
+            textMonthFontFamily: 'Avenir',
+            textDayHeaderFontFamily: 'Avenir',
+            textDayFontSize: 16,
+            textMonthFontSize: 18,
+            textDayHeaderFontSize: 13,
+            textDayFontWeight: 'bold',
+            textMonthFontWeight: 'bold',
+            textDayHeaderFontWeight: 'bold',
+  }
+  const darkTheme = {
+    backgroundColor: '#222',
+    calendarBackground: '#222',
+    textSectionTitleColor: '#ffffff',
+    selectedDayBackgroundColor: '#e8e8e8',
+    selectedDayTextColor: '#000000',
+    todayTextColor: '#000000',
+    dayTextColor: '#000000',
+    textDisabledColor: '#cccccc',
+    dotColor: 'transparent',
+    selectedDotColor: 'rgba(0, 0, 0, 0)',
+    arrowColor: 'black',
+    monthTextColor: '#ffffff',
+    indicatorColor: '#ffffff',
+    textDayFontFamily: 'Avenir',
+    textMonthFontFamily: 'Avenir',
+    textDayHeaderFontFamily: 'Avenir',
+    textDayFontSize: 16,
+    textMonthFontSize: 18,
+    textDayHeaderFontSize: 13,
+    textDayFontWeight: 'bold',
+    textMonthFontWeight: 'bold',
+    textDayHeaderFontWeight: 'bold',
+  };
   return (
-    <View style={styles.CalendarContainer}>
-      <Calendar onDayPress={handleDayPress} markedDates={{ [selectedDate]: { selected: true } }} />
+    <View style={styles.AttendanceContainer}>
+      <View style={styles.CalendarCalendarContainer}>
+      <Calendar
+          key={calendarKey}
+          markingType='custom'
+          onDayPress={handleDayPress}
+          markedDates={{ [selectedDate]: { selected: true }}}
+          theme={theme == 'light' ? lightTheme : darkTheme}
+          renderDay={handleDayPress}
+          enableSwipeMonths={true}
+        />
+       </View> 
       {isLoading ? (
-        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
+        <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
       ) : (
         <ScrollView>
           {/* //...events list or "No events found" message */}

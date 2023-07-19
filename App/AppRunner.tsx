@@ -135,13 +135,13 @@ const Tab2Screen = () => {
     };
   }, [navigation, school]);
 
-  if (campus === "" || school === "") {
-    return (
-      <View style={styles.AppRunnerOfflineContainer}>
-        <ActivityIndicator animating={true} size={'large'} color={'#005a87'}/>
-      </View>
-    );
-  }
+  // if (campus === "" || school === "") {
+  //   return (
+  //     <View style={styles.AppRunnerOfflineContainer}>
+  //       <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
+  //     </View>
+  //   );
+  // }
   return (
     <>
       {isConnected ? (
@@ -267,25 +267,32 @@ return (
 );
 };
 
-const tabBarOptions = {
-headerTitle: () => (
-<View style={{ alignItems: 'center' }}>
-<Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 12, marginLeft: 10,}} />
-</View>
-),
-headerStyle: {
-backgroundColor: '#005a87',
-height: 125,
-// marginBottom: 0,
-},
-};
 
 
 
 const Stack = createStackNavigator();
-const Tabs: React.FC = () => {
+const Tabs: React.FC<{ theme: 'light' | 'dark' }> = ({ theme }) => {
+  const styles = theme === 'light' ? lightStyles : darkStyles;
+
+  const tabBarOptions = {
+    headerTitle: () => (
+      <View style={{ alignItems: 'center' }}>
+        <Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 11, alignSelf: 'center' }} />
+      </View>
+    ),
+    headerStyle: {
+      backgroundColor: '#005a87',
+      height: 125,
+    },
+    tabBarStyle: {
+      backgroundColor: theme === 'light' ? 'white' : '#111', // Set the background color of the tab bar to black
+      paddingTop: 10,
+      height: 85
+    },
+    // ... other options ...
+  };
   return <Tab.Navigator 
-  // screenOptions={tabBarOptions}
+  screenOptions={tabBarOptions}
   >
     <Tab.Screen
       name="Home"
@@ -346,7 +353,15 @@ if (!isAppReady) {
 
 return (
   <ThemeProvider>
-  <Stack.Navigator screenOptions={tabBarOptions}>
+  <Stack.Navigator screenOptions={{headerTitle: () => (
+      <View style={{ alignItems: 'center' }}>
+        <Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 11, alignSelf: 'center' }} />
+      </View>
+    ),
+    headerStyle: {
+      backgroundColor: '#005a87',
+      height: 125,
+    },}}>
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>

@@ -134,15 +134,15 @@ const HomeScreen = () => {
         <Text style={styles.HomeHeaderText}>Overview</Text>
       </View>
       {options.map((option) => (
-        <TouchableOpacity key={option.id} onPress={() => handleOptionPress(option)}>
+        <TouchableOpacity style={styles.HomeOptions} key={option.id} onPress={() => handleOptionPress(option)}>
           <View style={styles.HomeBox}>
             <ListItem>
-              <Icon name={option.iconName} size={20} color="#005987" />
+              <Icon name={option.iconName} style={styles.HomeScreenIcon} />
               <ListItem.Content>
-                <ListItem.Title>{option.title}</ListItem.Title>
+                <ListItem.Title style={styles.HomeTitleText}>{option.title} </ListItem.Title>
                 <ListItem.Subtitle style={styles.HomeDescriptionText}>{option.description}</ListItem.Subtitle>
               </ListItem.Content>
-              <Icon name="chevron-right" size={20} color="gray" style={styles.HomeChevronIcon} />
+              <Icon name="chevron-right" size={20} style={styles.HomeChevronIcon} />
             </ListItem>
           </View>
         </TouchableOpacity>
