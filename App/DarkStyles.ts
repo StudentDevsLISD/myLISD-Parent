@@ -285,7 +285,7 @@ const darkStyles = StyleSheet.create({
               marginTop: 20,
               fontSize: 22,
               fontWeight: '500',
-              color: 'black', // example color
+              color: 'white', // example color
               // ...any other style properties you want...
             },
             CalendarEventEventContainer: {
