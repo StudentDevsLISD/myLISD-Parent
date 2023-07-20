@@ -7,6 +7,7 @@ import { RouteProp } from '@react-navigation/native';
 import {ThemeContext} from './ThemeContext';
 import LightStyles from './LightStyles';
 import DarkStyles from './DarkStyles';
+// ...
 
 
 type RootStackParamList = {
@@ -33,8 +34,41 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const { data } = route.params;
   const [categories, setCategories] = useState([]);
   const [breakdowns, setBreakdowns] = useState([])
-  const colors = ["#00ff00", "#ff0000", "#0000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
-  let y = [];
+  const colors = [
+    "#B19CD9", // Pastel Purple
+    "#D5F5E3", // Pastel Mint Green
+    "#FEC8D8", // Pastel Pink
+    "#85C1E9", // Pastel Blue
+    "#F9E79F", // Pastel Yellow
+    "#F8C471", // Pastel Tangerine
+    "#FAD7A0", // Pastel Gold
+    "#D2B4DE", // Pastel Lavender
+    "#A3E4D7", // Pastel Green
+    "#F0B27A", // Pastel Peach
+    "#D7BDE2", // Pastel Lilac
+    "#F5B7B1", // Pastel Salmon
+    "#AED6F1", // Pastel Sky Blue
+    "#FADBD8", // Pastel Rose
+    "#F5CBA7"  // Pastel Apricot
+  ];
+  
+  const PaginationDots = ({ activeDotIndex, totalDots }) => {
+    return (
+      <View style={styles.dotsContainer}>
+        {Array.from({ length: totalDots }).map((_, index) => (
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.6}
+            style={[styles.dot, index === activeDotIndex ? styles.activeDot : styles.inactiveDot]}
+          />
+        ))}
+      </View>
+    );
+  };
+  
+  const [activeScreenIndex, setActiveScreenIndex] = useState(0);
+
+    let y = [];
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? LightStyles : DarkStyles;
 
@@ -55,6 +89,42 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const grade = data.grade;
   const courseName = data.course.substring(12);
   
+
+const numofscreens = Math.ceil((categories.length + 2)/ 4)
+
+
+const FadedText = ({ text }) => {
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? LightStyles : DarkStyles;
+  const fadeStart = 23; // Adjusted fadeStart to start fading effect earlier
+  const fadeEndWhite = 26;
+  const fadeEndBlack = 27.7;
+  let fade = theme === 'light' ? fadeEndWhite : fadeEndBlack;
+  return (
+    <Text style={styles.AssignmentScreenAssignmentName} numberOfLines={1} ellipsizeMode="tail">
+      {text.split('').map((char, i) => {
+        let color = theme === 'light' ? '#000' : '#FFF';
+        if (i >= fadeStart && i < fade) {
+          const fadeProgress = (i - fadeStart + 1) / (fade - fadeStart);
+          if (theme === 'light') {
+            const colorValue = Math.round(fadeProgress * 232); // 232 is (0xe8 - 0x00)
+            color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+          } else {
+            const colorValue = Math.round((1 - fadeProgress) * 187); // 187 is (0xe8 - 0x44)
+            color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+          }
+        } else if (i >= fade) {
+          color = theme === 'light' ? '#e8e8e8' : '#444';
+        }
+        return (
+          <Text key={i} style={{ color }}>
+            {char}
+          </Text>
+        );
+      })}
+    </Text>
+  );
+};
   // const assignments = [
   //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
   //   { title: 'Science Project', subtitle: '02/03/2023', grade: '86.00', maxGrade: '100.00', breakdownColor: '#ff0000' },
@@ -147,6 +217,10 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
 
   // Add a ref for the AnimatedCircularProgress
   const progressRef = useRef<AnimatedCircularProgress>(null);
+  const getBackgroundColor = (theme) => {
+    return theme === 'dark' ? '#333' : '#e9eef1';
+  };
+  const backgroundColor = getBackgroundColor(theme);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -161,35 +235,41 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
             if (progressRef.current) {
                 progressRef.current.animate(0, 0); // animate back to zero
             }
+
         };
     }, [])
 );
 
-  return (
-    <ScrollView style={styles.AssignmentScreenContainer}>
-      <Text style={styles.AssignmentScreenCourseTitle}>{courseName}</Text>
-      <View style={styles.AssignmentScreenTop}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.AssignmentScreenBorderBox}>
-            <View style={styles.AssignmentScreenProgressBarContainer}>
-              <AnimatedCircularProgress
-                ref={progressRef}
-                size={145}
-                width={16}
-                fill={0}
-                tintColor="#5b92f9"
-                rotation={0}
-                backgroundColor="#e9eef1"
-                lineCap="round"
-              >
-                {(fill) => (
-                  <>
-                    <Text style={styles.AssignmentScreenGradeText}>{fill.toFixed(2)}</Text>
-                    <Text style={styles.AssignmentScreenOverallText}>Overall</Text>
-                  </>
-                )}
-              </AnimatedCircularProgress>
-              <TouchableOpacity
+
+
+
+
+return (
+  <ScrollView style={styles.AssignmentScreenContainer}>
+    {/* Rest of your existing JSX */}
+    <View style={styles.AssignmentScreenTop}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} snapToInterval={Dimensions.get('window').width} snapToAlignment='start' snaptoDuration='100' decelerationRate="fast">
+        <View style={styles.AssignmentScreenBorderBox}>
+          <View style={styles.AssignmentScreenProgressBarContainer}>
+            <AnimatedCircularProgress
+              ref={progressRef}
+              size={145}
+              width={16}
+              fill={0}
+              tintColor="#5b92f9"
+              rotation={0}
+              backgroundColor={backgroundColor} // Set the background color based on the theme
+              
+            >
+              {(fill) => (
+                <>
+                  <Text style={styles.AssignmentScreenGradeText}>{fill.toFixed(2)}</Text>
+                  <Text style={styles.AssignmentScreenOverallText}>Overall</Text>
+                </>
+              )}
+            </AnimatedCircularProgress>
+
+             <TouchableOpacity
                 activeOpacity={0.8}
                 style={[styles.AssignmentScreenCalculateButton, { backgroundColor: '#5b92f9' }]}
                 onPress={() => {
@@ -205,7 +285,9 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
           <View style={styles.AssignmentScreenBreakdownContainer}>
           {splitBreakdowns.map((breakdownPair, index) => (
     <View key={index} style={styles.AssignmentScreenBreakdownColumn}>
+      
       {breakdownPair.map((category) => (
+        
         <TouchableOpacity key={category} activeOpacity={1} style={styles.AssignmentScreenBreakdownBox}>
           <Text style={styles.AssignmentScreenBreakdownLabel}>{category}</Text>
           {/* Pass the index of the category from the entire breakdowns array */}
@@ -218,10 +300,17 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   ))}
 </View>
           </ScrollView>
+          <View>
+          </View>
         </ScrollView>
       </View>
+      <View style={styles.dotview}>
+      <PaginationDots activeDotIndex={activeScreenIndex} totalDots={numofscreens} />
+      </View>
       <View style={styles.AssignmentScreenBottom}>
+
         <Text style={styles.AssignmentScreenAssignmentTitle}>Assignments</Text>
+
         <View>
           {assignments.map((assignment, index) => (
             <TouchableOpacity key={index} style={styles.AssignmentScreenAssignmentBox} activeOpacity={1}>

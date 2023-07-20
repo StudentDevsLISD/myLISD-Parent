@@ -65,6 +65,7 @@ const lightStyles = StyleSheet.create({
         paddingVertical: 10,
         marginTop: 6,
         width: Dimensions.get('window').width * 0.45,
+        height: 93,
       },
       AssignmentScreenBreakdownLabel: {
         fontSize: 18,
@@ -77,14 +78,7 @@ const lightStyles = StyleSheet.create({
       AssignmentScreenBreakdownWeight: {
         fontSize: 14,
       },
-      AssignmentScreenBreakdownColor: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        position: 'absolute',
-        right: 10,
-        bottom: 5,
-      },
+
       AssignmentScreenBottom: {
         flex: 0.6,
         backgroundColor: '#fff',
@@ -160,6 +154,14 @@ const lightStyles = StyleSheet.create({
       },
       AttendanceLegendContainer: {
         marginTop: 16,
+      },
+      AssignmentScreenBreakdownColor: {
+        width: 25,
+        height: 10,
+        borderRadius: 5,
+        position: 'absolute',
+        right: 10,
+        bottom: 5,
       },
       AttendanceLegendBox: {
         backgroundColor: '#ffffff',
@@ -673,6 +675,24 @@ const lightStyles = StyleSheet.create({
               },
               FadedText: {
                 color: '#white',
+              },
+              dotsContainer: {
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: 10,
+                marginBottom: 20, // Optional, adjust the margin as needed
+              },
+              dot: {
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                marginHorizontal: 4,
+              },
+              activeDot: {
+                backgroundColor: 'lightgrey', // Replace with your preferred active dot color
+              },
+              inactiveDot: {
+                backgroundColor: 'grey', // Replace with your preferred inactive dot color
               },
 });
 

@@ -13,7 +13,7 @@ const darkStyles = StyleSheet.create({
         },
         AssignmentScreenContainer: {
             flex: 1,
-            backgroundColor: '#e8e8e8',
+            backgroundColor: '#111',
             paddingTop: 10,
           },
           AssignmentScreenCourseTitle: {
@@ -21,6 +21,7 @@ const darkStyles = StyleSheet.create({
             fontWeight: 'bold',
             textAlign: 'center',
             padding: 5,
+            color: "#ede1d1"
           },
           AssignmentScreenTop: {
             flex: 0.4,
@@ -29,7 +30,7 @@ const darkStyles = StyleSheet.create({
           },
           AssignmentScreenBorderBox: {
             borderRadius: 15,
-            backgroundColor: '#fff',
+            backgroundColor: '#222',
             margin: 5,
             borderWidth: 0,
             borderColor: '#ddd',
@@ -44,7 +45,7 @@ const darkStyles = StyleSheet.create({
           AssignmentScreenGradeText: {
             fontSize: 28,
             fontWeight: 'bold',
-            color: "#005987"
+            color: "#ede1d1"
           },
           AssignmentScreenOverallText: {
             fontSize: 16,
@@ -59,26 +60,29 @@ const darkStyles = StyleSheet.create({
           },
           AssignmentScreenBreakdownBox: {
             marginBottom: 5,
-            backgroundColor: '#fff',
+            backgroundColor: '#222',
             borderRadius: 10,
             paddingHorizontal: 10,
             paddingVertical: 10,
             marginTop: 6,
             width: Dimensions.get('window').width * 0.45,
+            height: 93,
           },
           AssignmentScreenBreakdownLabel: {
             fontSize: 18,
             fontWeight: 'normal',
+            color: "white",
           },
           AssignmentScreenBreakdownValue: {
             fontSize: 30,
             fontWeight: 'bold',
+            color: "#EDE1D1"
           },
           AssignmentScreenBreakdownWeight: {
             fontSize: 14,
           },
           AssignmentScreenBreakdownColor: {
-            width: 10,
+            width: 25,
             height: 10,
             borderRadius: 5,
             position: 'absolute',
@@ -87,7 +91,7 @@ const darkStyles = StyleSheet.create({
           },
           AssignmentScreenBottom: {
             flex: 0.6,
-            backgroundColor: '#fff',
+            backgroundColor: '#222',
             borderRadius: 10,
             margin: 10,
             padding: 10,
@@ -97,11 +101,13 @@ const darkStyles = StyleSheet.create({
             fontWeight: 'bold',
             paddingTop: 3,
             paddingBottom: 3,
+            color: "#EDE1D1",
           },
           AssignmentScreenAssignmentName: {
             fontSize: 18,
             fontWeight: 'bold',
             paddingVertical: 3,
+            color: "white",
           },
           AssignmentScreenAssignmentBox: {
             marginBottom: 10,
@@ -116,6 +122,7 @@ const darkStyles = StyleSheet.create({
           },
           AssignmentScreenAssignmentSubtitle: {
             fontSize: 14,
+            color: "#d3d3d3",
           },
           AssignmentScreenAssignmentGradeContainer: {
             flex: 0.2,
@@ -124,6 +131,7 @@ const darkStyles = StyleSheet.create({
           AssignmentScreenAssignmentGrade: {
             fontSize: 14,
             fontWeight: 'bold',
+            color: "white"
           },
           AssignmentScreenAssignmentMaxGrade: {
             fontSize: 12,
@@ -721,6 +729,28 @@ const darkStyles = StyleSheet.create({
                   },
                   FadedText: {
                     color: '#444',
+                  },
+                  dotsContainer: {
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    marginTop: 10,
+                    marginBottom: 20, // Optional, adjust the margin as needed
+                  },
+                  dot: {
+                    width: 8,
+                    height: 8,
+                    borderRadius: 4,
+                    marginHorizontal: 4,
+                  },
+                  activeDot: {
+                    backgroundColor: 'lightgrey', // Replace with your preferred active dot color
+                  },
+                  inactiveDot: {
+                    backgroundColor: 'grey', // Replace with your preferred inactive dot color
+                  },
+                  dotview: {
+                      marginVertical: -15,
+                      marginBottom: -20,
                   },
 });
 
