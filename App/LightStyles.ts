@@ -453,20 +453,41 @@ const lightStyles = StyleSheet.create({
           paddingVertical: 13,
           marginHorizontal: 10.7,
           marginBottom: 7,
-          marginTop: -1,
+          marginTop: 1,
           width: '94%',
           borderWidth: 2,
           borderColor: '#ebe8e8',
           fontWeight: 'bold',
-      
-          
           },
           GradesAppButtonText2: {
           fontSize: 18,
           color: 'black',
           alignSelf: 'center',
           fontWeight: 'normal',
-          
+          },
+          GradesNewAssignmentsScrollView: {
+            maxHeight: 100,
+            marginTop: 10,
+            flexDirection: 'row', // Add this line to display new assignments horizontally
+          },
+          GradesNewAssignmentTouchable: {
+            marginBottom: 5,
+            backgroundColor: '#fff',
+            borderRadius: 10,
+            paddingHorizontal: 10,
+            paddingVertical: 0, // Increase the height of the touchable area even more
+            marginHorizontal: 5,
+            justifyContent: 'center', // Vertically center the text
+          },
+          GradesNewAssignmentText1: {
+            fontSize: 18,
+            fontWeight: 'normal',
+            paddingVertical: 10,
+          },
+          GradesNewAssignmentText2: {
+            fontSize: 30,
+            fontWeight: 'bold',
+            paddingVertical: 10,
           },
           HomeContainer: {
             flexGrow: 1,

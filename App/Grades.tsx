@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  TextInput,
+} from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -10,7 +18,7 @@ import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import LinearGradient from 'react-native-linear-gradient';
-import {IP_ADDRESS} from '@env';
+import { IP_ADDRESS } from '@env';
 
 type GradesType = Record<string, number>;
 
@@ -38,9 +46,9 @@ type Props = {
 };
 
 const getGrade = (score: number): GradeType => {
-  if (score >= 90.00) return { color: '#00DE64' };
-  if (score >= 80.00) return { color: '#3199FE' };
-  if (score >= 70.00) return { color: '#F99816' };
+  if (score >= 90.0) return { color: '#00DE64' };
+  if (score >= 80.0) return { color: '#3199FE' };
+  if (score >= 70.0) return { color: '#F99816' };
   return { color: '#FB5B5B', letter: 'D' };
 };
 
@@ -54,18 +62,18 @@ const Grades = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [grades, setGrades] = useState<Record<string, string>>({});
   const [showNoNewGrades, setShowNoNewGrades] = useState(false);
+  const [newAssignments, setNewAssignments] = useState([]);
   const route = useRoute();
 
   const formatGradeValue = (gradeValue: number) => {
-    if (gradeValue >= 90.00 && gradeValue <= 99.99) {
+    if (gradeValue >= 90.0 && gradeValue <= 99.99) {
       return gradeValue.toFixed(2);
-    } else if (gradeValue === 100.00) {
+    } else if (gradeValue === 100.0) {
       return '100.0';
     } else {
       return gradeValue.toString();
     }
   };
-  
 
   const fetchGrades = async (username: string, password: string) => {
     try {
@@ -108,8 +116,30 @@ const Grades = () => {
       }
 
       setGrades(grades);
+
+      const newAssignments = [];
+      for (let classObj of currentClasses) {
+        const className = classObj.name;
+        const classGrade = grades[className];
+
+        if (!storedGrades || !storedGrades.hasOwnProperty(className) || storedGrades[className] !== classGrade) {
+          const newAssignmentsInClass = classObj.assignments.filter(assignment => {
+            const storedAssignments = storedGrades?.[className]?.assignments;
+            if (!storedAssignments) return true;
+            return !storedAssignments.some(a => a.name === assignment.name && a.score === assignment.score);
+          });
+          newAssignments.push(...newAssignmentsInClass);
+        }
+      }
+
+      // Update the state with new assignments
+      setNewAssignments(newAssignments);
+
     } catch (error) {
       console.error('Error fetching grades:', error);
+      if (error.response) {
+        console.error('Response:', error.response.data);
+      }
       Alert.alert('Error', 'An error occurred while fetching grades.');
       setIsLoggedIn(false);
     }
@@ -153,6 +183,7 @@ const Grades = () => {
       setPassword('');
       setClasses([]);
       setGrades({});
+      setNewAssignments([]);
       AsyncStorage.removeItem('hacusername');
       AsyncStorage.removeItem('hacpassword');
       navigation.setParams({ justLoggedOut: undefined });
@@ -214,14 +245,14 @@ const Grades = () => {
       </Text>
     );
   };
-  
-  
+
   const renderSubjectText = (subject, theme) => {
     const maxLength = 38;
     const truncatedSubject = subject.slice(0, maxLength);
-  
+
     return <FadedText text={truncatedSubject} theme={theme} />;
   };
+
   return (
     <View style={styles.GradesContainer}>
       {isLoading ? (
@@ -257,6 +288,26 @@ const Grades = () => {
                 </TouchableOpacity>
               </View>
             )}
+            {newAssignments.length > 0 && (
+              <ScrollView horizontal={true} style={styles.GradesNewAssignmentsScrollView}>
+                {newAssignments.map((assignment, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.GradesNewAssignmentTouchable}
+                    onPress={() => {
+                      // Handle assignment press if needed
+                    }}
+                  >
+                    <Text style={styles.GradesNewAssignmentText1}>
+                      {assignment.name}:
+                    </Text>
+                    <Text style={styles.GradesNewAssignmentText2}>
+                      {assignment.score}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
             {showNoNewGrades && (
               <TouchableOpacity disabled={true} style={styles.GradesAppButtonContainer2}>
                 <Text style={styles.GradesAppButtonText2}>No New Grades Have Been Added</Text>
@@ -284,10 +335,8 @@ const Grades = () => {
                   }}
                 >
                   <View style={styles.GradesGradeItem}>
-                    {renderSubjectText(subject.substring(12,38))}
-                    <View
-                      style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}
-                    >
+                    {renderSubjectText(subject.substring(12, 38))}
+                    <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
                       <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
                     </View>
                   </View>

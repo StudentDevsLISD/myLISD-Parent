@@ -491,7 +491,7 @@ const darkStyles = StyleSheet.create({
               marginHorizontal: 1.05,
               marginLeft: 10.07,
               marginBottom: 7,
-              marginTop: -1,
+              marginTop: 0,
               width: '94%',
               borderWidth: 2,
               borderColor: '#444',
@@ -505,6 +505,33 @@ const darkStyles = StyleSheet.create({
               alignSelf: 'center',
               fontWeight: '500',
               
+              },
+              GradesNewAssignmentsScrollView: {
+                maxHeight: 100,
+                marginTop: 5,
+                flexDirection: 'row', // Add this line to display new assignments horizontally
+                marginHorizontal: 8,
+              },
+              GradesNewAssignmentTouchable: {
+                marginBottom: 5,
+                backgroundColor: '#333',
+                borderRadius: 10,
+                paddingHorizontal: 10,
+                paddingVertical: 0, // Increase the height of the touchable area even more
+                marginHorizontal: 5,
+                justifyContent: 'center', // Vertically center the text
+              },
+              GradesNewAssignmentText1: {
+                fontSize: 18,
+                fontWeight: 'normal',
+                paddingVertical: 10,
+                color: "white",
+              },
+              GradesNewAssignmentText2: {
+                fontSize: 30,
+                fontWeight: 'bold',
+                paddingVertical: 10,
+                color: "white",
               },
               HomeContainer: {
                 flexGrow: 1,
