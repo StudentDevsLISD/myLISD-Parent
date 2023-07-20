@@ -41,7 +41,8 @@ const Attendance: React.FC = () => {
   //   // Add more dates here with their respective custom styles
   // };
 
-  const [attendanceData, setAttendanceData] = useState({}); // initialize as empty object
+  const [attendanceData, setAttendanceData] = useState({});
+  const [attendanceCodes, setAttendanceCodes] = useState({}); // initialize as empty object
   const [selectedDate, setSelectedDate] = useState('');
   const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
 
@@ -56,7 +57,7 @@ const Attendance: React.FC = () => {
     const fetchDates = async () => {
       console.log("fetch dates")
       const response = await axios.get(
-        `http://localhost:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`
+        `http://10.191.80.43:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`
       );
       console.log(response)
           if (response.data) {
@@ -180,7 +181,7 @@ const Attendance: React.FC = () => {
       <View style={styles.AttendanceLegendContainer}>
         <View style={styles.AttendanceLegendBox}>
           <Text style={styles.AttendanceLegendTitle}>Color Legend</Text>
-          {Object.entries(Attendance).map(([code, data]) => (
+          {Object.entries(attendanceCodes).map(([code, data]) => (
             <View key={code} style={styles.AttendanceLegendItem}>
               <View style={[styles.AttendanceLegendColorBox, { backgroundColor: data.color }]} />
               <Text style={styles.AttendanceLegendText}>{data.label}</Text>
