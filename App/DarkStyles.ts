@@ -569,7 +569,7 @@ const darkStyles = StyleSheet.create({
                 backgroundColor: "#444",
                 borderRadius: 15,
                 borderWidth: 1,
-                borderColor: '#dcdcdc',
+                borderColor: '#444',
                 marginVertical: 5,
                 overflow: 'hidden', // Needed to apply border radius to ListItem
               },

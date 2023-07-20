@@ -137,7 +137,7 @@ const HomeScreen = () => {
       {options.map((option) => (
         <TouchableOpacity style={styles.HomeOptions} key={option.id} onPress={() => handleOptionPress(option)}>
           <View style={styles.HomeBox}>
-            <ListItem>
+            <ListItem containerStyle={theme === 'light' ? {backgroundColor: "white"} : {backgroundColor: "#333"}}>
               <Icon name={option.iconName} style={styles.HomeScreenIcon} />
               <ListItem.Content>
                 <ListItem.Title style={styles.HomeTitleText}>{option.title} </ListItem.Title>
