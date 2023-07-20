@@ -10,6 +10,7 @@ import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import LinearGradient from 'react-native-linear-gradient';
+import {IP_ADDRESS} from '@env';
 
 type GradesType = Record<string, number>;
 
@@ -66,7 +67,7 @@ const Grades = () => {
   const fetchGrades = async (username: string, password: string) => {
     try {
       const response = await axios.get(
-        `http://10.191.80.43:8080/grades?username=${username}&password=${password}`
+        'http://' + IP_ADDRESS + ':8080/grades?username=' + username + '&password=' + password
       );
       const currentClasses = response.data.currentClasses;
 
