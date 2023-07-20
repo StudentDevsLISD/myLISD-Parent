@@ -45,6 +45,7 @@ const Attendance: React.FC = () => {
   const [attendanceCodes, setAttendanceCodes] = useState({}); // initialize as empty object
   const [selectedDate, setSelectedDate] = useState('');
   const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
+  const [currentMonth, setCurrentMonth] = useState('');
 
   const onDayPress = (day: any) => {
     setSelectedDate(day.dateString);
@@ -61,9 +62,14 @@ const Attendance: React.FC = () => {
       );
       console.log(response)
           if (response.data) {
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const monthNumber = monthNames.indexOf(response.data.monthNow.split(" ")[0]) + 1; // Months are 0 indexed
+            const monthString = monthNumber < 10 ? `0${monthNumber}` : `${monthNumber}`;
+            const year = response.data.monthNow.split(" ")[1]; // Extract year from 'monthNow'
+            setCurrentMonth(year + '-' + monthString + '-01');
             const newData: MarkedDates = {};
             response.data.data.forEach(item => {
-              const dateString = `2023-05-${item.day.length == 1 ? "0" + item.day : item.day}`; // modify this to match your data structure
+              const dateString = `${year}-${monthString}-${item.day.length == 1 ? "0" + item.day : item.day}`;  // modify this to match your data structure
               const attendances = item.attendance.split('\n');
               const attendance = item.attendance;
               const BGcolor = item.color;
@@ -176,6 +182,7 @@ const Attendance: React.FC = () => {
           theme={theme == 'light' ? lightTheme : darkTheme}
           renderDay={renderDay}
           enableSwipeMonths={true}
+          current = {currentMonth}
         />
       </View>
       <View style={styles.AttendanceLegendContainer}>
