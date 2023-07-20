@@ -65,6 +65,7 @@ const lightStyles = StyleSheet.create({
         paddingVertical: 10,
         marginTop: 6,
         width: Dimensions.get('window').width * 0.45,
+        height: 93,
       },
       AssignmentScreenBreakdownLabel: {
         fontSize: 18,
@@ -452,20 +453,41 @@ const lightStyles = StyleSheet.create({
           paddingVertical: 13,
           marginHorizontal: 10.7,
           marginBottom: 7,
-          marginTop: -1,
+          marginTop: 1,
           width: '94%',
           borderWidth: 2,
           borderColor: '#ebe8e8',
           fontWeight: 'bold',
-      
-          
           },
           GradesAppButtonText2: {
           fontSize: 18,
           color: 'black',
           alignSelf: 'center',
           fontWeight: 'normal',
-          
+          },
+          GradesNewAssignmentsScrollView: {
+            maxHeight: 100,
+            marginTop: 10,
+            flexDirection: 'row', // Add this line to display new assignments horizontally
+          },
+          GradesNewAssignmentTouchable: {
+            marginBottom: 5,
+            backgroundColor: '#fff',
+            borderRadius: 10,
+            paddingHorizontal: 10,
+            paddingVertical: 0, // Increase the height of the touchable area even more
+            marginHorizontal: 5,
+            justifyContent: 'center', // Vertically center the text
+          },
+          GradesNewAssignmentText1: {
+            fontSize: 18,
+            fontWeight: 'normal',
+            paddingVertical: 10,
+          },
+          GradesNewAssignmentText2: {
+            fontSize: 30,
+            fontWeight: 'bold',
+            paddingVertical: 10,
           },
           HomeContainer: {
             flexGrow: 1,
@@ -653,6 +675,24 @@ const lightStyles = StyleSheet.create({
               },
               FadedText: {
                 color: '#white',
+              },
+              dotsContainer: {
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: 10,
+                marginBottom: 20, // Optional, adjust the margin as needed
+              },
+              dot: {
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                marginHorizontal: 4,
+              },
+              activeDot: {
+                backgroundColor: 'lightgrey', // Replace with your preferred active dot color
+              },
+              inactiveDot: {
+                backgroundColor: 'grey', // Replace with your preferred inactive dot color
               },
 });
 

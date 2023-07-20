@@ -66,6 +66,7 @@ const darkStyles = StyleSheet.create({
             paddingVertical: 10,
             marginTop: 6,
             width: Dimensions.get('window').width * 0.45,
+            height: 93,
           },
           AssignmentScreenBreakdownLabel: {
             fontSize: 18,
@@ -490,7 +491,7 @@ const darkStyles = StyleSheet.create({
               marginHorizontal: 1.05,
               marginLeft: 10.07,
               marginBottom: 7,
-              marginTop: -1,
+              marginTop: 0,
               width: '94%',
               borderWidth: 2,
               borderColor: '#444',
@@ -504,6 +505,33 @@ const darkStyles = StyleSheet.create({
               alignSelf: 'center',
               fontWeight: '500',
               
+              },
+              GradesNewAssignmentsScrollView: {
+                maxHeight: 100,
+                marginTop: 5,
+                flexDirection: 'row', // Add this line to display new assignments horizontally
+                marginHorizontal: 8,
+              },
+              GradesNewAssignmentTouchable: {
+                marginBottom: 5,
+                backgroundColor: '#333',
+                borderRadius: 10,
+                paddingHorizontal: 10,
+                paddingVertical: 0, // Increase the height of the touchable area even more
+                marginHorizontal: 5,
+                justifyContent: 'center', // Vertically center the text
+              },
+              GradesNewAssignmentText1: {
+                fontSize: 18,
+                fontWeight: 'normal',
+                paddingVertical: 10,
+                color: "white",
+              },
+              GradesNewAssignmentText2: {
+                fontSize: 30,
+                fontWeight: 'bold',
+                paddingVertical: 10,
+                color: "white",
               },
               HomeContainer: {
                 flexGrow: 1,
@@ -701,6 +729,28 @@ const darkStyles = StyleSheet.create({
                   },
                   FadedText: {
                     color: '#444',
+                  },
+                  dotsContainer: {
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    marginTop: 10,
+                    marginBottom: 20, // Optional, adjust the margin as needed
+                  },
+                  dot: {
+                    width: 8,
+                    height: 8,
+                    borderRadius: 4,
+                    marginHorizontal: 4,
+                  },
+                  activeDot: {
+                    backgroundColor: 'lightgrey', // Replace with your preferred active dot color
+                  },
+                  inactiveDot: {
+                    backgroundColor: 'grey', // Replace with your preferred inactive dot color
+                  },
+                  dotview: {
+                      marginVertical: -15,
+                      marginBottom: -20,
                   },
 });
 
