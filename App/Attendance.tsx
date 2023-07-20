@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { MarkedDates } from 'react-native-calendars/src/types';
 import { ThemeContext } from './ThemeContext';
@@ -9,6 +9,8 @@ import axios from 'axios';
 import {IP_ADDRESS} from '@env';
 
 import { ActivityIndicator } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 LocaleConfig.locales['en'] = {
@@ -46,59 +48,264 @@ const Attendance: React.FC = () => {
   // };
 
   const [attendanceData, setAttendanceData] = useState({});
-  const [attendanceCodes, setAttendanceCodes] = useState({}); // initialize as empty object
+  const [attendanceCodes, setAttendanceCodes] = useState({
+    "Absence-Excused": {
+      label: "Absence-Excused",
+      color: "#ff0000"
+    },
+    "Absent from Sub-Campus": {
+      label: "Absent from Sub-Campus",
+      color: "#ff0000"
+    },
+    "Absent w/Doctor Notice": {
+      label: "Absent w/Doctor Notice",
+      color: "#ff0000"
+    },
+    "Co-Curricular School Rel Absence (Non UIL)": {
+      label: "Co-Curricular School Rel Absence (Non UIL)",
+      color: "#0033ff"
+    },
+    "College Visit (11th or 12th Grade)": {
+      label: "College Visit (11th or 12th Grade)",
+      color: "#00cc00"
+    },
+    "District Approved Absence": {
+      label: "District Approved Absence",
+      color: "#000000"
+    },
+    "Driver’s License/Permit": {
+      label: "Driver’s License/Permit",
+      color: "#00cc00"
+    },
+    "Extra-Curricular School Related Absence": {
+      label: "Extra-Curricular School Related Absence",
+      color: "#0033ff"
+    },
+    "Funeral/Memorial": {
+      label: "Funeral/Memorial",
+      color: "#ff0000"
+    },
+    "Homebound": {
+      label: "Homebound",
+      color: "#0033ff"
+    },
+    "Homebound Non-Serviced Day": {
+      label: "Homebound Non-Serviced Day",
+      color: "#ff0000"
+    },
+    "Homebound w/CEHI": {
+      label: "Homebound w/CEHI",
+      color: "#0033ff"
+    },
+    "Homebound?CEHI": {
+      label: "Homebound?CEHI",
+      color: "#0033ff"
+    },
+    "ISS Placement": {
+      label: "ISS Placement",
+      color: "#0033ff"
+    },
+    "Late Excused Absence": {
+      label: "Late Excused Absence",
+      color: "#ff0000"
+    },
+    "Late to Class but Present": {
+      label: "Late to Class but Present",
+      color: "#00cc00"
+    },
+    "Late Unexcused Absence": {
+      label: "Late Unexcused Absence",
+      color: "#ff0000"
+    },
+    "Leave Early": {
+      label: "Leave Early",
+      color: "#FFCC99"
+    },
+    "LEO": {
+      label: "LEO",
+      color: "#000000"
+    },
+    "Life Threatening Illness/Treatment": {
+      label: "Life Threatening Illness/Treatment",
+      color: "#00cc00"
+    },
+    "Medical Appointment-Doctor Note": {
+      label: "Medical Appointment-Doctor Note",
+      color: "#00cc00"
+    },
+    "Military Deployment": {
+      label: "Military Deployment",
+      color: "#00cc00"
+    },
+    "Military Recruitment Visit": {
+      label: "Military Recruitment Visit",
+      color: "#00cc00"
+    },
+    "Nurse Sent Home": {
+      label: "Nurse Sent Home",
+      color: "#ff0000"
+    },
+    "Other Instruction On/Off Campus": {
+      label: "Other Instruction On/Off Campus",
+      color: "#0033ff"
+    },
+    "Present": {
+      label: "Present",
+      color: "#00cc00"
+    },
+    "Prevention Measures": {
+      label: "Prevention Measures",
+      color: "#6600cc"
+    },
+    "State Approved Non Absence": {
+      label: "State Approved Non Absence",
+      color: "#00cc00"
+    },
+    "Suspended": {
+      label: "Suspended",
+      color: "#ff0000"
+    },
+    "Technical Connectivity Issue": {
+      label: "Technical Connectivity Issue",
+      color: "#ff0000"
+    },
+    "Testing": {
+      label: "Testing",
+      color: "#0033ff"
+    },
+    "Unexcused": {
+      label: "Unexcused",
+      color: "#ff0000"
+    },
+    "Unverified-Unexcused": {
+      label: "Unverified-Unexcused",
+      color: "#ff0000"
+    },
+    "Virtual Schedule Present": {
+      label: "Virtual Schedule Present",
+      color: "#00cc00"
+    },
+    "Voting Clerk/Election": {
+      label: "Voting Clerk/Election",
+      color: "#00cc00"
+    },
+    "Multiple Attendance Codes": {
+      label: "Multiple Attendance Codes",
+      color: "#FFCC99"
+    },
+  }); // initialize as empty object
   const [selectedDate, setSelectedDate] = useState('');
   const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
   const [currentMonth, setCurrentMonth] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-
+  const [prevMonth, setPrevMonth] = useState('');
+  const [minDate, setMinDate] = useState('');
+  const [maxDate, setMaxDate] = useState('');
+  const navigation = useNavigation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   const onDayPress = (day: any) => {
     setSelectedDate(day.dateString);
     Alert.alert(attendanceData[day.dateString]?.title || 'No information for this date');
   };
 
   useEffect(() => {
-    const fetchDates = async () => {
-      setIsLoading(true);
-      const response = await axios.get(`http://${IP_ADDRESS}:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`);
-      setIsLoading(false);
+    loadCredentials();
+  }, []);
+
+  const loadCredentials = async () => {
+    try {
+      const loadedUsername = await AsyncStorage.getItem('hacusername');
+      const loadedPassword = await AsyncStorage.getItem('hacpassword');
+
+      if (loadedUsername !== null && loadedPassword !== null) {
+        setIsLoggedIn(true);
+        fetchDates(loadedUsername, loadedPassword)
+      } else {
+        setIsLoggedIn(false);
+        navigation.navigate("Grades")
+      }
+    } catch (error) {
+      Alert.alert("Error logging in")
+    }
+  };
+
+    const fetchDates = async (username, password) => {
+      let response ='';
+      try {
+        setIsLoading(true);
+        response = await axios.get(`http://${IP_ADDRESS}:8080/attendance?username=${username}&password=${password}`);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setIsLoggedIn(false);
+        Alert.alert("Error loggng in")
+      }      
       if (response.data) {
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const monthNumber = monthNames.indexOf(response.data.monthNow.split(" ")[0]) + 1;
-        const monthString = monthNumber < 10 ? `0${monthNumber}` : `${monthNumber}`;
-        const year = response.data.monthNow.split(" ")[1];
-        setCurrentMonth(`${year}-${monthString}-01`);
-        const newData: MarkedDates = {};
-        response.data.data.forEach(item => {
-          const dateString = `${year}-${monthString}-${item.day.length == 1 ? "0" + item.day : item.day}`;
-          const attendance = item.attendance;
-          const BGcolor = item.color;
-          let realBGcolor;
-          if(BGcolor.indexOf("#")!=-1){
-            realBGcolor = BGcolor.substring(BGcolor.indexOf("#"), BGcolor.indexOf("#") + 7);
-          } else {
-            realBGcolor = "";
-          }
-          newData[dateString] = {
-            title: attendance,
-            customStyles: {
-              container: {
-                backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "transparent",
-                borderRadius: 12
-              },
-              text: {
-                color: theme == "dark" ? "#ffffff" : "#000000"
-              }
-            }
-          };
-        });
-        setAttendanceData(newData);
-        console.log('currentMonth: ', currentMonth);
+        const currentMonthData = formatData(response.data.data, response.data.monthNow);
+        let prevMonthData = {};
+  
+        if(response.data.prevData && response.data.prevMonth){
+          prevMonthData = formatData(response.data.prevData, response.data.prevMonth);
+        }
+  
+        const combinedData = {...prevMonthData, ...currentMonthData};
+        setAttendanceData(combinedData);
+  
+        const currentMonthString = formatMonth(response.data.monthNow);
+        setCurrentMonth(currentMonthString);
+        const prevMonthString = formatMonth(response.data.prevMonth);
+        setPrevMonth(prevMonthString);
+        setMinDate(prevMonthString);
+        setMaxDate(currentMonthString.substring(0, currentMonthString.lastIndexOf("-")+1) + "31");
       }
     };
-    fetchDates();
-  }, []);
+
+  
+  
+
+  const formatData = (data, monthNow) => {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthNumber = monthNames.indexOf(monthNow.split(" ")[0]) + 1;
+    const monthString = monthNumber < 10 ? `0${monthNumber}` : `${monthNumber}`;
+    const year = monthNow.split(" ")[1];
+    const newData = {};
+    data.forEach(item => {
+      const dateString = `${year}-${monthString}-${item.day.length == 1 ? "0" + item.day : item.day}`;
+      const attendance = item.attendance;
+      const BGcolor = item.color;
+      let realBGcolor;
+      if(BGcolor.indexOf("#")!=-1){
+        realBGcolor = BGcolor.substring(BGcolor.indexOf("#"), BGcolor.indexOf("#") + 7);
+      } else {
+        realBGcolor = "";
+      }
+      if(attendance !== ""){
+        newData[dateString] = {
+          title: attendance,
+          customStyles: {
+            container: {
+              backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "transparent",
+              borderRadius: 12
+            },
+            text: {
+              color: theme == "dark" ? "#ffffff" : "#000000"
+            }
+          }
+        };
+      }
+    });
+    return newData;
+  };
+  
+  
+  const formatMonth = (monthNow) => {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthNumber = monthNames.indexOf(monthNow.split(" ")[0]) + 1;
+    const monthString = monthNumber < 10 ? `0${monthNumber}` : `${monthNumber}`;
+    const year = monthNow.split(" ")[1];
+    return `${year}-${monthString}-01`;
+  }
 
   const renderDay = (day: any, item: any) => {
     if (item && item.customStyles) {
@@ -110,6 +317,7 @@ const Attendance: React.FC = () => {
         </View>
       );
     }
+    
     return (
       <View style={styles.AttendanceDayContainer}>
         <Text style={styles.AttendanceDayText}>{day.day}</Text>
@@ -182,19 +390,36 @@ const Attendance: React.FC = () => {
       </View>
     );
   }
+  const handleMonthChange = (month) => {
+    if (month.dateString < minDate || month.dateString > maxDate) {
+      setCurrentMonth(month.dateString);
+    }
+  };
   return (
     <View style={styles.AttendanceContainer}>
+      {!isLoggedIn ? (
+        <TouchableOpacity 
+          style={styles.GradesLoginButton} 
+          onPress={() => loadCredentials}
+        >
+          <Text style={styles.GradesLoginButtonText}>Login to HAC</Text>
+        </TouchableOpacity>
+      ):(
+      
       <ScrollView>
       <View style={styles.AttendanceCalendarContainer}>
         <Calendar
           key={calendarKey}
           markingType='custom'
           onDayPress={onDayPress}
+          onMonthChange={handleMonthChange}
           markedDates={attendanceData}
           theme={theme == 'light' ? lightTheme : darkTheme}
           renderDay={renderDay}
           enableSwipeMonths={true}
           initialDate = {currentMonth}
+          minDate={minDate}
+          maxDate = {maxDate}
         />
       </View>
       <View style={styles.AttendanceLegendContainer}>
@@ -209,6 +434,7 @@ const Attendance: React.FC = () => {
         </View>
       </View>
       </ScrollView>
+      )}
     </View>
   );
 };
