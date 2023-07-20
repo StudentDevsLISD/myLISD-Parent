@@ -377,7 +377,7 @@ const darkStyles = StyleSheet.create({
                 backgroundColor: '#111',
               },
               GradesGradeContainer: {
-                backgroundColor: '#454343',
+                backgroundColor: '#333',
                 borderRadius: 10,
                 padding: 12.5,
                 marginVertical: 5,
@@ -385,14 +385,22 @@ const darkStyles = StyleSheet.create({
               },
               GradesGradeItem: {
                 flexDirection: 'row',
-                alignItems: 'center',
                 justifyContent: 'space-between',
                 marginVertical: -3,
               },
+              GradesCourseNameAndNum: {
+                flexDirection: 'column',
+              },
               GradesGradeText: {
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: 'bold',
                 color: "#fff",
+              },
+              GradesGradeTextCourse: {
+                fontSize: 14,
+                fontWeight: 'bold',
+                marginTop: 3,
+                color: "#808080",
               },
               GradesGradeBadge: {
                 flexDirection: 'row',
