@@ -6,7 +6,6 @@ import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import axios from 'axios';
-import { IP_ADDRESS } from '@env';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -47,6 +46,8 @@ const Attendance: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
   const [currentMonth, setCurrentMonth] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const onDayPress = (day: any) => {
     setSelectedDate(day.dateString);
@@ -54,12 +55,10 @@ const Attendance: React.FC = () => {
   };
 
   useEffect(() => {
-    // Replace with your own API URL
-    console.log("useeffect")
     const fetchDates = async () => {
       console.log("fetch dates")
       const response = await axios.get(
-        'http://' + IP_ADDRESS + ':8080/attendance?username=' + username + '&password=' + password
+        `http://10.191.80.43:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`
       );
       console.log(response)
           if (response.data) {
@@ -171,6 +170,17 @@ const Attendance: React.FC = () => {
     textMonthFontWeight: 'bold',
     textDayHeaderFontWeight: 'bold',
   };
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator
+          animating={true}
+          size={'large'}
+          color={theme === 'light' ? '#005a87' : '#ede1d1'}
+        />
+      </View>
+    );
+  }
   return (
     <View style={styles.AttendanceContainer}>
       <ScrollView>
@@ -183,7 +193,7 @@ const Attendance: React.FC = () => {
           theme={theme == 'light' ? lightTheme : darkTheme}
           renderDay={renderDay}
           enableSwipeMonths={true}
-          current = {currentMonth}
+          initialDate = {currentMonth}
         />
       </View>
       <View style={styles.AttendanceLegendContainer}>
