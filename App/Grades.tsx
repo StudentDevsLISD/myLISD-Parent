@@ -278,6 +278,7 @@ const Grades = () => {
                   onChangeText={setUsername}
                   value={username}
                   placeholderTextColor={"gray"}
+                  color={theme === 'light' ? 'black' : 'white'}
                 />
                 <TextInput
                   style={styles.GradesInput}
@@ -286,6 +287,7 @@ const Grades = () => {
                   onChangeText={setPassword}
                   value={password}
                   placeholderTextColor="gray"
+                  color={theme === 'light' ? 'black' : 'white'}
                 />
                 <TouchableOpacity style={styles.GradesLoginButton} onPress={saveCredentials}>
                   <Text style={styles.GradesLoginButtonText}>Login</Text>
