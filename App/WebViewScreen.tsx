@@ -40,7 +40,7 @@ const WebViewScreen: React.FC<Props> = ({ route }) => {
     }
   };
 
-  return <WebView ref={webViewRef} source={{ uri: url }} onLoadEnd={handleLoadEnd} />;
+  return <WebView ref={webViewRef} source={{ uri: url }} sharedCookiesEnabled={true} cacheEnabled={true} onLoadEnd={handleLoadEnd} />;
 };
 
 export default WebViewScreen;
