@@ -73,6 +73,40 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const grade = data.grade;
   const courseName = data.course.substring(12);
   
+
+
+const FadedText = ({ text }) => {
+  const { theme } = useContext(ThemeContext);
+  const styles = theme === 'light' ? LightStyles : DarkStyles;
+  const fadeStart = 23; // Adjusted fadeStart to start fading effect earlier
+  const fadeEndWhite = 26;
+  const fadeEndBlack = 27.7;
+  let fade = theme === 'light' ? fadeEndWhite : fadeEndBlack;
+  return (
+    <Text style={styles.AssignmentScreenAssignmentName} numberOfLines={1} ellipsizeMode="tail">
+      {text.split('').map((char, i) => {
+        let color = theme === 'light' ? '#000' : '#FFF';
+        if (i >= fadeStart && i < fade) {
+          const fadeProgress = (i - fadeStart + 1) / (fade - fadeStart);
+          if (theme === 'light') {
+            const colorValue = Math.round(fadeProgress * 232); // 232 is (0xe8 - 0x00)
+            color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+          } else {
+            const colorValue = Math.round((1 - fadeProgress) * 187); // 187 is (0xe8 - 0x44)
+            color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+          }
+        } else if (i >= fade) {
+          color = theme === 'light' ? '#e8e8e8' : '#444';
+        }
+        return (
+          <Text key={i} style={{ color }}>
+            {char}
+          </Text>
+        );
+      })}
+    </Text>
+  );
+};
   // const assignments = [
   //   { title: 'Math Assignment', subtitle: '01/02/2023', grade: '94.00', maxGrade: '100.00', breakdownColor: '#00ff00' },
   //   { title: 'Science Project', subtitle: '02/03/2023', grade: '86.00', maxGrade: '100.00', breakdownColor: '#ff0000' },
@@ -209,7 +243,7 @@ return (
               tintColor="#5b92f9"
               rotation={0}
               backgroundColor={backgroundColor} // Set the background color based on the theme
-              lineCap="round"
+              
             >
               {(fill) => (
                 <>

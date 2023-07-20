@@ -65,6 +65,7 @@ const lightStyles = StyleSheet.create({
         paddingVertical: 10,
         marginTop: 6,
         width: Dimensions.get('window').width * 0.45,
+        height: 93,
       },
       AssignmentScreenBreakdownLabel: {
         fontSize: 18,
