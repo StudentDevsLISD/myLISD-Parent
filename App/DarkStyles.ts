@@ -504,6 +504,10 @@ const darkStyles = StyleSheet.create({
                 paddingTop: 20,
                 backgroundColor: "#111",
               },
+              HomeContainerLarge: {
+               
+                backgroundColor: "#111",
+              },
               HomeHeader: {
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -512,7 +516,7 @@ const darkStyles = StyleSheet.create({
               },
             HomeHeaderText: {
                 fontSize: 40,
-                marginLeft: -85,
+                marginLeft: -91,
                 marginBottom:10,
                 marginTop: -13,
                 color: "#ede1d1",
@@ -521,7 +525,7 @@ const darkStyles = StyleSheet.create({
               },
               HomeDateText: {
                 fontSize: 14,
-                color: 'grayr',
+                color: 'white',
                 marginTop:40,
                 marginLeft: 5,
               },
