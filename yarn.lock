@@ -1908,13 +1908,6 @@
     prompts "^2.4.0"
     semver "^6.3.0"
 
-"@react-native-community/cookies@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.npmjs.org/@react-native-community/cookies/-/cookies-5.0.1.tgz"
-  integrity sha512-Is/kWBmYBFtX4DOImfglK5Bz2w3PdpgMGTqdVQSbZlFdSDw32lwFMk1mLSAzL5EcUEDwJJbcEATbU3JGSZSVXw==
-  dependencies:
-    invariant "^2.2.4"
-
 "@react-native-community/eslint-config@^3.0.0":
   version "3.2.0"
   resolved "https://registry.npmjs.org/@react-native-community/eslint-config/-/eslint-config-3.2.0.tgz"
@@ -7802,7 +7795,7 @@ react-native-windows@*, react-native-windows@0.71.21:
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@^0.71.0, react-native@^0.71.11, "react-native@>= 0.30.0", "react-native@>= 0.60.2", react-native@>=0.40, react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59, react-native@>=0.59.0, react-native@>=0.60.0, react-native@>=0.65:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@^0.71.0, react-native@^0.71.11, "react-native@>= 0.30.0", react-native@>=0.40, react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59, react-native@>=0.59.0, react-native@>=0.60.0, react-native@>=0.65:
   version "0.71.11"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.11.tgz"
   integrity sha512-++8IxgUe4Ev+bTiFlLfJCdSoE5cReVP1DTpVJ8f/QtzaxA3h1008Y3Xah1Q5vsR4rZcYMO7Pn3af+wOshdQFug==
