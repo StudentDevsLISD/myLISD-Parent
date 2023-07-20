@@ -66,7 +66,7 @@ const Grades = () => {
   const fetchGrades = async (username: string, password: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/grades?username=${username}&password=${password}`
+        `http://10.191.80.43:8080/grades?username=${username}&password=${password}`
       );
       const currentClasses = response.data.currentClasses;
 
