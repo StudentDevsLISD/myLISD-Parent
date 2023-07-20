@@ -655,6 +655,9 @@ const lightStyles = StyleSheet.create({
               FadedText: {
                 color: '#white',
               },
+              scrollViewContainer: {
+                width: Dimensions.get('window').width,
+              },
               dotsContainer: {
                 flexDirection: 'row',
                 justifyContent: 'center',

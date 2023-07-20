@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -59,12 +59,32 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
           <TouchableOpacity
             key={index}
             activeOpacity={0.6}
-            style={[styles.dot, index === activeDotIndex ? styles.activeDot : styles.inactiveDot]}
+            style={[styles.dot, { transform: [{ scale: index === activeDotIndex ? 1.3 : 1 }] }, ,index === activeDotIndex ? styles.activeDot : styles.inactiveDot]}
           />
         ))}
       </View>
     );
   };
+  
+  const scrollViewRef = useRef<ScrollView>(null);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      scrollViewRef.current?.scrollTo({ x: activeScreenIndex * Dimensions.get('window').width });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [activeScreenIndex]);
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const screenWidth = Dimensions.get('window').width*0.9;
+    let newActiveIndex = Math.floor(event.nativeEvent.contentOffset.x / screenWidth);
+  
+    // Prevent the dot from unhighlighting when swiping left from the leftmost position
+    newActiveIndex = Math.max(0, newActiveIndex);
+  
+    setActiveScreenIndex(newActiveIndex);
+  };
+  
   
   const [activeScreenIndex, setActiveScreenIndex] = useState(0);
 
@@ -248,7 +268,8 @@ return (
   <ScrollView style={styles.AssignmentScreenContainer}>
     {/* Rest of your existing JSX */}
     <View style={styles.AssignmentScreenTop}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} snapToInterval={Dimensions.get('window').width} snapToAlignment='start' snaptoDuration='100' decelerationRate="fast">
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} snapToInterval={Dimensions.get('window').width} snapToAlignment='start' snaptoDuration='100' decelerationRate="fast" onScroll={handleScroll} // Call the handleScroll function when the user scrolls
+      scrollEventThrottle={16} >
         <View style={styles.AssignmentScreenBorderBox}>
           <View style={styles.AssignmentScreenProgressBarContainer}>
             <AnimatedCircularProgress

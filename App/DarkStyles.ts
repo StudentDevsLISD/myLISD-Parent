@@ -601,6 +601,9 @@ const darkStyles = StyleSheet.create({
                 fontSize: 14,
                 color: 'grey',
               },
+              scrollViewContainer: {
+                width: Dimensions.get('window').width,
+              },
               QuickLinksContainer: {
                 flex: 1,
                 backgroundColor: '#fff',
