@@ -65,6 +65,8 @@ const Grades = () => {
   const [newAssignments, setNewAssignments] = useState([]);
   const route = useRoute();
 
+  const headerTitle = isLoggedIn ? "Grades" : "HAC";
+
   const formatGradeValue = (gradeValue: number) => {
     if (gradeValue >= 90.0 && gradeValue <= 99.99) {
       return gradeValue.toFixed(2);
@@ -265,7 +267,7 @@ const Grades = () => {
         <>
           <View style={styles.GradesHeader}>
             <Text style={styles.GradesDateText}>{currentDate}</Text>
-            <Text style={styles.GradesHeaderText}>Grades</Text>
+            <Text style={styles.GradesHeaderText}>{headerTitle}</Text>
           </View>
           <ScrollView>
             {!isLoggedIn && (
@@ -275,6 +277,7 @@ const Grades = () => {
                   placeholder="Username"
                   onChangeText={setUsername}
                   value={username}
+                  placeholderTextColor={"gray"}
                 />
                 <TextInput
                   style={styles.GradesInput}
@@ -282,6 +285,7 @@ const Grades = () => {
                   secureTextEntry
                   onChangeText={setPassword}
                   value={password}
+                  placeholderTextColor="gray"
                 />
                 <TouchableOpacity style={styles.GradesLoginButton} onPress={saveCredentials}>
                   <Text style={styles.GradesLoginButtonText}>Login</Text>
