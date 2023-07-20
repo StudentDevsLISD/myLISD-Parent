@@ -57,12 +57,15 @@ const Grades = () => {
   const route = useRoute();
 
   const formatGradeValue = (gradeValue: number) => {
-    if (gradeValue < 100) {
+    if (gradeValue >= 90.00 && gradeValue <= 99.99) {
       return gradeValue.toFixed(2);
+    } else if (gradeValue === 100.00) {
+      return '100.0';
     } else {
-      return gradeValue.toFixed(1);
+      return gradeValue.toString();
     }
   };
+  
 
   const fetchGrades = async (username: string, password: string) => {
     try {
