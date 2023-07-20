@@ -398,7 +398,6 @@ const darkStyles = StyleSheet.create({
               },
               GradesGradeTextCourse: {
                 fontSize: 14,
-                fontWeight: 'bold',
                 marginTop: 3,
                 color: "#808080",
               },

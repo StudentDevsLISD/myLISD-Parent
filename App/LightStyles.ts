@@ -355,7 +355,7 @@ const lightStyles = StyleSheet.create({
             marginVertical: -3,
           },
           GradesGradeText: {
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: 'bold',
           },
           GradesGradeBadge: {
@@ -375,11 +375,19 @@ const lightStyles = StyleSheet.create({
             fontSize: 20,
             fontWeight: 'bold',
           },
+          GradesCourseNameAndNum: {
+            flexDirection: 'column',
+          },
           GradesGradeBadgeText2: {
         
             color: '#e8e8e8',
             fontSize: 0,
             fontWeight: 'bold',
+          },
+          GradesGradeTextCourse: {
+            fontSize: 14,
+            marginTop: 3,
+            color: "#808080",
           },
           GradesHeader: {
             flexDirection: 'row',
