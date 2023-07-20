@@ -77,14 +77,7 @@ const lightStyles = StyleSheet.create({
       AssignmentScreenBreakdownWeight: {
         fontSize: 14,
       },
-      AssignmentScreenBreakdownColor: {
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        position: 'absolute',
-        right: 10,
-        bottom: 5,
-      },
+
       AssignmentScreenBottom: {
         flex: 0.6,
         backgroundColor: '#fff',
@@ -160,6 +153,14 @@ const lightStyles = StyleSheet.create({
       },
       AttendanceLegendContainer: {
         marginTop: 16,
+      },
+      AssignmentScreenBreakdownColor: {
+        width: 25,
+        height: 10,
+        borderRadius: 5,
+        position: 'absolute',
+        right: 10,
+        bottom: 5,
       },
       AttendanceLegendBox: {
         backgroundColor: '#ffffff',

@@ -33,8 +33,26 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
   const { data } = route.params;
   const [categories, setCategories] = useState([]);
   const [breakdowns, setBreakdowns] = useState([])
-  const colors = ["#00ff00", "#ff0000", "#0000ff", "#5ebbe6", "#9de65a", "#e6ae5a"]
-  let y = [];
+  const colors = [
+    "#B19CD9", // Pastel Purple
+    "#D5F5E3", // Pastel Mint Green
+    "#FEC8D8", // Pastel Pink
+    "#85C1E9", // Pastel Blue
+    "#F9E79F", // Pastel Yellow
+    "#F8C471", // Pastel Tangerine
+    "#FAD7A0", // Pastel Gold
+    "#D2B4DE", // Pastel Lavender
+    "#A3E4D7", // Pastel Green
+    "#F0B27A", // Pastel Peach
+    "#D7BDE2", // Pastel Lilac
+    "#F5B7B1", // Pastel Salmon
+    "#AED6F1", // Pastel Sky Blue
+    "#FADBD8", // Pastel Rose
+    "#F5CBA7"  // Pastel Apricot
+  ];
+  
+  
+    let y = [];
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? LightStyles : DarkStyles;
 
@@ -147,6 +165,12 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
 
   // Add a ref for the AnimatedCircularProgress
   const progressRef = useRef<AnimatedCircularProgress>(null);
+  const getBackgroundColor = (theme) => {
+    return theme === 'dark' ? '#333' : '#e9eef1';
+  };
+  const backgroundColor = getBackgroundColor(theme);
+
+
 
   useFocusEffect(
     React.useCallback(() => {
@@ -161,35 +185,41 @@ const AssignmentScreen: React.FC<Props> = ({ route }) => {
             if (progressRef.current) {
                 progressRef.current.animate(0, 0); // animate back to zero
             }
+
         };
     }, [])
 );
 
-  return (
-    <ScrollView style={styles.AssignmentScreenContainer}>
-      <Text style={styles.AssignmentScreenCourseTitle}>{courseName}</Text>
-      <View style={styles.AssignmentScreenTop}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.AssignmentScreenBorderBox}>
-            <View style={styles.AssignmentScreenProgressBarContainer}>
-              <AnimatedCircularProgress
-                ref={progressRef}
-                size={145}
-                width={16}
-                fill={0}
-                tintColor="#5b92f9"
-                rotation={0}
-                backgroundColor="#e9eef1"
-                lineCap="round"
-              >
-                {(fill) => (
-                  <>
-                    <Text style={styles.AssignmentScreenGradeText}>{fill.toFixed(2)}</Text>
-                    <Text style={styles.AssignmentScreenOverallText}>Overall</Text>
-                  </>
-                )}
-              </AnimatedCircularProgress>
-              <TouchableOpacity
+
+
+
+
+return (
+  <ScrollView style={styles.AssignmentScreenContainer}>
+    {/* Rest of your existing JSX */}
+    <View style={styles.AssignmentScreenTop}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <View style={styles.AssignmentScreenBorderBox}>
+          <View style={styles.AssignmentScreenProgressBarContainer}>
+            <AnimatedCircularProgress
+              ref={progressRef}
+              size={145}
+              width={16}
+              fill={0}
+              tintColor="#5b92f9"
+              rotation={0}
+              backgroundColor={backgroundColor} // Set the background color based on the theme
+              lineCap="round"
+            >
+              {(fill) => (
+                <>
+                  <Text style={styles.AssignmentScreenGradeText}>{fill.toFixed(2)}</Text>
+                  <Text style={styles.AssignmentScreenOverallText}>Overall</Text>
+                </>
+              )}
+            </AnimatedCircularProgress>
+
+             <TouchableOpacity
                 activeOpacity={0.8}
                 style={[styles.AssignmentScreenCalculateButton, { backgroundColor: '#5b92f9' }]}
                 onPress={() => {
