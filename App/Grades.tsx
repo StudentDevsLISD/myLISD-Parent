@@ -218,9 +218,9 @@ const Grades = () => {
   const FadedText = ({ text }) => {
     const { theme } = useContext(ThemeContext);
     const styles = theme === 'light' ? lightStyles : darkStyles;
-    const fadeStart = 23; // Adjusted fadeStart to start fading effect earlier
+    const fadeStart = 26; // Adjusted fadeStart to start fading effect earlier
     const fadeEndWhite = 26;
-    const fadeEndBlack = 27.7;
+    const fadeEndBlack = 29;
     let fade = theme === 'light' ? fadeEndWhite : fadeEndBlack;
     return (
       <Text style={styles.GradesGradeText}>
@@ -341,7 +341,10 @@ const Grades = () => {
                   }}
                 >
                   <View style={styles.GradesGradeItem}>
+                    <View style={styles.GradesCourseNameAndNum}>
                     {renderSubjectText(subject.substring(12, 38))}
+                    <Text numberOfLines={1} style={styles.GradesGradeTextCourse}>{subject.substring(0,9)}</Text>
+                    </View>
                     <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
                       <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
                     </View>
