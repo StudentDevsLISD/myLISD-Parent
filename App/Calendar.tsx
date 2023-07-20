@@ -177,7 +177,7 @@ const ComOp = () => {
   return (
     <View style={styles.AttendanceContainer}>
       <View style={styles.CalendarCalendarContainer}>
-      <Calendar
+        <Calendar
           key={calendarKey}
           markingType='custom'
           onDayPress={handleDayPress}
@@ -186,24 +186,35 @@ const ComOp = () => {
           renderDay={handleDayPress}
           enableSwipeMonths={true}
         />
-       </View> 
+
+        {/* Display events or "No Events Today" */}
+        {events.length > 0 ? (
+          events.map((event: Event) => (
+            <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
+          ))
+        ) : (
+          <TouchableOpacity> 
+            <Text style={styles.CalendarNoEventsText2}>No Events Today</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
       {isLoading ? (
         <ActivityIndicator animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/>
       ) : (
         <ScrollView>
-          {/* //...events list or "No events found" message */}
+          {/* ...events list or "No events found" message */}
           {events.length > 0 ? (
             events.map((event: Event) => (
               <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
             ))
           ) : (
-            <Text style={styles.CalendarNoEventsText2}>No Events Today</Text>
+            <Text></Text>
           )}
         </ScrollView>
       )}
     </View>
   );
-}  
-      
-      
-      export default ComOp;
+}
+
+export default ComOp;

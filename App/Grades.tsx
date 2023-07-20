@@ -38,7 +38,7 @@ type Props = {
 };
 
 const getGrade = (score: number): GradeType => {
-  if (score >= 90.00) return { color: '#00DE64' };
+  if (score >= 90.00) return { color: '#4a9e70' };
   if (score >= 80.00) return { color: '#3199FE' };
   if (score >= 70.00) return { color: '#F99816' };
   return { color: '#FB5B5B', letter: 'D' };

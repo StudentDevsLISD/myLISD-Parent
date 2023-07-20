@@ -6,6 +6,7 @@ import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import axios from 'axios';
+import { IP_ADDRESS } from '@env';
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -58,7 +59,7 @@ const Attendance: React.FC = () => {
     const fetchDates = async () => {
       console.log("fetch dates")
       const response = await axios.get(
-        `http://10.191.80.43:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`
+        'http://' + IP_ADDRESS + ':8080/attendance?username=' + username + '&password=' + password
       );
       console.log(response)
           if (response.data) {
