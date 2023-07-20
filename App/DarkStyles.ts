@@ -452,8 +452,8 @@ const darkStyles = StyleSheet.create({
               },
               GradesInputContainer: {
                 padding: 20,
-                backgroundColor: '#fff',
-                marginVertical: 15,
+                backgroundColor: '#333',
+                marginVertical: 10,
                 marginHorizontal: 20,
                 borderRadius: 10,
                 shadowColor: '#000',
@@ -464,12 +464,13 @@ const darkStyles = StyleSheet.create({
               },
               GradesInput: {
                 height: 45,
-                borderColor: '#005987',
+                borderColor: '#555',
                 borderWidth: 1,
                 marginBottom: 20,
                 paddingHorizontal: 10,
                 borderRadius: 5,
-                backgroundColor: '#F0F0F0',
+                backgroundColor: '#333',
+                color: "black",
               },
               GradesLoginButton: {
                 backgroundColor: '#005987',
