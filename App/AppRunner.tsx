@@ -290,6 +290,8 @@ const Tabs: React.FC = () => {
       paddingTop: 10,
       height: 85
     },
+    tabBarActiveTintColor: theme === 'dark' ? '#ede1d1' : '#007AFF',
+    tabBarInactiveTintColor: theme === 'dark' ? '#666666' : '#8E8E93'
     // ... other options ...
   };
   return <Tab.Navigator 
