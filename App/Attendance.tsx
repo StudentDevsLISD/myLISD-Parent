@@ -220,13 +220,15 @@ const Attendance: React.FC = () => {
 
       if (loadedUsername !== null && loadedPassword !== null) {
         setIsLoggedIn(true);
+        console.log("x")
         fetchDates(loadedUsername, loadedPassword)
       } else {
         setIsLoggedIn(false);
+        console.log("y")
         navigation.navigate("Grades")
       }
     } catch (error) {
-      Alert.alert("Error logging in")
+      console.log("bad")
     }
   };
 
@@ -400,9 +402,9 @@ const Attendance: React.FC = () => {
       {!isLoggedIn ? (
         <TouchableOpacity 
           style={styles.GradesLoginButton} 
-          onPress={() => loadCredentials}
+          onPress={() => loadCredentials()}
         >
-          <Text style={styles.GradesLoginButtonText}>Login to HAC</Text>
+          <Text style={styles.GradesLoginButtonText}>Login with HAC</Text>
         </TouchableOpacity>
       ):(
       
