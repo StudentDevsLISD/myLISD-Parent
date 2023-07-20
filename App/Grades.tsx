@@ -179,24 +179,28 @@ const Grades = () => {
 
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
-  const FadedText = ({ text, theme }) => {
-    const fadeStart = 21;
-    const fadeEnd = 26;
-  
+  const FadedText = ({ text }) => {
+    const { theme } = useContext(ThemeContext);
+    const styles = theme === 'light' ? lightStyles : darkStyles;
+    const fadeStart = 23; // Adjusted fadeStart to start fading effect earlier
+    const fadeEndWhite = 26;
+    const fadeEndBlack = 27.7;
+    let fade = theme === 'light' ? fadeEndWhite : fadeEndBlack;
     return (
       <Text style={styles.GradesGradeText}>
         {text.split('').map((char, i) => {
           let color = theme === 'light' ? '#000' : '#FFF';
-          if (i >= fadeStart && i < fadeEnd) {
-            const fadeProgress = (i - fadeStart + 1) / (fadeEnd - fadeStart);
-            const colorValue = Math.round(
-              theme === 'light'
-                ? fadeProgress * 255
-                : 255 - fadeProgress * (255 - 68)
-            );
-            color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
-          } else if (i >= fadeEnd) {
-            color = theme === 'light' ? '#FFF' : '#444';
+          if (i >= fadeStart && i < fade) {
+            const fadeProgress = (i - fadeStart + 1) / (fade - fadeStart);
+            if (theme === 'light') {
+              const colorValue = Math.round(fadeProgress * 232); // 232 is (0xe8 - 0x00)
+              color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+            } else {
+              const colorValue = Math.round((1 - fadeProgress) * 187); // 187 is (0xe8 - 0x44)
+              color = `rgb(${colorValue}, ${colorValue}, ${colorValue})`;
+            }
+          } else if (i >= fade) {
+            color = theme === 'light' ? '#e8e8e8' : '#444';
           }
           return (
             <Text key={i} style={{ color }}>
@@ -207,6 +211,7 @@ const Grades = () => {
       </Text>
     );
   };
+  
   
   const renderSubjectText = (subject, theme) => {
     const maxLength = 38;
