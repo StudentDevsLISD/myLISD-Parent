@@ -271,7 +271,8 @@ return (
 
 
 const Stack = createStackNavigator();
-const Tabs: React.FC<{ theme: 'light' | 'dark' }> = ({ theme }) => {
+const Tabs: React.FC = () => {
+  const {theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
 
   const tabBarOptions = {

@@ -471,6 +471,8 @@ const lightStyles = StyleSheet.create({
             paddingHorizontal: 10,
             paddingTop: 20,
           },
+          HomeContainerLarge: {
+          },
           HomeHeader: {
             flexDirection: 'row',
             alignItems: 'center',

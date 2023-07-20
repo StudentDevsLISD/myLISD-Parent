@@ -128,6 +128,7 @@ const HomeScreen = () => {
   const styles = theme === 'light' ? lightStyles : darkStyles;
 
   return (
+    <View style = {styles.HomeContainerLarge}>
     <ScrollView contentContainerStyle={styles.HomeContainer}>
       <View style={styles.HomeHeader}>
         <Text style={styles.HomeDateText}>{currentDate}</Text>
@@ -148,6 +149,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
       ))}
     </ScrollView>
+    </View>
   );
 };
 
