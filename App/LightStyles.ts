@@ -655,6 +655,24 @@ const lightStyles = StyleSheet.create({
               FadedText: {
                 color: '#white',
               },
+              dotsContainer: {
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: 10,
+                marginBottom: 20, // Optional, adjust the margin as needed
+              },
+              dot: {
+                width: 8,
+                height: 8,
+                borderRadius: 4,
+                marginHorizontal: 4,
+              },
+              activeDot: {
+                backgroundColor: 'lightgrey', // Replace with your preferred active dot color
+              },
+              inactiveDot: {
+                backgroundColor: 'grey', // Replace with your preferred inactive dot color
+              },
 });
 
 export default lightStyles;
