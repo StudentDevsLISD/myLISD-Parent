@@ -6,6 +6,8 @@ import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import axios from 'axios';
+import { ActivityIndicator } from 'react-native-paper';
+
 
 LocaleConfig.locales['en'] = {
   monthNames: [
@@ -46,6 +48,8 @@ const Attendance: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
   const [currentMonth, setCurrentMonth] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const onDayPress = (day: any) => {
     setSelectedDate(day.dateString);
@@ -53,49 +57,44 @@ const Attendance: React.FC = () => {
   };
 
   useEffect(() => {
-    // Replace with your own API URL
-    console.log("useeffect")
     const fetchDates = async () => {
-      console.log("fetch dates")
-      const response = await axios.get(
-        `http://10.191.80.43:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`
-      );
-      console.log(response)
-          if (response.data) {
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            const monthNumber = monthNames.indexOf(response.data.monthNow.split(" ")[0]) + 1; // Months are 0 indexed
-            const monthString = monthNumber < 10 ? `0${monthNumber}` : `${monthNumber}`;
-            const year = response.data.monthNow.split(" ")[1]; // Extract year from 'monthNow'
-            setCurrentMonth(year + '-' + monthString + '-01');
-            const newData: MarkedDates = {};
-            response.data.data.forEach(item => {
-              const dateString = `${year}-${monthString}-${item.day.length == 1 ? "0" + item.day : item.day}`;  // modify this to match your data structure
-              const attendances = item.attendance.split('\n');
-              const attendance = item.attendance;
-              const BGcolor = item.color;
-              let realBGcolor;
-              if(BGcolor.indexOf("#")!=-1){
-                realBGcolor = BGcolor.substring(BGcolor.indexOf("#"), BGcolor.indexOf("#") + 7);
-              } else {
-                realBGcolor = "";
-              }
-              newData[dateString] = {
-                title: attendance,
-                customStyles: {
-                  container: {
-                    backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "transparent",
-                    borderRadius: 12
-                  },
-                  text: {
-                    color: theme == "dark" ? "#ffffff" : "#000000"
-                  }
-                }
-              };
-            });
-            setAttendanceData(newData);
+      setIsLoading(true);
+      const response = await axios.get(`http://10.191.80.43:8080/attendance?username=sujithkumar.alluru97@k12.leanderisd.org&password=Password123!`);
+      setIsLoading(false);
+      if (response.data) {
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const monthNumber = monthNames.indexOf(response.data.monthNow.split(" ")[0]) + 1;
+        const monthString = monthNumber < 10 ? `0${monthNumber}` : `${monthNumber}`;
+        const year = response.data.monthNow.split(" ")[1];
+        setCurrentMonth(`${year}-${monthString}-01`);
+        const newData: MarkedDates = {};
+        response.data.data.forEach(item => {
+          const dateString = `${year}-${monthString}-${item.day.length == 1 ? "0" + item.day : item.day}`;
+          const attendance = item.attendance;
+          const BGcolor = item.color;
+          let realBGcolor;
+          if(BGcolor.indexOf("#")!=-1){
+            realBGcolor = BGcolor.substring(BGcolor.indexOf("#"), BGcolor.indexOf("#") + 7);
+          } else {
+            realBGcolor = "";
           }
-        
-    }
+          newData[dateString] = {
+            title: attendance,
+            customStyles: {
+              container: {
+                backgroundColor:  realBGcolor != "#CCCCCC" ? realBGcolor : "transparent",
+                borderRadius: 12
+              },
+              text: {
+                color: theme == "dark" ? "#ffffff" : "#000000"
+              }
+            }
+          };
+        });
+        setAttendanceData(newData);
+        console.log('currentMonth: ', currentMonth);
+      }
+    };
     fetchDates();
   }, []);
 
@@ -170,6 +169,17 @@ const Attendance: React.FC = () => {
     textMonthFontWeight: 'bold',
     textDayHeaderFontWeight: 'bold',
   };
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator
+          animating={true}
+          size={'large'}
+          color={theme === 'light' ? '#005a87' : '#ede1d1'}
+        />
+      </View>
+    );
+  }
   return (
     <View style={styles.AttendanceContainer}>
       <ScrollView>
@@ -182,7 +192,7 @@ const Attendance: React.FC = () => {
           theme={theme == 'light' ? lightTheme : darkTheme}
           renderDay={renderDay}
           enableSwipeMonths={true}
-          current = {currentMonth}
+          initialDate = {currentMonth}
         />
       </View>
       <View style={styles.AttendanceLegendContainer}>
