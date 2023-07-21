@@ -269,7 +269,7 @@ const Grades = () => {
             <Text style={styles.GradesDateText}>{currentDate}</Text>
             <Text style={styles.GradesHeaderText}>{headerTitle}</Text>
           </View>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             {!isLoggedIn && (
               <View style={styles.GradesInputContainer}>
                 <TextInput
@@ -295,7 +295,7 @@ const Grades = () => {
               </View>
             )}
             {newAssignments.length > 0 && (
-              <ScrollView horizontal={true} style={styles.GradesNewAssignmentsScrollView}>
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.GradesNewAssignmentsScrollView}>
                 {newAssignments.map((assignment, index) => (
                   <TouchableOpacity
                     key={index}

@@ -143,6 +143,11 @@ const lightStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '800',
       },
+      AttendanceLoadingContainer:{
+        flex: 1,
+        justifyContent: 'center', 
+        alignItems: 'center', 
+      },
       AttendanceContainer: {
         flex: 1,
         padding: 16,

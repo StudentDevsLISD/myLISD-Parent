@@ -157,6 +157,12 @@ const darkStyles = StyleSheet.create({
             fontSize: 16,
             fontWeight: '800',
           },
+          AttendanceLoadingContainer:{
+            flex: 1,
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            backgroundColor: "#111",
+          },
           AttendanceContainer: {
             flex: 1,
             padding: 16,
@@ -590,14 +596,14 @@ const darkStyles = StyleSheet.create({
               },
               HomeScreenIcon:{
                 fontSize: 20,
-                color: "#ede1d1",
+                color: "white",
     
               },
               HomeOptions: {
                 
               },
               HomeTitleText: {
-                color: "#e6d5bf",
+                color: "white",
                 fontWeight: "600",
 
               },
