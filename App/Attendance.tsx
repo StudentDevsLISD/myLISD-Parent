@@ -291,7 +291,7 @@ const Attendance: React.FC = () => {
               borderRadius: 12
             },
             text: {
-              color: theme == "dark" ? "#ffffff" : "#000000"
+              color: theme == "dark" ? "#ffffff" : realBGcolor != "#ffffff" ? "#ffffff" : "#000000"
             }
           }
         };
