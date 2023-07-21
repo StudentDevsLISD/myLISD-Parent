@@ -64,7 +64,7 @@ const linksData = [
 { title: "Meals and Menus", link: "https://www.leanderisd.org/childnutritionservices/", description: "Menus, online ordering, meal balance and payment portal" },
 { title: "Calendar", link: "https://www.leanderisd.org/calendar/", description: "District events and year-at-a-glance academic calendars" },
 { title: "Bus Routes", link: "https://www.leanderisd.org/transportation/", description: "Bus routing information, schedules and safety information" },
-{ title: "Home Access Center", link: "https://www.leanderisd.org/homeaccesscenter/", description: "The parent and student portal for grades, schedules, and student info" },
+{ title: "Home Access Center", link: "https://lis-hac.eschoolplus.powerschool.com/HomeAccess/", description: "The parent and student portal for grades, schedules, and student info" },
 { title: "mLISD Empowered Learning", link: "https://www.leanderisd.org/mlisd/", description: "Student technology for Prekindergarten through Grade 12" },
 { title: "PTA", link: "https://www.leanderisd.org/volunteering/#pta", description: "A grassroots organization made up of parents, teachers and others" },
 { title: "Committees", link: "https://www.leanderisd.org/committees/", description: "District-level committee information" },

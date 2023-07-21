@@ -648,17 +648,17 @@ const darkStyles = StyleSheet.create({
               },
               QuickLinksContainer: {
                 flex: 1,
-                backgroundColor: '#fff',
+                backgroundColor: '#111',
                 },
                 QuickLinksSearchContainer: {
-                backgroundColor: '#fff',
+                backgroundColor: '#111',
                 borderBottomColor: 'transparent',
                 borderTopColor: 'transparent',
                 paddingHorizontal:17,
                 paddingTop: 15,
                 },
                 QuickLinksSearchInputContainer: {
-                backgroundColor: '#f0f0f0',
+                backgroundColor: '#333',
                 borderRadius: 10,
                 },
                 QuickLinksSearchInput: {
@@ -678,19 +678,19 @@ const darkStyles = StyleSheet.create({
                 alignItems: 'center',
                 borderRadius: 15,
                 marginBottom: 20,
-                backgroundColor: '#f0f0f0',
+                backgroundColor: '#444',
                 borderWidth: 2,
-                borderColor: '#ebe8e8',
+                borderColor: '#444',
                 elevation: 3, // for Android
                 },
                 QuickLinksLinkText: {
-                color: '#000',
+                color: '#fff',
                 fontSize: 16,
                 marginBottom: 7, // Creates space between the title and the description
                 textAlign: 'center',
                 },
                 QuickLinksLinkDescription: {
-                color: '#888',
+                color: '#ede1d1',
                 fontSize: 11.5,
                 justifyContent:'center',
                 textAlign: 'center',
