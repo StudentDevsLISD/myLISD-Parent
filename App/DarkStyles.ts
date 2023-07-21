@@ -612,7 +612,7 @@ const darkStyles = StyleSheet.create({
                 fontSize: 28,
                 fontWeight: '600',
                 marginBottom: 5,
-                color: "#005987",
+                color: "#ede1d1",
               },
               NewsScreenArticleContainer: {
                 flexDirection: 'row',
@@ -631,6 +631,7 @@ const darkStyles = StyleSheet.create({
               NewsScreenTitle: {
                 fontSize: 18,
                 fontWeight: '500',
+                color: "#ede1d1"
               },
               NewsScreenSource: {
                 fontSize: 14,
