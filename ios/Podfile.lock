@@ -345,6 +345,8 @@ PODS:
   - React-jsinspector (0.71.11)
   - React-logger (0.71.11):
     - glog
+  - react-native-biometrics (3.0.1):
+    - React-Core
   - react-native-netinfo (9.3.10):
     - React-Core
   - react-native-progress-bar-android (1.0.5):
@@ -542,6 +544,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - "react-native-progress-bar-android (from `../node_modules/@react-native-community/progress-bar-android`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -637,6 +640,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-biometrics:
+    :path: "../node_modules/react-native-biometrics"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-progress-bar-android:
@@ -735,6 +740,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 18b5b33c5f2687a784a61bc8176611b73524ae77
   React-jsinspector: b6ed4cb3ffa27a041cd440300503dc512b761450
   React-logger: 186dd536128ae5924bc38ed70932c00aa740cd5b
+  react-native-biometrics: 352e5a794bfffc46a0c86725ea7dc62deb085bdc
   react-native-netinfo: ccbe1085dffd16592791d550189772e13bf479e2
   react-native-progress-bar-android: 092e6a794f158642692f25c8839d9aa8eb779afb
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
@@ -769,4 +775,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8dc7296555d021e8d5fa3ec70404cdd67dc4193b
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
