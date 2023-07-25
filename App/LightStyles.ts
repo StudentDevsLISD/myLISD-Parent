@@ -369,6 +369,19 @@ const lightStyles = StyleSheet.create({
             paddingVertical: 5,
             marginLeft: 10,
           },
+          GradesBiometricButton: {
+            backgroundColor: '#2196F3',
+            borderRadius: 30,
+            padding: 10,
+            marginVertical: 10,
+            alignSelf: 'center',
+          },
+        
+          GradesBiometricButtonText: {
+            color: 'white',
+            fontSize: 16,
+            fontWeight: 'bold',
+          },
           GradesGradeBadgeColor: {
             borderRadius: 8,
             paddingHorizontal: 11,

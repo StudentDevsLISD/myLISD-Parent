@@ -745,6 +745,19 @@ const darkStyles = StyleSheet.create({
                     top: 0,
                     bottom: 0,
                   },
+                  GradesBiometricButton: {
+                    backgroundColor: '#1E1E1E',
+                    borderRadius: 30,
+                    padding: 10,
+                    marginVertical: 10,
+                    alignSelf: 'center',
+                  },
+                
+                  GradesBiometricButtonText: {
+                    color: 'white',
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                  },
                   FadedText: {
                     color: '#444',
                   },
