@@ -516,11 +516,11 @@ const lightStyles = StyleSheet.create({
             paddingVertical: 10,
           },
           HomeContainer: {
-            flexGrow: 1,
             paddingHorizontal: 10,
             paddingTop: 20,
           },
           HomeContainerLarge: {
+            flex: 1,
           },
           HomeHeader: {
             flexDirection: 'row',

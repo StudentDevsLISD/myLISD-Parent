@@ -548,13 +548,12 @@ const darkStyles = StyleSheet.create({
                 color: "white",
               },
               HomeContainer: {
-                flexGrow: 1,
                 paddingHorizontal: 10,
                 paddingTop: 20,
                 backgroundColor: "#111",
               },
               HomeContainerLarge: {
-               
+               flex: 1,
                 backgroundColor: "#111",
               },
               HomeHeader: {
