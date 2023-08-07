@@ -241,7 +241,7 @@ const Attendance: React.FC = () => {
       } catch (error) {
         setIsLoading(false);
         setIsLoggedIn(false);
-        Alert.alert("Error loggng in")
+        Alert.alert("Error logging in")
       }      
       if (response.data) {
         const currentMonthData = formatData(response.data.data, response.data.monthNow);
