@@ -319,8 +319,12 @@ const Grades = () => {
                 <Text style={styles.GradesAppButtonText2}>No New Grades Have Been Added</Text>
               </TouchableOpacity>
             )}
-            {Object.entries(grades).map(([subject, grade], index) => {
-              const { color, letter } = getGrade(Number(grade));
+            {classes.map((classObj, index) => {
+              const { name, grade, assignments } = classObj;
+              const gradeValue = parseFloat(grade.split(' ')[2]);
+              const { color, letter } = getGrade(gradeValue);
+              const badgeColor = assignments.length === 0 ? 'gray' : color;
+  
               return (
                 <TouchableOpacity
                   style={styles.GradesGradeContainer}
@@ -331,22 +335,23 @@ const Grades = () => {
                         name: 'AssignmentScreen',
                         params: {
                           data: {
-                            course: classes[index].name,
-                            grade: grades[classes[index].name],
-                            assignments: classes[index].assignments,
+                            course: name,
+                            grade: grades[name],
+                            assignments: assignments,
                           },
                         },
                       })
                     );
                   }}
+                  disabled={assignments.length === 0}
                 >
                   <View style={styles.GradesGradeItem}>
                     <View style={styles.GradesCourseNameAndNum}>
-                    {renderSubjectText(subject.substring(12, 38))}
-                    <Text numberOfLines={1} style={styles.GradesGradeTextCourse}>{subject.substring(0,9)}</Text>
+                      {renderSubjectText(name.substring(12, 38))}
+                      <Text numberOfLines={1} style={styles.GradesGradeTextCourse}>{name.substring(0, 9)}</Text>
                     </View>
-                    <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
-                      <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
+                    <View style={[styles.GradesGradeBadgeColor, { backgroundColor: badgeColor }]}>
+                      <Text style={styles.GradesGradeBadgeText}>{grades[name]}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -357,6 +362,7 @@ const Grades = () => {
       )}
     </View>
   );
+  
 };
 
 export default Grades;
