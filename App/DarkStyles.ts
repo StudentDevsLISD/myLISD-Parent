@@ -347,17 +347,19 @@ const darkStyles = StyleSheet.create({
                 flex: 1,
                 paddingTop: 20,
                 paddingHorizontal: 20,
+                backgroundColor: "#111",
               },
               ContactTeacherSectionTitle: {
                 fontSize: 28,
                 fontWeight: '600',
                 marginBottom: 5,
-                color: "#005987",
+                color: "#ede1d1",
               },
               ContactTeacherArticleContainer: {
                 flexDirection: 'row',
                 padding: 10,
                 alignItems: 'center',
+                backgroundColor: "#111",
               },
               ContactTeacherTextContainer: {
                 flex: 1,
@@ -370,6 +372,7 @@ const darkStyles = StyleSheet.create({
               ContactTeacherTitle: {
                 fontSize: 18,
                 fontWeight: '500',
+                color: "white",
               },
               ContactTeacherSource: {
                 fontSize: 14,
