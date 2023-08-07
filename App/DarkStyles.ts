@@ -347,7 +347,7 @@ const darkStyles = StyleSheet.create({
                 flex: 1,
                 paddingTop: 20,
                 paddingHorizontal: 20,
-                backgroundColor: "#111",
+                backgroundColor: "#222",
               },
               ContactTeacherSectionTitle: {
                 fontSize: 35,
@@ -359,7 +359,7 @@ const darkStyles = StyleSheet.create({
                 flexDirection: 'row',
                 padding: 10,
                 alignItems: 'center',
-                backgroundColor: "#111",
+                backgroundColor: "#222",
               },
               ContactTeacherTextContainer: {
                 flex: 1,
@@ -639,7 +639,7 @@ const darkStyles = StyleSheet.create({
               NewsScreenTitle: {
                 fontSize: 18,
                 fontWeight: '500',
-                color: "#ede1d1"
+                color: "white"
               },
               NewsScreenSource: {
                 fontSize: 14,

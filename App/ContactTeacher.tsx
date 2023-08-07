@@ -47,7 +47,7 @@ const ItemView = ({ item, theme }: { item: Teacher; theme: 'light' | 'dark' }) =
         <Text style={styles.ContactTeacherTitle}>{item.name}</Text>
         <Text style={styles.ContactTeacherSource}>{item.class}</Text>
       </View>
-      <Icon name="chevron-right" size={30} color= {theme === 'light' ? "gray" : "white"} />
+      <Icon name="chevron-right" size={30} color= "gray" />
     </TouchableOpacity>
   );
 };
