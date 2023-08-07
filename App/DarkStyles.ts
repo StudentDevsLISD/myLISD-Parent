@@ -350,7 +350,7 @@ const darkStyles = StyleSheet.create({
                 backgroundColor: "#111",
               },
               ContactTeacherSectionTitle: {
-                fontSize: 28,
+                fontSize: 35,
                 fontWeight: '600',
                 marginBottom: 5,
                 color: "#ede1d1",
@@ -442,7 +442,7 @@ const darkStyles = StyleSheet.create({
               },
               GradesHeaderText: {
                 fontSize: 40,
-                marginLeft: -92,
+                marginLeft: -103,
                 marginBottom: 10,
                 marginTop: 10,
                 color: "#ede1d1",
@@ -567,7 +567,7 @@ const darkStyles = StyleSheet.create({
               },
             HomeHeaderText: {
                 fontSize: 40,
-                marginLeft: -91,
+                marginLeft: -103,
                 marginBottom:10,
                 marginTop: -13,
                 color: "#ede1d1",
