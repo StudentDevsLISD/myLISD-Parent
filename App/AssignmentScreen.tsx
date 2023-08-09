@@ -200,19 +200,18 @@ const FadedText = ({ text }) => {
           if(assignments[i].score == "X" || assignments[i].isDr.indexOf("strike") != -1){
             weight = 0;
           }
-          if(assignments[i].score == "M"){
-            assignments[i].score = "0"
-          }
+          // if(assignments[i].score == "M"){
+          //   assignments[i].score = "0"
+          // }
           if(assignments[i].score == "N/A"){
             weight = 0;
           }
           if(assignments[i].assignmentPercentage == "N/A"){
             assignments[i].assignmentPercentage = assignments[i].score;
           }
-          // if(assignments[i].totalPoint!="100.00"){
-          //   assignments[i].assignmentPercentage = (Number(assignments[i].assignmentPercentage.substring(0, assignments[i].assignmentPercentage.length-1))/100.00)*Number(assignments[i].totalPoints);
-          //   assignments[i].assignmentPercentage = assignments[i].assignmentPercentage.toString() + "%";
-          // }
+          if(Number(assignments[i].totalPoints) != 100){
+            assignments[i].assignmentPercentage = assignments[i].score;
+          }
           sum = sum + ((Number(assignments[i].assignmentPercentage.substring(0, assignments[i].assignmentPercentage.length -1))) * weight)
            total = total + ((Number(assignments[i].totalPoints) ? Number(assignments[i].totalPoints) : 0) * weight)
         }
