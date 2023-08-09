@@ -64,7 +64,6 @@ const Grades = () => {
   const [showNoNewGrades, setShowNoNewGrades] = useState(false);
   const [newAssignments, setNewAssignments] = useState([]);
   const route = useRoute();
-
   const headerTitle = isLoggedIn ? "Grades" : "HAC";
 
   const formatGradeValue = (gradeValue: number) => {
