@@ -38,7 +38,8 @@ const darkStyles = StyleSheet.create({
           AssignmentScreenProgressBarContainer: {
             justifyContent: 'center',
             alignItems: 'center',
-            paddingVertical: 8,
+            paddingTop: 13,
+            paddingBottom: 8,
             paddingHorizontal: 15,
             borderRadius: 15,
           },
@@ -63,10 +64,11 @@ const darkStyles = StyleSheet.create({
             backgroundColor: '#222',
             borderRadius: 10,
             paddingHorizontal: 10,
-            paddingVertical: 10,
+            paddingTop: 3,
+            paddingBottom: 10,
             marginTop: 6,
             width: Dimensions.get('window').width * 0.45,
-            height: 93,
+            height: 80,
           },
           AssignmentScreenBreakdownLabel: {
             fontSize: 18,
@@ -76,7 +78,7 @@ const darkStyles = StyleSheet.create({
           AssignmentScreenBreakdownValue: {
             fontSize: 30,
             fontWeight: 'bold',
-            color: "#EDE1D1"
+            color: "#EDE1D1",
           },
           AssignmentScreenBreakdownWeight: {
             fontSize: 14,

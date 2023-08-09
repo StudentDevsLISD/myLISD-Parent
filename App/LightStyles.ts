@@ -37,7 +37,8 @@ const lightStyles = StyleSheet.create({
       AssignmentScreenProgressBarContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 8,
+        paddingTop: 13,
+        paddingBottom: 8,
         paddingHorizontal: 15,
         borderRadius: 15,
       },
@@ -62,10 +63,11 @@ const lightStyles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 10,
         paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingTop: 3,
+        paddingBottom: 10,
         marginTop: 6,
         width: Dimensions.get('window').width * 0.45,
-        height: 93,
+        height: 80,
       },
       AssignmentScreenBreakdownLabel: {
         fontSize: 18,
@@ -726,6 +728,10 @@ const lightStyles = StyleSheet.create({
               inactiveDot: {
                 backgroundColor: 'grey', // Replace with your preferred inactive dot color
               },
+              dotview: {
+                marginVertical: -15,
+                marginBottom: -20,
+            },
 });
 
 export default lightStyles;

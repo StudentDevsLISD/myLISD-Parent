@@ -288,17 +288,6 @@ return (
                 </>
               )}
             </AnimatedCircularProgress>
-
-             <TouchableOpacity
-                activeOpacity={0.8}
-                style={[styles.AssignmentScreenCalculateButton, { backgroundColor: '#5b92f9' }]}
-                onPress={() => {
-                  // Add your logic for the "Calculate" button here
-                  console.log('Calculate button pressed');
-                }}
-              >
-                <Text style={styles.AssignmentScreenCalculateButtonText}>Calculate</Text>
-              </TouchableOpacity>
             </View>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} pagingEnabled>
