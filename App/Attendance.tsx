@@ -7,7 +7,6 @@ import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import axios from 'axios';
 import {IP_ADDRESS} from '@env';
-
 import { ActivityIndicator } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -1,33 +1,37 @@
-import React, { useContext } from 'react';
-import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image, Linking } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image, Linking, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
+import axios from 'axios';
+import {IP_ADDRESS} from '@env';
+import { ActivityIndicator } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface Teacher {
-  name: string;
-  class: string;
-  email: string;
-  imageUrl: string;
-}
+// interface Teacher {
+//   name: string;
+//   class: string;
+//   email: string;
+//   imageUrl: string;
+// }
 
-const teachers: Teacher[] = [
-  {
-    name: "John Doe",
-    class: "AP Calculus BC",
-    email: "adith.chandraiah@gmail.com",
-    imageUrl: "https://images.squarespace-cdn.com/content/v1/5b56c01f9f877051fa238ca3/1573759915619-1LGAQ3NCIULHNEZ1OY87/Ray.jpg",
-  },
-  {
-    name: "Jane Smith",
-    class: "AP English Language and Composition",
-    email: "janesmith@example.com",
-    imageUrl: "https://media.istockphoto.com/id/1151796047/photo/laughing-mature-businesswoman-wearing-glasses-posing-on-grey-studio-background.jpg?s=612x612&w=0&k=20&c=Nkb3aDxmf2g_-zFqq0j97x8J_V9asEq5XUpPJU4wxLc=",
-  },
-  // Add more teachers here
-];
+// const teachers: Teacher[] = [
+//   {
+//     name: "John Doe",
+//     class: "AP Calculus BC",
+//     email: "adith.chandraiah@gmail.com",
+//     imageUrl: "https://images.squarespace-cdn.com/content/v1/5b56c01f9f877051fa238ca3/1573759915619-1LGAQ3NCIULHNEZ1OY87/Ray.jpg",
+//   },
+//   {
+//     name: "Jane Smith",
+//     class: "AP English Language and Composition",
+//     email: "janesmith@example.com",
+//     imageUrl: "https://media.istockphoto.com/id/1151796047/photo/laughing-mature-businesswoman-wearing-glasses-posing-on-grey-studio-background.jpg?s=612x612&w=0&k=20&c=Nkb3aDxmf2g_-zFqq0j97x8J_V9asEq5XUpPJU4wxLc=",
+//   },
+//   // Add more teachers here
+// ];
 
 interface ContactTeachersScreenProps {
   theme: 'light' | 'dark'; // Specify the theme type here based on your ThemeContext
@@ -35,7 +39,7 @@ interface ContactTeachersScreenProps {
 
 const ItemView = ({ item, theme }: { item: Teacher; theme: 'light' | 'dark' }) => {
   const handleEmailPress = () => {
-    Linking.openURL(`mailto:${item.email}`);
+    Linking.openURL(`${item.email}`);
   };
 
   const styles = theme === 'light' ? lightStyles : darkStyles;
@@ -60,6 +64,47 @@ const ItemSeparatorView = ({ theme }: { theme: 'light' | 'dark' }) => {
 
 const ContactTeachersScreen = ({ theme }: ContactTeachersScreenProps) => {
   const navigation = useNavigation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [teachers, setTeachers] = useState();
+
+  useEffect(() => {
+    loadCredentials();
+  }, []);
+  
+  const loadCredentials = async () => {
+    try {
+      const loadedUsername = await AsyncStorage.getItem('hacusername');
+      const loadedPassword = await AsyncStorage.getItem('hacpassword');
+
+      if (loadedUsername !== null && loadedPassword !== null) {
+        setIsLoggedIn(true);
+        console.log("x")
+        fetchTeachers(loadedUsername, loadedPassword)
+      } else {
+        setIsLoggedIn(false);
+        console.log("y")
+        navigation.navigate("Grades")
+      }
+    } catch (error) {
+      console.log("bad")
+    }
+  };
+  const fetchTeachers = async (username, password) => {
+    let response ='';
+    try {
+      setIsLoading(true);
+      response = await axios.get(`http://${IP_ADDRESS}:8080/teachers?username=${username}&password=${password}`);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setIsLoggedIn(false);
+      Alert.alert("Error logging in")
+    }      
+    if(response.data){
+      setTeachers(response.data.teachers);
+    }
+  };
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -74,9 +119,28 @@ const ContactTeachersScreen = ({ theme }: ContactTeachersScreenProps) => {
   }, [navigation]);
 
   const styles = theme === 'light' ? lightStyles : darkStyles;
-
+  if (isLoading) {
+    return (
+      <View style={styles.AttendanceLoadingContainer}>
+        <ActivityIndicator
+          animating={true}
+          size={'large'}
+          color={theme === 'light' ? '#005a87' : '#ede1d1'}
+        />
+      </View>
+    );
+  }
   return (
     <View style={styles.ContactTeacherContainer}>
+      {!isLoggedIn ? (
+        <TouchableOpacity 
+          style={styles.GradesLoginButton} 
+          onPress={() => loadCredentials()}
+        >
+          <Text style={styles.GradesLoginButtonText}>Login with HAC</Text>
+        </TouchableOpacity>
+      ):(
+        <ScrollView>
       <Text style={styles.ContactTeacherSectionTitle}>Contact Teachers</Text>
       <FlatList
         data={teachers}
@@ -84,7 +148,10 @@ const ContactTeachersScreen = ({ theme }: ContactTeachersScreenProps) => {
         renderItem={({ item }) => <ItemView item={item} theme={theme} />}
         ItemSeparatorComponent={() => <ItemSeparatorView theme={theme} />}
       />
+      </ScrollView>
+      )}
     </View>
+    
   );
 };
 

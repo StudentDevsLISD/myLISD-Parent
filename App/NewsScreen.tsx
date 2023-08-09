@@ -75,7 +75,7 @@ const NewsScreen = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://' + '10.0.0.12' + ':8080/news')
+    axios.get('http://' + IP_ADDRESS + ':8080/news')
       .then((response) => {
         setNewsArticles(response.data.news);
         setLoading(false); // Hide loading indicator
