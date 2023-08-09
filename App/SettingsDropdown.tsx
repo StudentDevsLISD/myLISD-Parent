@@ -36,15 +36,6 @@ const SettingsScreen: React.FC<Props> = ({ handleLogout, handleHACLogout }) => {
           value={theme === 'dark'}
         />
       </View>
-      <View style={styles.SettingsSettingRow}>
-        <Text style={[styles.SettingsSettingText]}>Face ID</Text>
-        <Switch
-          trackColor={{ false: '#767577', true: '#767577' }}
-          thumbColor={theme === 'dark' ? '#fff' : '#fff'}
-          onValueChange={toggleTheme}
-          value={theme === 'dark'}
-        />
-      </View>
       <TouchableOpacity
         style={styles.SettingsLogoutButton}
         onPress={handleHACLogoutPress}

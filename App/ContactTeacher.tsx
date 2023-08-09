@@ -29,12 +29,15 @@ const teachers: Teacher[] = [
   // Add more teachers here
 ];
 
-const ItemView = ({ item }: { item: Teacher }) => {
+interface ContactTeachersScreenProps {
+  theme: 'light' | 'dark'; // Specify the theme type here based on your ThemeContext
+}
+
+const ItemView = ({ item, theme }: { item: Teacher; theme: 'light' | 'dark' }) => {
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${item.email}`);
   };
 
-  const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
 
   return (
@@ -44,19 +47,18 @@ const ItemView = ({ item }: { item: Teacher }) => {
         <Text style={styles.ContactTeacherTitle}>{item.name}</Text>
         <Text style={styles.ContactTeacherSource}>{item.class}</Text>
       </View>
-      <Icon name="chevron-right" size={30} color="gray" />
+      <Icon name="chevron-right" size={30} color= "gray" />
     </TouchableOpacity>
   );
 };
 
-const ItemSeparatorView = () => {
+const ItemSeparatorView = ({ theme }: { theme: 'light' | 'dark' }) => {
   return (
-    // FlatList Item Separator
     <View style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }} />
   );
 };
 
-const ContactTeachersScreen = () => {
+const ContactTeachersScreen = ({ theme }: ContactTeachersScreenProps) => {
   const navigation = useNavigation();
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -71,8 +73,6 @@ const ContactTeachersScreen = () => {
     });
   }, [navigation]);
 
-
-  const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
 
   return (
@@ -81,12 +81,16 @@ const ContactTeachersScreen = () => {
       <FlatList
         data={teachers}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={ItemView}
-        ItemSeparatorComponent={ItemSeparatorView}
+        renderItem={({ item }) => <ItemView item={item} theme={theme} />}
+        ItemSeparatorComponent={() => <ItemSeparatorView theme={theme} />}
       />
     </View>
   );
 };
 
+const ContactTeachersScreenWrapper = () => {
+  const { theme } = useContext(ThemeContext);
+  return <ContactTeachersScreen theme={theme}/>;
+};
 
-export default ContactTeachersScreen;
+export default ContactTeachersScreenWrapper;

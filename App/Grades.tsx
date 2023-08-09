@@ -64,7 +64,6 @@ const Grades = () => {
   const [showNoNewGrades, setShowNoNewGrades] = useState(false);
   const [newAssignments, setNewAssignments] = useState([]);
   const route = useRoute();
-
   const headerTitle = isLoggedIn ? "Grades" : "HAC";
 
   const formatGradeValue = (gradeValue: number) => {
@@ -248,6 +247,32 @@ const Grades = () => {
     );
   };
 
+  const applyFadingLogic = (text, theme) => {
+    const fadeStart = 12; // Starting index for fading effect
+    const fadeEnd = 14;   // Ending index for fading effect
+    const colorValue = theme === 'light' ? 232 : 187; // Adjust as needed
+  
+    return text.split('').map((char, i) => {
+      let color = theme === 'light' ? '#000' : '#FFF';
+  
+      if (i >= fadeStart && i <= fadeEnd) {
+        const fadeProgress = (i - fadeStart + 1) / (fadeEnd - fadeStart + 1);
+        const modifiedColorValue = Math.round(fadeProgress * colorValue);
+        color = `rgb(${modifiedColorValue}, ${modifiedColorValue}, ${modifiedColorValue})`;
+      } else if (i > fadeEnd) {
+        color = theme === 'light' ? '#e8e8e8' : '#444';
+      }
+  
+      return (
+        <Text key={i} style={{ color }}>
+          {char}
+        </Text>
+      );
+    });
+  };
+  
+  
+
   const renderSubjectText = (subject, theme) => {
     const maxLength = 38;
     const truncatedSubject = subject.slice(0, maxLength);
@@ -296,22 +321,32 @@ const Grades = () => {
             )}
             {newAssignments.length > 0 && (
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.GradesNewAssignmentsScrollView}>
-                {newAssignments.map((assignment, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.GradesNewAssignmentTouchable}
-                    onPress={() => {
-                      // Handle assignment press if needed
-                    }}
-                  >
-                    <Text style={styles.GradesNewAssignmentText1}>
-                      {assignment.name}:
-                    </Text>
-                    <Text style={styles.GradesNewAssignmentText2}>
-                      {assignment.score}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+{newAssignments.map((assignment, index) => (
+  <TouchableOpacity
+    key={index}
+    style={styles.GradesNewAssignmentTouchable}
+    onPress={() => {
+      // Handle assignment press if needed
+    }}
+  >
+    <Text style={styles.GradesNewAssignmentText1}>
+      {assignment.name.length > 14 ? (
+        <>
+          {assignment.name.substring(0, 12)}
+          {applyFadingLogic(assignment.name.substring(12, 14), theme)}
+        </>
+      ) : (
+        assignment.name
+      )}
+      :
+    </Text>
+    <Text style={styles.GradesNewAssignmentText2}>
+      {assignment.score}
+    </Text>
+  </TouchableOpacity>
+))}
+
+
               </ScrollView>
             )}
             {showNoNewGrades && (
@@ -319,8 +354,12 @@ const Grades = () => {
                 <Text style={styles.GradesAppButtonText2}>No New Grades Have Been Added</Text>
               </TouchableOpacity>
             )}
-            {Object.entries(grades).map(([subject, grade], index) => {
-              const { color, letter } = getGrade(Number(grade));
+            {classes.map((classObj, index) => {
+              const { name, grade, assignments } = classObj;
+              const gradeValue = parseFloat(grade.split(' ')[2]);
+              const { color, letter } = getGrade(gradeValue);
+              const badgeColor = assignments.length === 0 ? 'gray' : color;
+  
               return (
                 <TouchableOpacity
                   style={styles.GradesGradeContainer}
@@ -331,22 +370,23 @@ const Grades = () => {
                         name: 'AssignmentScreen',
                         params: {
                           data: {
-                            course: classes[index].name,
-                            grade: grades[classes[index].name],
-                            assignments: classes[index].assignments,
+                            course: name,
+                            grade: grades[name],
+                            assignments: assignments,
                           },
                         },
                       })
                     );
                   }}
+                  disabled={assignments.length === 0}
                 >
                   <View style={styles.GradesGradeItem}>
                     <View style={styles.GradesCourseNameAndNum}>
-                    {renderSubjectText(subject.substring(12, 38))}
-                    <Text numberOfLines={1} style={styles.GradesGradeTextCourse}>{subject.substring(0,9)}</Text>
+                      {renderSubjectText(name.substring(12, 38))}
+                      <Text numberOfLines={1} style={styles.GradesGradeTextCourse}>{name.substring(0, 9)}</Text>
                     </View>
-                    <View style={[styles.GradesGradeBadgeColor, { backgroundColor: color }]}>
-                      <Text style={styles.GradesGradeBadgeText}>{grade}</Text>
+                    <View style={[styles.GradesGradeBadgeColor, { backgroundColor: badgeColor }]}>
+                      <Text style={styles.GradesGradeBadgeText}>{grades[name]}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -357,6 +397,7 @@ const Grades = () => {
       )}
     </View>
   );
+  
 };
 
 export default Grades;

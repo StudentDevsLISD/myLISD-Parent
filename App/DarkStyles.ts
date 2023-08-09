@@ -38,7 +38,8 @@ const darkStyles = StyleSheet.create({
           AssignmentScreenProgressBarContainer: {
             justifyContent: 'center',
             alignItems: 'center',
-            paddingVertical: 8,
+            paddingTop: 13,
+            paddingBottom: 8,
             paddingHorizontal: 15,
             borderRadius: 15,
           },
@@ -63,10 +64,11 @@ const darkStyles = StyleSheet.create({
             backgroundColor: '#222',
             borderRadius: 10,
             paddingHorizontal: 10,
-            paddingVertical: 10,
+            paddingTop: 3,
+            paddingBottom: 10,
             marginTop: 6,
             width: Dimensions.get('window').width * 0.45,
-            height: 93,
+            height: 80,
           },
           AssignmentScreenBreakdownLabel: {
             fontSize: 18,
@@ -76,7 +78,7 @@ const darkStyles = StyleSheet.create({
           AssignmentScreenBreakdownValue: {
             fontSize: 30,
             fontWeight: 'bold',
-            color: "#EDE1D1"
+            color: "#EDE1D1",
           },
           AssignmentScreenBreakdownWeight: {
             fontSize: 14,
@@ -347,17 +349,19 @@ const darkStyles = StyleSheet.create({
                 flex: 1,
                 paddingTop: 20,
                 paddingHorizontal: 20,
+                backgroundColor: "#222",
               },
               ContactTeacherSectionTitle: {
-                fontSize: 28,
+                fontSize: 35,
                 fontWeight: '600',
                 marginBottom: 5,
-                color: "#005987",
+                color: "#ede1d1",
               },
               ContactTeacherArticleContainer: {
                 flexDirection: 'row',
                 padding: 10,
                 alignItems: 'center',
+                backgroundColor: "#222",
               },
               ContactTeacherTextContainer: {
                 flex: 1,
@@ -370,6 +374,7 @@ const darkStyles = StyleSheet.create({
               ContactTeacherTitle: {
                 fontSize: 18,
                 fontWeight: '500',
+                color: "white",
               },
               ContactTeacherSource: {
                 fontSize: 14,
@@ -439,7 +444,7 @@ const darkStyles = StyleSheet.create({
               },
               GradesHeaderText: {
                 fontSize: 40,
-                marginLeft: -92,
+                marginLeft: -103,
                 marginBottom: 10,
                 marginTop: 10,
                 color: "#ede1d1",
@@ -526,6 +531,10 @@ const darkStyles = StyleSheet.create({
                 flexDirection: 'row', // Add this line to display new assignments horizontally
                 marginHorizontal: 8,
               },
+              FadedAssignmentName: {
+                color: '#FFF', // Adjust as needed
+              },
+            
               GradesNewAssignmentTouchable: {
                 marginBottom: 5,
                 backgroundColor: '#333',
@@ -564,7 +573,7 @@ const darkStyles = StyleSheet.create({
               },
             HomeHeaderText: {
                 fontSize: 40,
-                marginLeft: -91,
+                marginLeft: -103,
                 marginBottom:10,
                 marginTop: -13,
                 color: "#ede1d1",
@@ -636,7 +645,7 @@ const darkStyles = StyleSheet.create({
               NewsScreenTitle: {
                 fontSize: 18,
                 fontWeight: '500',
-                color: "#ede1d1"
+                color: "white"
               },
               NewsScreenSource: {
                 fontSize: 14,
