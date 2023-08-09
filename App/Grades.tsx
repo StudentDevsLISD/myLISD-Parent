@@ -247,6 +247,32 @@ const Grades = () => {
     );
   };
 
+  const applyFadingLogic = (text, theme) => {
+    const fadeStart = 12; // Starting index for fading effect
+    const fadeEnd = 14;   // Ending index for fading effect
+    const colorValue = theme === 'light' ? 232 : 187; // Adjust as needed
+  
+    return text.split('').map((char, i) => {
+      let color = theme === 'light' ? '#000' : '#FFF';
+  
+      if (i >= fadeStart && i <= fadeEnd) {
+        const fadeProgress = (i - fadeStart + 1) / (fadeEnd - fadeStart + 1);
+        const modifiedColorValue = Math.round(fadeProgress * colorValue);
+        color = `rgb(${modifiedColorValue}, ${modifiedColorValue}, ${modifiedColorValue})`;
+      } else if (i > fadeEnd) {
+        color = theme === 'light' ? '#e8e8e8' : '#444';
+      }
+  
+      return (
+        <Text key={i} style={{ color }}>
+          {char}
+        </Text>
+      );
+    });
+  };
+  
+  
+
   const renderSubjectText = (subject, theme) => {
     const maxLength = 38;
     const truncatedSubject = subject.slice(0, maxLength);
@@ -295,22 +321,32 @@ const Grades = () => {
             )}
             {newAssignments.length > 0 && (
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.GradesNewAssignmentsScrollView}>
-                {newAssignments.map((assignment, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.GradesNewAssignmentTouchable}
-                    onPress={() => {
-                      // Handle assignment press if needed
-                    }}
-                  >
-                    <Text style={styles.GradesNewAssignmentText1}>
-                      {assignment.name}:
-                    </Text>
-                    <Text style={styles.GradesNewAssignmentText2}>
-                      {assignment.score}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+{newAssignments.map((assignment, index) => (
+  <TouchableOpacity
+    key={index}
+    style={styles.GradesNewAssignmentTouchable}
+    onPress={() => {
+      // Handle assignment press if needed
+    }}
+  >
+    <Text style={styles.GradesNewAssignmentText1}>
+      {assignment.name.length > 14 ? (
+        <>
+          {assignment.name.substring(0, 12)}
+          {applyFadingLogic(assignment.name.substring(12, 14), theme)}
+        </>
+      ) : (
+        assignment.name
+      )}
+      :
+    </Text>
+    <Text style={styles.GradesNewAssignmentText2}>
+      {assignment.score}
+    </Text>
+  </TouchableOpacity>
+))}
+
+
               </ScrollView>
             )}
             {showNoNewGrades && (

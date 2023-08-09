@@ -507,6 +507,9 @@ const lightStyles = StyleSheet.create({
             marginHorizontal: 5,
             justifyContent: 'center', // Vertically center the text
           },
+          FadedAssignmentName: {
+            color: '#000', // Adjust as needed
+          },        
           GradesNewAssignmentText1: {
             fontSize: 18,
             fontWeight: 'normal',

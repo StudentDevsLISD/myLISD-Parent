@@ -531,6 +531,10 @@ const darkStyles = StyleSheet.create({
                 flexDirection: 'row', // Add this line to display new assignments horizontally
                 marginHorizontal: 8,
               },
+              FadedAssignmentName: {
+                color: '#FFF', // Adjust as needed
+              },
+            
               GradesNewAssignmentTouchable: {
                 marginBottom: 5,
                 backgroundColor: '#333',
