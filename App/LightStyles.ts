@@ -217,7 +217,7 @@ const lightStyles = StyleSheet.create({
           overflow: 'hidden',
         },
         CalendarEventContainer: {
-        backgroundColor: '#F2F2F2',
+        backgroundColor: '#fff',
         margin: 10,
         padding: 10,
         borderRadius: 5,

@@ -340,7 +340,7 @@ const darkStyles = StyleSheet.create({
               CalendarEventTitle: {
                 fontSize: 16,
                 fontWeight: '600',
-                color: '#333',
+                color: '#fff',
                 marginBottom: 2,
               },
               CalendarEventLocation: {
