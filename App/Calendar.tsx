@@ -107,6 +107,7 @@ const ComOp = () => {
         const fetchedEvents = await fetchEvents(calendarId, selectedDate);
         const uniqueEvents = removeDuplicateEvents(fetchedEvents);
         setEvents(uniqueEvents);
+        console.log(uniqueEvents)
       } catch (error) {
         console.error('Error fetching and setting events:', error);
       }
