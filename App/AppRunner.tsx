@@ -148,7 +148,7 @@ const Tab2Screen = () => {
         <Calendar/>
       ) : (
         <View style={styles.AppRunnerOfflineContainer}>
-          <Icon name="wifi" size={32} color="#888" />
+          <Icon name="wifi" size={32} color = "#888" />
           <Text style={styles.AppRunnerOfflineText}>No Internet Connection</Text>
         </View>
       )}
