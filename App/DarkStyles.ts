@@ -1,7 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
-import { color } from 'react-native-elements/dist/helpers';
 
-const darkStyles = StyleSheet.create({
+const DarkStyles = StyleSheet.create({
     AppRunnerOfflineContainer: {
         flex: 1,
         alignItems: 'center',
@@ -801,4 +800,4 @@ const darkStyles = StyleSheet.create({
                   },
 });
 
-export default darkStyles;
+export default DarkStyles;
