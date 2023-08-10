@@ -6,10 +6,12 @@ const darkStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#111',
         },
         AppRunnerOfflineText: {
         marginTop: 8,
         fontSize: 16,
+        color: "white"
         },
         AssignmentScreenContainer: {
             flex: 1,
