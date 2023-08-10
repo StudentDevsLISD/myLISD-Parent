@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Button, TouchableOpacity, } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, TouchableOpacity, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -275,6 +275,7 @@ const Stack = createStackNavigator();
 const Tabs: React.FC = () => {
   const {theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
+  const screenHeight = Dimensions.get('window').height;
 
   const tabBarOptions = {
     headerTitle: () => (
@@ -284,12 +285,12 @@ const Tabs: React.FC = () => {
     ),
     headerStyle: {
       backgroundColor: '#005a87',
-      height: 125,
+      height: screenHeight*0.16,
     },
     tabBarStyle: {
       backgroundColor: theme === 'light' ? 'white' : '#111', // Set the background color of the tab bar to black
       paddingTop: 10,
-      height: 85
+      height: screenHeight*0.1
     },
     tabBarActiveTintColor: theme === 'dark' ? '#ede1d1' : '#007AFF',
     tabBarInactiveTintColor: theme === 'dark' ? '#666666' : '#8E8E93'
@@ -343,6 +344,7 @@ const Tabs: React.FC = () => {
 // );
 const AppRunner = () => {
 const [isAppReady, setIsAppReady] = useState(false);
+const screenHeight = Dimensions.get('window').height;
 
 
 useEffect(() => {
@@ -364,7 +366,7 @@ return (
     ),
     headerStyle: {
       backgroundColor: '#005a87',
-      height: 125,
+      height: screenHeight*0.16,
     },}}>
       <Stack.Screen name ="HomeScreen" component={Tabs} options={{ headerShown: true}}/>
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
