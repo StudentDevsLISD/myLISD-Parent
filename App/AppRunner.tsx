@@ -28,6 +28,7 @@ import AssignmentScreen from './AssignmentScreen';
 import { ThemeContext, ThemeProvider } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
+import SupportPage from './SupportPage';
 
 
 
@@ -375,6 +376,8 @@ return (
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
       <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
+
+      <Stack.Screen name="SupportPage" component={SupportPage} options={{ headerShown: true }}/>
   </Stack.Navigator>
   </ThemeProvider>
 );
