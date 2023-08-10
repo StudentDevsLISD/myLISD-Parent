@@ -358,6 +358,7 @@ if (!isAppReady) {
 }
 
 return (
+  <ThemeProvider>
   <Stack.Navigator screenOptions={{headerTitle: () => (
       <View style={{ alignItems: 'center' }}>
         <Image source={require('../assets/lisd_white_2.jpg')} style={{ width: 258, height: 68, marginBottom: 11, alignSelf: 'center' }} />
