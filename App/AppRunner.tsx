@@ -28,6 +28,7 @@ import AssignmentScreen from './AssignmentScreen';
 import { ThemeContext, ThemeProvider } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
+import SupportPage from './SupportPage';
 
 
 
@@ -148,7 +149,7 @@ const Tab2Screen = () => {
         <Calendar/>
       ) : (
         <View style={styles.AppRunnerOfflineContainer}>
-          <Icon name="wifi" size={32} color="#888" />
+          <Icon name="wifi" size={32} color = "#888" />
           <Text style={styles.AppRunnerOfflineText}>No Internet Connection</Text>
         </View>
       )}
@@ -374,6 +375,8 @@ return (
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>
       <Stack.Screen name="VirtualAssistant" component={VirtualAssistant} options={{ headerShown: true }}/>
       <Stack.Screen name="AssignmentScreen" component={AssignmentScreen} options={{ headerShown: true }}/>
+
+      <Stack.Screen name="SupportPage" component={SupportPage} options={{ headerShown: true }}/>
   </Stack.Navigator>
   </ThemeProvider>
 );

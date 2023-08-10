@@ -20,7 +20,7 @@ const GoogleFeedback = () => {
   }, [navigation]);
   return (
     <WebView
-      source={{ uri: 'https://www.leanderisd.org' }}
+      source={{ uri: 'https://www.leanderisd.org/support/' }}
       style={{ flex: 1 }}
     />
   );

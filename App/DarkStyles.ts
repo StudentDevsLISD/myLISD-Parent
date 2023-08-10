@@ -5,10 +5,12 @@ const DarkStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#111',
         },
         AppRunnerOfflineText: {
         marginTop: 8,
         fontSize: 16,
+        color: "white"
         },
         AssignmentScreenContainer: {
             flex: 1,
@@ -337,7 +339,7 @@ const DarkStyles = StyleSheet.create({
               CalendarEventTitle: {
                 fontSize: 16,
                 fontWeight: '600',
-                color: '#333',
+                color: '#fff',
                 marginBottom: 2,
               },
               CalendarEventLocation: {
@@ -626,6 +628,12 @@ const DarkStyles = StyleSheet.create({
                 fontWeight: '600',
                 marginBottom: 5,
                 color: "#ede1d1",
+              },
+              NewsScreenLoadingContainer:{
+                flex: 1,
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                backgroundColor: "#222",
               },
               NewsScreenArticleContainer: {
                 flexDirection: 'row',

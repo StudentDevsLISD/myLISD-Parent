@@ -217,7 +217,7 @@ const LightStyles = StyleSheet.create({
           overflow: 'hidden',
         },
         CalendarEventContainer: {
-        backgroundColor: '#F2F2F2',
+        backgroundColor: '#fff',
         margin: 10,
         padding: 10,
         borderRadius: 5,
@@ -577,6 +577,11 @@ const LightStyles = StyleSheet.create({
             flex: 1,
             paddingTop: 20,
             paddingHorizontal: 20,
+          },
+          NewsScreenLoadingContainer:{
+            flex: 1,
+            justifyContent: 'center', 
+            alignItems: 'center', 
           },
           NewsScreenSectionTitle: {
             fontSize: 28,
