@@ -186,21 +186,20 @@ const ComOp = () => {
           renderDay={handleDayPress}
           enableSwipeMonths={true}
         />
-
-    { isLoading ? (<ActivityIndicator marginTop = {50} animating={true} size={'large'} color={theme=='light' ? '#005a87' : '#ede1d1'}/> ):(
-        events.length > 0 ? (
-          events.map((event: Event) => (
-            <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
-          ))
-        ) : (
-          // <TouchableOpacity> 
-        <Text style={styles.CalendarNoEventsText2}>No Events Today</Text>
-          // </TouchableOpacity>
-        )
-    )}
       </View>
-
-       
+      {isLoading ? (
+        <ActivityIndicator marginTop={50} animating={true} size={'large'} color={theme == 'light' ? '#005a87' : '#ede1d1'} />
+      ) : (
+        <ScrollView>
+          {events.length > 0 ? (
+            events.map((event: Event) => (
+              <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
+            ))
+          ) : (
+            <Text style={styles.CalendarNoEventsText2}>No Events Today</Text>
+          )}
+        </ScrollView>
+      )}
     </View>
   );
 }

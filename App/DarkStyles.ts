@@ -628,6 +628,12 @@ const darkStyles = StyleSheet.create({
                 marginBottom: 5,
                 color: "#ede1d1",
               },
+              NewsScreenLoadingContainer:{
+                flex: 1,
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                backgroundColor: "#222",
+              },
               NewsScreenArticleContainer: {
                 flexDirection: 'row',
                 padding: 10,

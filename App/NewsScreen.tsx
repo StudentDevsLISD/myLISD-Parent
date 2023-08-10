@@ -106,7 +106,7 @@ const NewsScreen = () => {
     <View style={styles.NewsScreenContainer}>
       <Text style={styles.NewsScreenSectionTitle}>Top Stories</Text>
       {loading ? (
-        <View style={styles.AttendanceLoadingContainer}>
+        <View style={styles.NewsScreenLoadingContainer}>
           <ActivityIndicator
             animating={true}
             size={'large'}

@@ -578,6 +578,11 @@ const lightStyles = StyleSheet.create({
             paddingTop: 20,
             paddingHorizontal: 20,
           },
+          NewsScreenLoadingContainer:{
+            flex: 1,
+            justifyContent: 'center', 
+            alignItems: 'center', 
+          },
           NewsScreenSectionTitle: {
             fontSize: 28,
             fontWeight: '600',
