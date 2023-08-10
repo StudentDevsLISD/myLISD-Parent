@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-const lightStyles = StyleSheet.create({
+const LightStyles = StyleSheet.create({
 
     AppRunnerOfflineContainer: {
     flex: 1,
@@ -145,6 +145,14 @@ const lightStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '800',
       },
+      AssignmentScreenBreakdownColor: {
+        width: 25,
+        height: 10,
+        borderRadius: 5,
+        position: 'absolute',
+        right: 10,
+        bottom: 5,
+      },
       AttendanceLoadingContainer:{
         flex: 1,
         justifyContent: 'center', 
@@ -161,14 +169,6 @@ const lightStyles = StyleSheet.create({
       },
       AttendanceLegendContainer: {
         marginTop: 16,
-      },
-      AssignmentScreenBreakdownColor: {
-        width: 25,
-        height: 10,
-        borderRadius: 5,
-        position: 'absolute',
-        right: 10,
-        bottom: 5,
       },
       AttendanceLegendBox: {
         backgroundColor: '#ffffff',
@@ -734,4 +734,4 @@ const lightStyles = StyleSheet.create({
             },
 });
 
-export default lightStyles;
+export default LightStyles;
