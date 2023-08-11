@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -20,10 +19,11 @@ const ContactUs = () => {
     });
   }, [navigation]);
   return (
-    <WebView
-      source={{ uri: 'https://www.k12insight.com/Lets-Talk/LetsTalkTabCustom.aspx?k=WKXY9FLT&rnd=1686678916022' }}
-      style={{ flex: 1 }}
-    />
+    // <WebView
+    //   source={{ uri: 'https://www.k12insight.com/Lets-Talk/LetsTalkTabCustom.aspx?k=WKXY9FLT&rnd=1686678916022' }}
+    //   style={{ flex: 1 }}
+    // />
+    <View></View>
   );
 };
 

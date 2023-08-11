@@ -1,5 +1,4 @@
 import React from 'react';
-import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TouchableOpacity } from 'react-native';
@@ -19,11 +18,12 @@ const BusTracking = () => {
     });
   }, [navigation]);
   return (
-    <WebView
-      source={{ uri: 'https://parent.smart-tag.net/%40leanderisd' }}
-      style={{ flex: 1 }}
-    />
-  );
+    // <WebView
+    //   source={{ uri: 'https://parent.smart-tag.net/%40leanderisd' }}
+    //   style={{ flex: 1 }}
+    // />
+    <View></View>
+    );
 };
 
 export default BusTracking;

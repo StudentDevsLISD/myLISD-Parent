@@ -34,7 +34,7 @@ LocaleConfig.locales['en'] = {
 };
 LocaleConfig.defaultLocale = 'en';
 
-const Attendance: React.FC = () => {
+const Attendance = () => {
 
 
   // Mock data
@@ -203,7 +203,7 @@ const Attendance: React.FC = () => {
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
-  const onDayPress = (day: any) => {
+  const onDayPress = (day) => {
     setSelectedDate(day.dateString);
     Alert.alert(attendanceData[day.dateString]?.title || 'No information for this date');
   };
@@ -308,7 +308,7 @@ const Attendance: React.FC = () => {
     return `${year}-${monthString}-01`;
   }
 
-  const renderDay = (day: any, item: any) => {
+  const renderDay = (day, item) => {
     if (item && item.customStyles) {
       const { backgroundColor, color } = item.customStyles.container;
       return (

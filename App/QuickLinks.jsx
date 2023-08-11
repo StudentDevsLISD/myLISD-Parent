@@ -1,37 +1,15 @@
 import { useNavigation, NavigationProp, CommonActions } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { ScrollView, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, TouchableOpacity, Text, StyleSheet, Linking } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 
-type RootStackParamList = {
-  Home: undefined;
-  NewsScreen: undefined;
-  ContactTeachers: undefined;
-  BusTracking: undefined;
-  GoogleFeedback: undefined;
-  ContactUs: undefined;
-  VirtualAssistant: undefined;
-  QuickLinks: undefined;
-  Details: { id: number };
-  WebViewScreen: { url: string };
-};
 
-type Props = {
-  navigation: NavigationProp<RootStackParamList, 'Home'>;
-};
 
-interface QuickLinkProps {
-  link: string;
-  title: string;
-  description: string;
-  navigation: NavigationProp<RootStackParamList, 'Home'>;
-}
-
-const QuickLink: React.FC<QuickLinkProps> = ({ link, title, description, navigation }) => {
+const QuickLink = ({ link, title, description, navigation }) => {
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
 
@@ -50,12 +28,7 @@ const QuickLink: React.FC<QuickLinkProps> = ({ link, title, description, navigat
     <TouchableOpacity
       style={[styles.QuickLinksLinkSquare, { backgroundColor: uniqueColor }]}
       onPress={() => {
-        navigation.dispatch(
-          CommonActions.navigate({
-            name: "WebViewScreen",
-            params: { url: link },
-          })
-        );
+        Linking.openUrl(link)
       }}>
       <Text style={styles.QuickLinksLinkText}>{title}</Text>
       <Text style={styles.QuickLinksLinkDescription}>{description}</Text>

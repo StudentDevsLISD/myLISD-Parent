@@ -21,23 +21,7 @@ const options = [
   { id: '8', title: 'Feedback', description: 'We value your opinion', iconName: 'pencil-alt', route: 'GoogleFeedback'},
 ];
 
-type RootStackParamList = {
-  Home: undefined;
-  NewsScreen: undefined;
-  ContactTeachers: undefined;
-  BusTracking: undefined;
-  GoogleFeedback: undefined;
-  SupportPage: undefined;
-  ContactUs: undefined;
-  VirtualAssistant: undefined;
-  QuickLinks: undefined
-  Details: { id: number };
-  WebViewScreen: { url: string };
-};
 
-type Props = {
-  navigation: NavigationProp<RootStackParamList, 'Home'>;
-}
 const HomeScreen = () => {
   const [currentDate, setCurrentDate] = useState('');
 
@@ -53,7 +37,7 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-  const handleOptionPress = (option: { id: string; title: string; description: string; iconName: string; route?: string; webLink?: string;}) => {
+  const handleOptionPress = (option) => {
     if (option.webLink) {
       Linking.openURL(option.webLink);
     } else if(option.title == "News"){
@@ -87,62 +71,27 @@ const HomeScreen = () => {
       
     } 
     else if(option.title == "Bus Tracking"){
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "BusTracking",
-        }
-        )
-        
-      );
+      Linking.openURL("https://parent.smart-tag.net/%40leanderisd");
       
     } 
     else if(option.title == "Virtual Assistant"){
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "VirtualAssistant",
-        }
-        )
-        
-      );
+      Linking.openURL("https://www.leanderisd.org")
       
     } 
     else if(option.title == "LISD Support Page"){
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "SupportPage",
-        }
-        )
-        
-      );
+      Linking.openURL("https://www.leanderisd.org/support/")
       
     } 
     else if(option.title == "LISD Homepage"){
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "VirtualAssistant",
-        }
-        )
-        
-      );
+      Linking.openURL("https://www.leanderisd.org")
+
     }
     else if(option.title == "Feedback"){
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "GoogleFeedback",
-        }
-        )
-        
-      );
+      Linking.openURL("https://forms.gle/5sm5X6vhA9zLLFFC6")
       
     } 
     else if(option.title == "Contact Us"){
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "ContactUs",
-        }
-        )
-        
-      );
+      Linking.openURL("https://www.k12insight.com/Lets-Talk/LetsTalkTabCustom.aspx?k=WKXY9FLT&rnd=1686678916022")
       
     } 
   };

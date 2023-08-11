@@ -17,35 +17,11 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
-import LinearGradient from 'react-native-linear-gradient';
 import { IP_ADDRESS } from '@env';
 
-type GradesType = Record<string, number>;
 
-interface GradeType {
-  color: string;
-  letter: string;
-}
 
-type RootStackParamList = {
-  Home: undefined;
-  NewsScreen: undefined;
-  ContactTeachers: undefined;
-  BusTracking: undefined;
-  GoogleFeedback: undefined;
-  ContactUs: undefined;
-  VirtualAssistant: undefined;
-  QuickLinks: undefined;
-  Details: { id: number };
-  WebViewScreen: { url: string };
-  AssignmentScreen: { data: undefined };
-};
-
-type Props = {
-  navigation: NavigationProp<RootStackParamList>;
-};
-
-const getGrade = (score: number): GradeType => {
+const getGrade = (score) => {
   if (score >= 90.0) return { color: '#00DE64' };
   if (score >= 80.0) return { color: '#3199FE' };
   if (score >= 70.0) return { color: '#F99816' };
@@ -60,13 +36,13 @@ const Grades = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [grades, setGrades] = useState<Record<string, string>>({});
+  const [grades, setGrades] = useState({});
   const [showNoNewGrades, setShowNoNewGrades] = useState(false);
   const [newAssignments, setNewAssignments] = useState([]);
   const route = useRoute();
   const headerTitle = isLoggedIn ? "Grades" : "HAC";
 
-  const formatGradeValue = (gradeValue: number) => {
+  const formatGradeValue = (gradeValue) => {
     if (gradeValue >= 90.0 && gradeValue <= 99.99) {
       return gradeValue.toFixed(2);
     } else if (gradeValue === 100.0) {
@@ -76,7 +52,7 @@ const Grades = () => {
     }
   };
 
-  const fetchGrades = async (username: string, password: string) => {
+  const fetchGrades = async (username, password) => {
     try {
       const response = await axios.get(
         'http://' + IP_ADDRESS + ':8080/grades?username=' + username + '&password=' + password

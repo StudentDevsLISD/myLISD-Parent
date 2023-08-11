@@ -3,7 +3,6 @@ import { View, FlatList, Text, Linking, StyleSheet, TouchableOpacity, Image } fr
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
 import Navigation from './Navigation';
-import WebViewScreen from './WebViewScreen';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
@@ -14,27 +13,9 @@ import { ActivityIndicator } from 'react-native-paper';
 
 
 
-interface Article {
-  title: string;
-  url: string;
-  source: string;
-  imageUrl: string;
-}
-
-type RootStackParamList = {
-  Home: undefined;
-  NewsScreen: undefined;
-  ContactTeachers: undefined;
-  Details: { id: number };
-  WebViewScreen: { url: string };
-};
-
-type Props = {
-  navigation: NavigationProp<RootStackParamList>;
-}
 
 
-const ItemView = ({ item, navigation }: { item: Article, navigation: NavigationProp<RootStackParamList> }) => {
+const ItemView = ({ item, navigation }) => {
   
   const { theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
@@ -42,15 +23,15 @@ const ItemView = ({ item, navigation }: { item: Article, navigation: NavigationP
   
   return (
     <TouchableOpacity style={styles.NewsScreenArticleContainer} onPress={() => 
-    // Linking.openURL(item.url)
-      navigation.dispatch(
-        CommonActions.navigate({
-          name: "WebViewScreen",
-          params: { url: item.url }
-        }
-        )
+    Linking.openURL(item.url)
+    //   navigation.dispatch(
+    //     CommonActions.navigate({
+    //       name: "WebViewScreen",
+    //       params: { url: item.url }
+    //     }
+    //     )
         
-      )
+    //   )
     }>
       <Image source={{ uri: item.imageUrl }} style={styles.NewsScreenImage} resizeMode="contain" />
       <View style={styles.NewsScreenTextContainer}>
@@ -70,8 +51,8 @@ const ItemSeparatorView = () => {
   );
 };
 const NewsScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();  
-  const [newsArticles, setNewsArticles] = useState<Article[]>([]);
+  const navigation = useNavigation();  
+  const [newsArticles, setNewsArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

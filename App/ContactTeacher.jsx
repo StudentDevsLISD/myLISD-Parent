@@ -10,34 +10,11 @@ import {IP_ADDRESS} from '@env';
 import { ActivityIndicator } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// interface Teacher {
-//   name: string;
-//   class: string;
-//   email: string;
-//   imageUrl: string;
-// }
 
-// const teachers: Teacher[] = [
-//   {
-//     name: "John Doe",
-//     class: "AP Calculus BC",
-//     email: "adith.chandraiah@gmail.com",
-//     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png",
-//   },
-//   {
-//     name: "Jane Smith",
-//     class: "AP English Language and Composition",
-//     email: "janesmith@example.com",
-//     imageUrl: "https://media.istockphoto.com/id/1151796047/photo/laughing-mature-businesswoman-wearing-glasses-posing-on-grey-studio-background.jpg?s=612x612&w=0&k=20&c=Nkb3aDxmf2g_-zFqq0j97x8J_V9asEq5XUpPJU4wxLc=",
-//   },
-//   // Add more teachers here
-// ];
 
-interface ContactTeachersScreenProps {
-  theme: 'light' | 'dark'; // Specify the theme type here based on your ThemeContext
-}
 
-const ItemView = ({ item, theme }: { item: Teacher; theme: 'light' | 'dark' }) => {
+
+const ItemView = ({ item, theme }) => {
   const handleEmailPress = () => {
     Linking.openURL(`${item.email}`);
   };
@@ -56,13 +33,13 @@ const ItemView = ({ item, theme }: { item: Teacher; theme: 'light' | 'dark' }) =
   );
 };
 
-const ItemSeparatorView = ({ theme }: { theme: 'light' | 'dark' }) => {
+const ItemSeparatorView = ({ theme }) => {
   return (
     <View style={{ height: 0.5, width: '100%', backgroundColor: '#C8C8C8' }} />
   );
 };
 
-const ContactTeachersScreen = ({ theme }: ContactTeachersScreenProps) => {
+const ContactTeachersScreen = ({ theme }) => {
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

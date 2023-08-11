@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import React from 'react';
 
 const DarkStyles = StyleSheet.create({
     AppRunnerOfflineContainer: {

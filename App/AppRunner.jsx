@@ -18,7 +18,6 @@ import ContactTeachersScreen from './ContactTeacher';
 import Feedback from './GoogleFeedback';
 import Grades from './Grades';
 import Attendance from './Attendance';
-import WebViewScreen from './WebViewScreen';
 import BusTracking from './BusTracking';
 import ContactUs from './ContactUs';
 import GoogleFeedback from './GoogleFeedback';
@@ -36,19 +35,19 @@ import SupportPage from './SupportPage';
 
 const Tab = createBottomTabNavigator();
 
-const handleLogout = async (navigation: NavigationProp<any>) => {
+const handleLogout = async (navigation) => {
   await AsyncStorage.removeItem('username');
   await AsyncStorage.removeItem('password');
   navigation.navigate('Login');
 };
 
-const handleHACLogout = async (navigation: NavigationProp<any>) => {
+const handleHACLogout = async (navigation) => {
   await AsyncStorage.removeItem('hacusername');
   await AsyncStorage.removeItem('hacpassword');
   navigation.navigate('Grades', { justLoggedOut: true });
 };
 
-export type HandleLogout = (navigation: NavigationProp<any>) => Promise<void>;
+export const HandleLogout = (navigation) => {};
 const Tab1Screen = () => {
   const navigation = useNavigation();
   const [isConnected, setIsConnected] = useState(false);
@@ -272,7 +271,7 @@ return (
 
 
 const Stack = createStackNavigator();
-const Tabs: React.FC = () => {
+const Tabs = () => {
   const {theme } = useContext(ThemeContext);
   const styles = theme === 'light' ? lightStyles : darkStyles;
   const screenHeight = Dimensions.get('window').height;
@@ -372,7 +371,6 @@ return (
       <Stack.Screen name="NewsScreen" component={NewsScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactTeachers" component={ContactTeachersScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="QuickLinks" component={QuickLinks} options={{ headerShown: true }}/>
-      <Stack.Screen name="WebViewScreen" component={WebViewScreen} options={{ headerShown: true }}/>
       <Stack.Screen name="BusTracking" component={BusTracking} options={{ headerShown: true }}/>
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: true }}/>
       <Stack.Screen name="GoogleFeedback" component={GoogleFeedback} options={{ headerShown: true }}/>

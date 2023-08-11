@@ -12,7 +12,7 @@ const SplashScreen = () => {
   return (
     <View style={styles.SplashScreenContainer}>
       <Image
-        source={require('../assets/SplashScreen.webp')}
+        source={require('../assets/lisd.png')}
         style={styles.SplashScreenLogo}
       />
     </View>

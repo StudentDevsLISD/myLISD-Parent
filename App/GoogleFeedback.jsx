@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -20,10 +19,11 @@ const GoogleFeedback = () => {
     });
   }, [navigation]);
   return (
-    <WebView
-      source={{ uri: 'https://forms.gle/5sm5X6vhA9zLLFFC6' }}
-      style={{ flex: 1 }}
-    />
+    // <WebView
+    //   source={{ uri: 'https://forms.gle/5sm5X6vhA9zLLFFC6' }}
+    //   style={{ flex: 1 }}
+    // />
+    <View></View>
   );
 };
 

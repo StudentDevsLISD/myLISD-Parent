@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, } from 're
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
+// import { GoogleSignin, User } from '@react-native-google-signin/google-signin';
 import { GOOGLE_WEB_CLIENT_ID } from '@env';
 import { Calendar } from 'react-native-calendars';
 import CalendarEvent from './CalendarEvent';
@@ -12,55 +12,31 @@ import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 
-type GoogleSigninUser = {
-  idToken: string;
-  accessToken?: string | null | undefined;
-  refreshToken?: string | null | undefined;
-  serverAuthCode?: string | null | undefined;
-  scopes?: string[] | null | undefined;
-  user: {
-    id: string;
-    email: string | null;
-    emailVerified?: boolean;
-    photoURL?: string;
-    displayName?: string;
-  } | null;
-};
-type Event = {
-  id: string;
-  summary: string;
-  start: string;
-  end: string;
-  location: string;
-  description: string;
-};
-interface GoogleSigninUserWithAccessToken extends GoogleSigninUser {
-  accessToken: string;
-}
 
 
-GoogleSignin.configure({
-  iosClientId: '809923761821-5lio914f08csk2hgkufapgh19l0418n0.apps.googleusercontent.com',
-  webClientId: GOOGLE_WEB_CLIENT_ID,
-  offlineAccess: true,
-  scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
-});
+
+// GoogleSignin.configure({
+//   iosClientId: '809923761821-5lio914f08csk2hgkufapgh19l0418n0.apps.googleusercontent.com',
+//   webClientId: GOOGLE_WEB_CLIENT_ID,
+//   offlineAccess: true,
+//   scopes: ['https://www.googleapis.com/auth/calendar.readonly'],
+// });
 
 const ComOp = () => {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date().toISOString().slice(0, 10));
   const [selectedDate, setSelectedDate] = useState(currentDate);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [uniqueEvents, setUniqueEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState([]);
+  const [uniqueEvents, setUniqueEvents] = useState([]);
   
   const calendarId = 'leanderisd.org_3grot6ac0ug4prua1smkvfsmu8@group.calendar.google.com';
   const apiKey = 'AIzaSyCOo9kMxZpioPalyxTzZ6aVkxDgyzBf-XE';  // replace with your public API key
   const [calendarKey, setCalendarKey] = useState(Date.now().toString()); // Add this state for the key prop
 
-  const removeDuplicateEvents = (eventsArray: any[]) => {
-    const uniqueEvents = eventsArray.reduce((accumulator: any[], event: any) => {
-      if (!accumulator.find((e: any) => e.id === event.id)) {
+  const removeDuplicateEvents = (eventsArray) => {
+    const uniqueEvents = eventsArray.reduce((accumulator, event) => {
+      if (!accumulator.find((e) => e.id === event.id)) {
         accumulator.push(event);
       }
       return accumulator;
@@ -69,7 +45,7 @@ const ComOp = () => {
   };
 
 
-  const fetchEvents = async (calendarId: string, date: string) => {
+  const fetchEvents = async (calendarId, date) => {
     setIsLoading(true);
     const timeMin = new Date(date);
     timeMin.setDate(timeMin.getDate())
@@ -116,7 +92,7 @@ const ComOp = () => {
   }, [selectedDate]);
 
 
-  const handleDayPress = (day: any) => {
+  const handleDayPress = (day) => {
     setSelectedDate(day.dateString);
   };
 
@@ -193,7 +169,7 @@ const ComOp = () => {
       ) : (
         <ScrollView>
           {events.length > 0 ? (
-            events.map((event: Event) => (
+            events.map((event) => (
               <CalendarEvent key={event.id} id={event.id} summary={event.summary} start={event.start} end={event.end} />
             ))
           ) : (
