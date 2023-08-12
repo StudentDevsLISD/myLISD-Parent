@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Linking, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Linking, Text, ScrollView, Image } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp, CommonActions } from '@react-navigation/native';
 import { ThemeContext } from './ThemeContext';

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native';
-import Icon from "react-native-vector-icons/FontAwesome5";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { RouteProp } from '@react-navigation/native';
 import {ThemeContext} from './ThemeContext';
 import LightStyles from './LightStyles';

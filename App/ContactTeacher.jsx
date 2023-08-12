@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image, Linking, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from './ThemeContext';
 import lightStyles from './LightStyles';

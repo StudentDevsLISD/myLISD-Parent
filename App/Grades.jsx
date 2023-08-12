@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { CommonActions, NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';

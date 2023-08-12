@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, FlatList, Text, Linking, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation, CommonActions, NavigationProp } from '@react-navigation/native';
 import Navigation from './Navigation';
 import { ThemeContext } from './ThemeContext';

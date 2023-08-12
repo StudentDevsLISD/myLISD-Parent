@@ -65,14 +65,21 @@ loader: '@svgr/webpack',
 };
 
 const imageLoaderConfiguration = {
-test: /\.(gif|jpe?g|png)$/,
-use: {
-loader: 'url-loader',
-options: {
-name: '[name].[ext]',
-},
-},
+  test: /\.(gif|jpe?g|png|svg)$/,
+  use: {
+    loader: "url-loader",
+    options: {
+      name: "[name].[ext]",
+      esModule: false,
+    }
+  }
 };
+
+const fontLoaderConfiguration = {
+    test: /\.ttf$/,
+    loader: "url-loader", // or directly file-loader
+    include: path.resolve(__dirname, "node_modules/react-native-vector-icons"),
+  };
 
 module.exports = {
 entry: {
@@ -97,7 +104,7 @@ rules: [
 babelLoaderConfiguration,
 imageLoaderConfiguration,
 svgLoaderConfiguration,
-
+fontLoaderConfiguration,
 ],
 },
 plugins: [
