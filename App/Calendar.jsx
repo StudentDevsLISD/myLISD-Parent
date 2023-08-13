@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 // import { GoogleSignin, User } from '@react-native-google-signin/google-signin';

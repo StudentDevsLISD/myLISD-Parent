@@ -50,7 +50,7 @@ const AssignmentScreen = ({ route }) => {
     );
   };
   
-  const scrollViewRef = useRef<ScrollView>(null);
+  const scrollViewRef = useRef(null);
 
 
   useEffect(() => {
@@ -219,7 +219,7 @@ const FadedText = ({ text }) => {
   // console.log(splitBreakdowns);
 
   // Add a ref for the AnimatedCircularProgress
-  const progressRef = useRef<AnimatedCircularProgress>(null);
+  const progressRef = useRef(null);
   const getBackgroundColor = (theme) => {
     return theme === 'dark' ? '#333' : '#e9eef1';
   };

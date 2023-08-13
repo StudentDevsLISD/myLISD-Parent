@@ -8,7 +8,8 @@ import darkStyles from './DarkStyles';
 import axios from 'axios';
 import {IP_ADDRESS} from '@env';
 import { ActivityIndicator } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import alert from './alert.js'
+import { storeData, retrieveData, removeItem } from './storage.js';
 
 
 
@@ -51,8 +52,8 @@ const ContactTeachersScreen = ({ theme }) => {
   
   const loadCredentials = async () => {
     try {
-      const loadedUsername = await AsyncStorage.getItem('hacusername');
-      const loadedPassword = await AsyncStorage.getItem('hacpassword');
+      const loadedUsername = await retrieveData('hacusername');
+      const loadedPassword = await retrieveData('hacpassword');
 
       if (loadedUsername !== null && loadedPassword !== null) {
         setIsLoggedIn(true);
@@ -71,12 +72,12 @@ const ContactTeachersScreen = ({ theme }) => {
     let response = '';
     try {
       setIsLoading(true);
-      response = await axios.get(`http://${IP_ADDRESS}:8080/teachers?username=${username}&password=${password}`);
+      response = await axios.get(`http://${IP_ADDRESS}:8082/teachers?username=${username}&password=${password}`);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       setIsLoggedIn(false);
-      Alert.alert("Error logging in");
+      alert("Error logging in");
     }
   
     if (response.data) {

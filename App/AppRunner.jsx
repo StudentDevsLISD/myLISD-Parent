@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image, Button, TouchableOpacity, Dimensions } f
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsDropdown from './SettingsDropdown';
 import NetInfo from '@react-native-community/netinfo';
 import { ActivityIndicator } from 'react-native-paper';
@@ -28,6 +27,7 @@ import { ThemeContext, ThemeProvider } from './ThemeContext';
 import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 import SupportPage from './SupportPage';
+import { storeData, retrieveData, removeItem } from './storage.js';
 
 
 
@@ -36,14 +36,14 @@ import SupportPage from './SupportPage';
 const Tab = createBottomTabNavigator();
 
 const handleLogout = async (navigation) => {
-  await AsyncStorage.removeItem('username');
-  await AsyncStorage.removeItem('password');
+  await removeItem('username');
+  await removeItem('password');
   navigation.navigate('Login');
 };
 
 const handleHACLogout = async (navigation) => {
-  await AsyncStorage.removeItem('hacusername');
-  await AsyncStorage.removeItem('hacpassword');
+  await removeItem('hacusername');
+  await removeItem('hacpassword');
   navigation.navigate('Grades', { justLoggedOut: true });
 };
 
@@ -101,8 +101,8 @@ const Tab2Screen = () => {
 
   useEffect(() => {
     const setTheCampuses = async () => {
-      var x = await AsyncStorage.getItem("campus");
-      var y = await AsyncStorage.getItem("subcampus");
+      var x = await retrieveData("campus");
+      var y = await retrieveData("subcampus");
       setCampus(x ?? "");
       setSubCampus(y ?? x ?? "");
 
