@@ -323,7 +323,7 @@ const Tabs = () => {
       name="Grades"
       component={Tab4Screen}
       options={{
-        tabBarIcon: ({ color, size }) => <Icon name="school" color={color} size={size} />,
+        tabBarIcon: ({ color, size }) => <Icon name="bar-chart" color={color} size={size} />,
         headerShown: false
       
       }} />

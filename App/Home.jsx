@@ -9,16 +9,16 @@ import lightStyles from './LightStyles';
 import darkStyles from './DarkStyles';
 
 const options = [
-  { id: '1', title: 'News', description: 'Popular Stories', iconName: 'newspaper', route: 'NewsScreen' },
+  { id: '1', title: 'News', description: 'Popular Stories', iconName: 'newspaper-o', route: 'NewsScreen' },
   { id: '2', title: 'Quick Links', description: 'Important shortcuts', iconName: 'link', route: 'QuickLinksScreen.tsx' },
   { id: '3', title: 'Bus Tracking', description: 'Track your journey', iconName: 'bus', route: 'News'},
-  { id: '4', title: 'Contact Teachers', description: 'Keep in touch', iconName: 'school', route: 'ContactTeachers' },
+  { id: '4', title: 'Contact Teachers', description: 'Keep in touch', iconName: 'users', route: 'ContactTeachers' },
   { id: '5', title: 'LISD Homepage', description: 'Leander ISD Homepage', iconName: 'laptop', route: 'VirtualAssistant' },
 
   { id: '6', title: 'LISD Support Page', description: 'Leander ISD Support', iconName: 'comments', route: 'SupportPage' },
   //{ id: '5', title: 'Virtual Assistant', description: 'Talk to our Virtual Chatbot', iconName: 'comments', route: 'VirtualAssistant'},
   { id: '7', title: 'Contact Us', description: 'We are here to help', iconName: 'phone', route: 'News'},
-  { id: '8', title: 'Feedback', description: 'We value your opinion', iconName: 'pencil-alt', route: 'GoogleFeedback'},
+  { id: '8', title: 'Feedback', description: 'We value your opinion', iconName: 'thumbs-up', route: 'GoogleFeedback'},
 ];
 
 

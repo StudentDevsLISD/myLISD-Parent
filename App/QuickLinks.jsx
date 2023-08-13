@@ -28,7 +28,7 @@ const QuickLink = ({ link, title, description, navigation }) => {
     <TouchableOpacity
       style={[styles.QuickLinksLinkSquare, { backgroundColor: uniqueColor }]}
       onPress={() => {
-        Linking.openUrl(link)
+        Linking.openURL(link)
       }}>
       <Text style={styles.QuickLinksLinkText}>{title}</Text>
       <Text style={styles.QuickLinksLinkDescription}>{description}</Text>
