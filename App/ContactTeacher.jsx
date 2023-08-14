@@ -11,6 +11,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
 // import https from 'https';
+import encryptAES from './encrypt.js'
 
 
 // const instance = axios.create({
@@ -76,9 +77,11 @@ const ContactTeachersScreen = ({ theme }) => {
     let response = '';
     try {
       setIsLoading(true);
+      const encrypted = encryptAES(password);
       response = await axios.post(`http://${IP_ADDRESS}:8082/teachers`, {
         username: username,
-        password: password
+        password: encrypted.ciphertext,
+        iv: encrypted.iv,
       });
       // You can now access the response data using response.data
       setIsLoading(false);

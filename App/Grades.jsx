@@ -18,6 +18,7 @@ import darkStyles from './DarkStyles';
 import { IP_ADDRESS } from '@env';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
+import encryptAES from './encrypt.js'
 
 
 
@@ -54,9 +55,11 @@ const Grades = () => {
 
   const fetchGrades = async (username, password) => {
     try {
+      const encrypted = encryptAES(password);
       const response = await axios.post(`http://${IP_ADDRESS}:8082/grades`, {
         username: username,
-        password: password
+        password: encrypted.ciphertext,
+        iv: encrypted.iv,
       });
       const currentClasses = response.data.currentClasses;
 

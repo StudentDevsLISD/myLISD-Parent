@@ -11,6 +11,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
+import encryptAES from './encrypt.js'
 
 
 LocaleConfig.locales['en'] = {
@@ -236,9 +237,11 @@ const Attendance = () => {
       let response ='';
       try {
         setIsLoading(true);
+        const encrypted = encryptAES(password);
         response = await axios.post(`http://${IP_ADDRESS}:8082/attendance`, {
           username: username,
-          password: password
+          password: encrypted.ciphertext,
+          iv: encrypted.iv,
         });
                 setIsLoading(false);
       } catch (error) {
