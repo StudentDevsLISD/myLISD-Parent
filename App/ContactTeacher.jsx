@@ -10,10 +10,14 @@ import {IP_ADDRESS} from '@env';
 import { ActivityIndicator } from 'react-native-paper';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
+// import https from 'https';
 
 
-
-
+// const instance = axios.create({
+//   httpsAgent: new https.Agent({
+//     rejectUnauthorized: false // Only use this during development!
+//   })
+// });
 
 const ItemView = ({ item, theme }) => {
   const handleEmailPress = () => {
@@ -72,13 +76,18 @@ const ContactTeachersScreen = ({ theme }) => {
     let response = '';
     try {
       setIsLoading(true);
-      response = await axios.get(`http://${IP_ADDRESS}:8082/teachers?username=${username}&password=${password}`);
+      response = await axios.post(`http://${IP_ADDRESS}:8082/teachers`, {
+        username: username,
+        password: password
+      });
+      // You can now access the response data using response.data
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       setIsLoggedIn(false);
       alert("Error logging in");
     }
+  
   
     if (response.data) {
       // Process and remove duplicates
