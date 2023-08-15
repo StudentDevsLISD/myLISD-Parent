@@ -65,4 +65,4 @@ yarn-error.log
 # Hide .env file and anything related to it
 .env
 env.d.ts
-/App/encrypt.js
+/App/encryption.js
