@@ -14,7 +14,7 @@ const encrypt = async (password) => {// Choose a proper salt
   };
 
 const encryptAES = (password) => {
-  const key = CryptoJS.enc.Hex.parse('dc1c3adf8e6546d8caf741523617dcb8ae914fc55f1283f95ecc3589efcc2070'); // Replace with your 32-byte key
+  const key = CryptoJS.enc.Hex.parse('928e4a4bcf170409735f7bf2d85a0b1a38ee3bcf50284dbb015612edd2682cc4'); // Replace with your 32-byte key
   const iv = CryptoJS.lib.WordArray.random(16);
   const encrypted = CryptoJS.AES.encrypt(password, key, {
     iv: iv,
