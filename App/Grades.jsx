@@ -55,11 +55,13 @@ const Grades = () => {
 
   const fetchGrades = async (username, password) => {
     try {
-      const encrypted = encryptAES(password);
-      const response = await axios.post(`http://${IP_ADDRESS}:8082/grades`, {
-        username: username,
-        password: encrypted.ciphertext,
-        iv: encrypted.iv,
+      const encryptedPassword = encryptAES(password);
+        const encryptedUsername = encryptAES(username)
+      response = await axios.post(`http://${IP_ADDRESS}:8082/grades`, {
+        username: encryptedUsername.ciphertext,
+        uiv: encryptedUsername.iv,
+        password: encryptedPassword.ciphertext,
+        piv: encryptedPassword.iv,
       });
       const currentClasses = response.data.currentClasses;
 

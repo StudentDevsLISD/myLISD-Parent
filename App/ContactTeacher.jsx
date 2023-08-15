@@ -77,11 +77,13 @@ const ContactTeachersScreen = ({ theme }) => {
     let response = '';
     try {
       setIsLoading(true);
-      const encrypted = encryptAES(password);
+      const encryptedPassword = encryptAES(password);
+        const encryptedUsername = encryptAES(username)
       response = await axios.post(`http://${IP_ADDRESS}:8082/teachers`, {
-        username: username,
-        password: encrypted.ciphertext,
-        iv: encrypted.iv,
+        username: encryptedUsername.ciphertext,
+        uiv: encryptedUsername.iv,
+        password: encryptedPassword.ciphertext,
+        piv: encryptedPassword.iv,
       });
       // You can now access the response data using response.data
       setIsLoading(false);
