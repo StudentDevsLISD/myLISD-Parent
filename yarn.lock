@@ -2195,6 +2195,19 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
+"@sphereon/isomorphic-argon2@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@sphereon/isomorphic-argon2/-/isomorphic-argon2-1.0.1.tgz"
+  integrity sha512-Z40mdiuuZjII19FfIsti9JFGqX56jhpaeZb135BZayJPaRSbi8JnbJ3pzulJJAHsymkWzVqMqt242fBKpualHg==
+  dependencies:
+    argon2-browser "^1.18.0"
+    uint8arrays "^3.1.1"
+
+"@sphereon/react-native-argon2@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.npmjs.org/@sphereon/react-native-argon2/-/react-native-argon2-2.0.9.tgz"
+  integrity sha512-mXcp3meaKbv5TpEPxItZ1ZuRqkdNf8vjx3EM+GqNVQ8QQF9pbD3jw6wQfuFRPc+8kN+m9GEiVVbd9I0m50OPBg==
+
 "@svgr/babel-plugin-add-jsx-attribute@8.0.0":
   version "8.0.0"
   resolved "https://registry.npmjs.org/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-8.0.0.tgz"
@@ -3061,6 +3074,11 @@ applicationinsights@^2.3.1:
     continuation-local-storage "^3.2.1"
     diagnostic-channel "1.1.0"
     diagnostic-channel-publishers "1.0.6"
+
+argon2-browser@^1.18.0:
+  version "1.18.0"
+  resolved "https://registry.npmjs.org/argon2-browser/-/argon2-browser-1.18.0.tgz"
+  integrity sha512-ImVAGIItnFnvET1exhsQB7apRztcoC5TnlSqernMJDUjbc/DLq3UEYeXFrLPrlaIl8cVfwnXb6wX2KpFf2zxHw==
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -7929,6 +7947,11 @@ multicast-dns@^7.2.5:
     dns-packet "^5.2.2"
     thunky "^1.0.2"
 
+multiformats@^9.4.2:
+  version "9.9.0"
+  resolved "https://registry.npmjs.org/multiformats/-/multiformats-9.9.0.tgz"
+  integrity sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==
+
 mustache@^4.0.1:
   version "4.2.0"
   resolved "https://registry.npmjs.org/mustache/-/mustache-4.2.0.tgz"
@@ -9168,7 +9191,7 @@ react-native-windows@*, react-native-windows@0.71.21:
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@^0.71.0, react-native@^0.71.11, "react-native@>= 0.30.0", react-native@>=0.40, react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59, react-native@>=0.59.0, react-native@>=0.60.0, react-native@>=0.65:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@^0.71.0, react-native@^0.71.11, "react-native@>= 0.30.0", react-native@>=0.40, react-native@>=0.50.0, react-native@>=0.57, react-native@>=0.59, react-native@>=0.59.0, react-native@>=0.60.0, react-native@>=0.65, react-native@>=0.67.0:
   version "0.71.11"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.11.tgz"
   integrity sha512-++8IxgUe4Ev+bTiFlLfJCdSoE5cReVP1DTpVJ8f/QtzaxA3h1008Y3Xah1Q5vsR4rZcYMO7Pn3af+wOshdQFug==
@@ -10557,6 +10580,13 @@ uglify-es@^3.1.9:
   dependencies:
     commander "~2.13.0"
     source-map "~0.6.1"
+
+uint8arrays@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npmjs.org/uint8arrays/-/uint8arrays-3.1.1.tgz"
+  integrity sha512-+QJa8QRnbdXVpHYjLoTpJIdCTiw9Ir62nocClWuXIq2JIh4Uta0cQsTSpFL678p2CN8B+XSApwcU+pQEqVpKWg==
+  dependencies:
+    multiformats "^9.4.2"
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
