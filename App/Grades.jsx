@@ -342,7 +342,7 @@ const Grades = () => {
               </TouchableOpacity>
             )}
             {classes.map((classObj, index) => {
-              const { name, grade, assignments } = classObj;
+              const { name, grade, assignments, categories } = classObj;
               const gradeValue = parseFloat(grade.split(' ')[2]);
               const { color, letter } = getGrade(gradeValue);
               const badgeColor = assignments.length === 0 ? 'gray' : color;
@@ -360,6 +360,7 @@ const Grades = () => {
                             course: name,
                             grade: grades[name],
                             assignments: assignments,
+                            categories: categories
                           },
                         },
                       })
