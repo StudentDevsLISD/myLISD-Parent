@@ -203,6 +203,8 @@ const Attendance = () => {
   const [maxDate, setMaxDate] = useState('');
   const navigation = useNavigation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isFetchedDataUpdating, setIsFetchedDataUpdating] = useState(false);
+
   
   const onDayPress = (day) => {
     setSelectedDate(day.dateString);
@@ -214,37 +216,21 @@ const Attendance = () => {
   }, []);
 
   const loadCredentials = async () => {
-    try {
-      const loadedUsername = await retrieveData('hacusername');
-      const loadedPassword = await retrieveData('hacpassword');
-
-      if (loadedUsername !== null && loadedPassword !== null) {
+      
         setIsLoggedIn(true);
-        console.log("x")
-        fetchDates(loadedUsername, loadedPassword)
-      } else {
-        setIsLoggedIn(false);
-        console.log("y")
-        navigation.navigate("Grades")
-      }
-    } catch (error) {
-      console.log("bad")
-    }
+        fetchDates("current");
   };
 
-    const fetchDates = async (username, password) => {
+    const fetchDates = async (month) => {
       let response ='';
       try {
-        setIsLoading(true);
-        const encryptedPassword = encryptAES(password);
-        const encryptedUsername = encryptAES(username)
-      response = await axios.post(`http://${IP_ADDRESS}:8082/attendance`, {
-        username: encryptedUsername.ciphertext,
-        uiv: encryptedUsername.iv,
-        password: encryptedPassword.ciphertext,
-        piv: encryptedPassword.iv,
-      });
-                setIsLoading(false);
+      setIsLoading(true);
+      console.log("x")
+      response = await axios.get('http://' + IP_ADDRESS + ':8082/attendance?month=' + month, {
+          withCredentials: true
+        })
+      console.log(response)
+      setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
         setIsLoggedIn(false);
@@ -252,20 +238,14 @@ const Attendance = () => {
       }      
       if (response.data) {
         const currentMonthData = formatData(response.data.data, response.data.monthNow);
-        let prevMonthData = {};
-  
-        if(response.data.prevData && response.data.prevMonth){
-          prevMonthData = formatData(response.data.prevData, response.data.prevMonth);
-        }
-  
-        const combinedData = {...prevMonthData, ...currentMonthData};
-        setAttendanceData(combinedData);
-  
+        setAttendanceData(currentMonthData);
         const currentMonthString = formatMonth(response.data.monthNow);
-        setCurrentMonth(currentMonthString);
-        const prevMonthString = formatMonth(response.data.prevMonth);
-        setPrevMonth(prevMonthString);
-        setMinDate(prevMonthString);
+        if (currentMonthString !== currentMonth) {
+          setIsFetchedDataUpdating(true);  // Set the flag
+          setCurrentMonth(currentMonthString);
+        }
+            
+        setMinDate(currentMonthString);
         setMaxDate(currentMonthString.substring(0, currentMonthString.lastIndexOf("-")+1) + "31");
       }
     };
@@ -400,9 +380,18 @@ const Attendance = () => {
     );
   }
   const handleMonthChange = (month) => {
-    if (month.dateString < minDate || month.dateString > maxDate) {
-      setCurrentMonth(month.dateString);
+    if (isFetchedDataUpdating) {
+      setIsFetchedDataUpdating(false);  // Reset the flag
+      return;  // Return early to avoid further processing
     }
+    const dateParts = month.dateString.split('-');
+    const monthNumber = parseInt(dateParts[1]);
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const monthName = monthNames[monthNumber - 1].toLowerCase();
+  
+    fetchDates(monthName);
+  
+    //setCurrentMonth(month.dateString);
   };
   return (
     <View style={styles.AttendanceContainer}>
