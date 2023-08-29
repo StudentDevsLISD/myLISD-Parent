@@ -11,7 +11,6 @@ import { ActivityIndicator } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
-import encryptAES from './encryption.js'
 
 
 LocaleConfig.locales['en'] = {

@@ -18,7 +18,6 @@ import darkStyles from './DarkStyles';
 import { IP_ADDRESS } from '@env';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
-import encryptAES from './encryption.js'
 
 
 
