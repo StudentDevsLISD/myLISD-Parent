@@ -56,22 +56,23 @@ const ContactTeachersScreen = ({ theme }) => {
   }, []);
   
   const loadCredentials = async () => {
-    try {
-      const loadedUsername = await retrieveData('hacusername');
-      const loadedPassword = await retrieveData('hacpassword');
+    // try {
+    //   const loadedUsername = await retrieveData('hacusername');
+    //   const loadedPassword = await retrieveData('hacpassword');
 
-      if (loadedUsername !== null && loadedPassword !== null) {
-        setIsLoggedIn(true);
-        console.log("x")
-        fetchTeachers(loadedUsername, loadedPassword)
-      } else {
-        setIsLoggedIn(false);
-        console.log("y")
-        navigation.navigate("Grades")
-      }
-    } catch (error) {
-      console.log("bad")
-    }
+    //   if (loadedUsername !== null && loadedPassword !== null) {
+    setIsLoggedIn(true);
+    //     console.log("x")
+    //     fetchTeachers(loadedUsername, loadedPassword)
+    //   } else {
+    //     setIsLoggedIn(false);
+    //     console.log("y")
+    //     navigation.navigate("Grades")
+    //   }
+    // } catch (error) {
+    //   console.log("bad")
+    // }
+    fetchTeachers()
   };
   const fetchTeachers = async (username, password) => {
     let response = '';
@@ -79,12 +80,9 @@ const ContactTeachersScreen = ({ theme }) => {
       setIsLoading(true);
       const encryptedPassword = encryptAES(password);
         const encryptedUsername = encryptAES(username)
-      response = await axios.post(`http://${IP_ADDRESS}:8082/teachers`, {
-        username: encryptedUsername.ciphertext,
-        uiv: encryptedUsername.iv,
-        password: encryptedPassword.ciphertext,
-        piv: encryptedPassword.iv,
-      });
+        response = await axios.get('http://' + IP_ADDRESS + ':8082/teachers', {
+          withCredentials: true
+        })
       // You can now access the response data using response.data
       setIsLoading(false);
     } catch (error) {

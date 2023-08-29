@@ -53,18 +53,14 @@ const Grades = () => {
     }
   };
 
-  const fetchGrades = async (username, password) => {
+  const fetchGrades = async (cookieDict) => {
     try {
-      const encryptedPassword = encryptAES(password);
-        const encryptedUsername = encryptAES(username)
-      response = await axios.post(`http://${IP_ADDRESS}:8082/grades`, {
-        username: encryptedUsername.ciphertext,
-        uiv: encryptedUsername.iv,
-        password: encryptedPassword.ciphertext,
-        piv: encryptedPassword.iv,
+      const response = await axios.get(`http://${IP_ADDRESS}:8082/grades`, {
+        withCredentials: true
       });
-      const currentClasses = response.data.currentClasses;
 
+      const currentClasses = response.data.currentClasses;
+      console.log("currentClasses", currentClasses)
       if (currentClasses.length === 0) {
         alert('Error', 'Error logging in. Please try again.');
         setIsLoggedIn(false);
@@ -77,9 +73,12 @@ const Grades = () => {
 
       const grades = {};
       for (let classObj of currentClasses) {
-        if (classObj.grade !== '') {
-          let gradeValue = parseFloat(classObj.grade.split(' ')[2]);
-          grades[classObj.name] = formatGradeValue(gradeValue);
+        if (classObj.grade != '') {
+          // console.log(classObj.grade)
+          // let gradeValue = parseFloat(classObj.grade.split(' ')[2]);
+          // console.log(gradeValue)
+          // grades[classObj.name] = formatGradeValue(gradeValue);
+          grades[classObj.name] = classObj.grade;
         } else {
           grades[classObj.name] = '0.00';
         }
@@ -131,12 +130,19 @@ const Grades = () => {
 
   const saveCredentials = async () => {
     try {
-      await storeData('hacusername', username);
-      await storeData('hacpassword', password);
-      setIsLoggedIn(true);
       setIsLoading(true);
-      fetchGrades(username, password);
+      const response = await axios.get('http://' + IP_ADDRESS + ':8082/login?username=' + username+ '&password=' + password, {
+        withCredentials: true
+      })
+      setIsLoggedIn(true);
+        
+      fetchGrades(response.data.cookies)
+      
+      
+      
     } catch (error) {
+      setIsLoading(false)
+      setIsLoggedIn(false);
       console.error('Error saving data', error);
     }
   };
@@ -150,7 +156,7 @@ const Grades = () => {
         setUsername(loadedUsername);
         setPassword(loadedPassword);
         setIsLoggedIn(true);
-        await fetchGrades(loadedUsername, loadedPassword);
+        await fetchGrades({"cookies": "test"});
       }
       setIsLoading(false);
     } catch (error) {
