@@ -11,7 +11,6 @@ import { ActivityIndicator } from 'react-native-paper';
 import alert from './alert.js'
 import { storeData, retrieveData, removeItem } from './storage.js';
 // import https from 'https';
-import encryptAES from './encryption.js'
 
 
 // const instance = axios.create({
@@ -78,8 +77,7 @@ const ContactTeachersScreen = ({ theme }) => {
     let response = '';
     try {
       setIsLoading(true);
-      const encryptedPassword = encryptAES(password);
-        const encryptedUsername = encryptAES(username)
+
         response = await axios.get('http://' + IP_ADDRESS + ':8082/teachers', {
           withCredentials: true
         })
